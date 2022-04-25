@@ -17,6 +17,19 @@ router.post('/payer', async (req, res) => {
     // res.send('OK');
     const { FirstName, LastName,  Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId  } = req.body;
     let data = new user({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
+    if (!FirstName ||!LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
+        return res.send("Please provide all the fields")
+    }
+    const resEmail = await user.findOne({ Email });
+    // const resEmail = await user.findOne({ $or: [{ Email: Email }, { CustomerId: CustomerId }] })
+    {
+
+        // console.log("this is responce of email", resEmail)
+        if (resEmail) {
+            console.log("this mail is also regiter", resEmail)
+            return res.send("this user is already registered")
+        }
+    }
     // console.log('this is simple data ', data)
    await data.save().then(result => {
         console.log(result)
