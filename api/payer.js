@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 const payer = require('../models/payerdata');
 const user = mongoose.model('payer');
 
+router.get('/', (req, res) => {
+  res.send('this patron api')
+})
+
 router.get('/payer', async (req, res) => {
     const payer = await user.find(req.data);
     res.send(payer);
@@ -38,7 +42,30 @@ router.post('/payer', async (req, res) => {
     }).catch(err => console.log(err))
 
 })
+router.put('/payer/:_id', async (req, res) => {
+         await user.updateOne(
+            req.params,
+     
+        {$set: req.body}
+    ).then((result)=> {
+       res.status(200).json(result);
+    }).catch((err) => {
+       console.log(err);
+   })
+})
 
+router.get('/search/:key', async (req, res) => { 
+console.log(req.params.key)
+    let data = await user.find(
+        {
+            "$or": [
+                { "Email": { $regex: req.params.key } } 
+            ]
+        }
+    )
+    res.send(data)
+    // res.send('ok');
+})
 
 
 

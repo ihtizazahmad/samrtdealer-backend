@@ -2,12 +2,16 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const payerrouter = require('./api/payer');
-
-const port = process.env.PORT || 33333;
+const cors = require('cors');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const port = process.env.PORT || 3333;
 app.set('port', port);
 require('./config/config');
 require('./models/payerdata');
-
+app.use(helmet());
+app.use(morgan("common"));
+app.use(cors());
 app.use(express.json());
 app.use('/', payerrouter)
 
