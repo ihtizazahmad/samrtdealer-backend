@@ -7,12 +7,22 @@ const payer = require('../models/payerdata');
 const user = mongoose.model('payer');
 
 router.get('/', (req, res) => {
-  res.send('this patron api')
+    res.send('this patron api')
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
 })
 
 router.get('/payer', async (req, res) => {
     const payer = await user.find(req.data);
     res.send(payer);
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
 });
 
 
@@ -35,23 +45,33 @@ router.post('/payer', async (req, res) => {
         }
     }
     // console.log('this is simple data ', data)
-   await data.save().then(result => {
+    await data.save().then(result => {
         console.log(result)
         res.json({ message: 'user data has been registered successfully' });
 
-    }).catch(err => console.log(err))
+    }).catch(err => console.log(err));
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
 
 })
 router.put('/payer/:_id', async (req, res) => {
-         await user.updateOne(
-            req.params,
+    await user.updateOne(
+        req.params,
      
-        {$set: req.body}
-    ).then((result)=> {
-       res.status(200).json(result);
+        { $set: req.body }
+    ).then((result) => {
+        res.status(200).json(result);
     }).catch((err) => {
-       console.log(err);
-   })
+        console.log(err);
+    });
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
 })
 
 router.get('/search/:key', async (req, res) => { 
@@ -63,7 +83,12 @@ console.log(req.params.key)
             ]
         }
     )
-    res.send(data)
+    res.send(data);
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
     // res.send('ok');
 })
 
