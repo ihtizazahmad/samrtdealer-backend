@@ -3,9 +3,8 @@
 //     console.log('Connected to MongoDB');
 
 // }).catch(err => { console.log(err) });  
-
 // const { ServerApiVersion } = require('mongodb')
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const URLCONFIG = "mongodb+srv://mustafakhan:MirtBtNr08MG2Mlt@cluster0.wjhbs.mongodb.net/patronwork?retryWrites=true&w=majority"
 mongoose.connect(URLCONFIG).then(() => {
     // ServerApiVersion = true

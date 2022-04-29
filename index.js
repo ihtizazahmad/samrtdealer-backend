@@ -14,6 +14,12 @@ app.use(morgan("common"));
 app.use(cors());
 app.use(express.json());
 app.use('/', payerrouter)
+app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+})
 
 
 
