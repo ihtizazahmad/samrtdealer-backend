@@ -8,11 +8,11 @@ const user = mongoose.model('payer');
 
 router.get('/', (req, res) => {
     res.send('this patron api')
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:18010/pos")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+//     res.setHeader("Access-Control-Allow-Origin", "http://localhost:18010/pos")
+//     res.setHeader("Access-Control-Allow-Credentials", "true");
+//     res.setHeader("Access-Control-Max-Age", "1800");
+//     res.setHeader("Access-Control-Allow-Headers", "content-type");
+//     res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
 })
 
 router.get('/payer', async (req, res) => {
