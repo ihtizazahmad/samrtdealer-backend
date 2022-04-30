@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.get('/payer', async (req, res) => {
     const payer = await user.find(req.data);
     res.send(payer);
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "https://patron-work-api.herokuapp.com/")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
@@ -50,7 +50,7 @@ router.post('/payer', async (req, res) => {
         res.json({ message: 'user data has been registered successfully' });
 
     }).catch(err => console.log(err));
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "https://patron-work-api.herokuapp.com/")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
@@ -67,7 +67,7 @@ router.put('/payer/:_id', async (req, res) => {
     }).catch((err) => {
         console.log(err);
     });
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "https://patron-work-api.herokuapp.com/")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
@@ -84,7 +84,7 @@ console.log(req.params.key)
         }
     )
     res.send(data);
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "https://patron-work-api.herokuapp.com/")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
