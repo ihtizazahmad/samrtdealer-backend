@@ -8,7 +8,7 @@ const user = mongoose.model('payer');
 
 router.get('/', (req, res) => {
     res.send('this patron api')
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "https://patron-work-api.herokuapp.com/")
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Max-Age", "1800");
     res.setHeader("Access-Control-Allow-Headers", "content-type");
