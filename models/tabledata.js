@@ -9,5 +9,14 @@ const tableSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    Price: {
+        type: Number,
+        required: true
+    },
+    RecordDate: {
+        type: Date,
+        default: Date.now
+    }
     
 })
+module.exports = mongoose.model("table", tableSchema);
