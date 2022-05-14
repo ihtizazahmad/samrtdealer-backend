@@ -12,17 +12,19 @@ require('./config/config');
 require('./models/payerdata');
 require('./models/tabledata')
 app.use(bodyParser.json());
-app.use(cors());
-// const corsOptions ={
-//     origin:'*', 
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
 app.use(express.json());
 app.use('/', payerrouter)
 app.use('/', tablerouter)
+
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 
 app.use('/',(req, res, next) => {
