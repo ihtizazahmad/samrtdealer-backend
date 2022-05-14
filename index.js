@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const payerrouter = require('./api/payer');
 const tablerouter = require('./api/tables');
 const cors = require('cors');
@@ -11,26 +11,27 @@ app.set('port', port);
 require('./config/config');
 require('./models/payerdata');
 require('./models/tabledata')
+app.use(bodyParser.json());
+app.use(cors());
+// const corsOptions ={
+//     origin:'*', 
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
 app.use(helmet());
 app.use(morgan("common"));
 app.use(express.json());
 app.use('/', payerrouter)
 app.use('/', tablerouter)
 
-const corsOptions ={
-    origin:'http://localhost:18010', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
+app.use('/',(req, res, next) => {
     
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:18010")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+    
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
     next();
 })
 
