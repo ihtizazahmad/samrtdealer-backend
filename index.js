@@ -20,22 +20,22 @@ app.use('/', payerrouter)
 app.use('/', tablerouter)
 
 const corsOptions ={
-    origin:'*', 
+    origin:'https://localhost:18010', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
 
 
-// app.use('/',(req, res, next) => {
+app.use((req, res, next) => {
     
     
-//     res.header("Access-Control-Allow-Origin", "*")
-//     res.header("Access-Control-Allow-Credentials", "true");
-//     res.header("Access-Control-Allow-Headers", "content-type");
-//     res.header("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
-//     next();
-// })
+    res.header("Access-Control-Allow-Origin", "https://localhost:18010")
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "content-type");
+    res.header("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
+    next();
+})
 
 
 
