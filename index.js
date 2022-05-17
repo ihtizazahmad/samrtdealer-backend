@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
 const payerrouter = require('./api/payer');
 const tablerouter = require('./api/tables');
-const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const port = process.env.PORT || 3333;
@@ -16,27 +16,30 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(morgan("common"));
 app.use(express.json());
+
+
+app.use(cors());
+app.options('*', cors());
+// app.use(cors());
+
+// app.use(cors({
+//     origin: 'http://localhost:18010',
+//     method: ['GET', 'POST', 'PUT', 'DELETE'],
+// }))
+
+// app.use((req, res, next) => {
+    
+//     res.append('Access-Control-Allow-Headers', 'Content-Type');
+//     res.setHeader("Access-Control-Allow-Origin", "http://localhost:18010")
+//     res.setHeader("Access-Control-Allow-Credentials", "true");
+//     res.setHeader("Access-Control-Max-Age", "1800");
+//     res.setHeader("Access-Control-Allow-Headers", "content-type");
+//     res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+//     next();
+// })
+
 app.use('/', payerrouter)
 app.use('/', tablerouter)
-
-const corsOptions ={
-    origin:'https://localhost:18010', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
-
-
-app.use((req, res, next) => {
-    
-    
-    res.header("Access-Control-Allow-Origin", "https://localhost:18010")
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Headers", "content-type");
-    res.header("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
-    next();
-})
-
 
 
 app.use('*', (req, res) => {
