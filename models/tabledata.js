@@ -1,15 +1,23 @@
 const mongoose = require('mongoose');
 
 const tableSchema = new mongoose.Schema({
+    Id: {
+        type: Number,
+        required: true
+    },
+    Operater: {
+        type: String,
+        required: true
+    },
     TableNo: {
         type: Number,
         required: true
     },
-    Name: {
+    TableName: {
         type: String,
         required: true
     },
-    Price: {
+    Amount: {
         type: Number,
         required: true
     },
@@ -17,6 +25,6 @@ const tableSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-    
+
 })
 module.exports = mongoose.model("table", tableSchema);
