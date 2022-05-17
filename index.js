@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bodyParser= require('body-parser');
 const payerrouter = require('./api/payer');
 const tablerouter = require('./api/tables');
 const helmet = require('helmet');
