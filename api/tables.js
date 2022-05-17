@@ -14,8 +14,8 @@ router.get('/table', async (req, res) => {
 
 })
 router.post('/table', async(req, res) => {
-    const { TableNo, TableName, Amount} = req.body;
-    let data = new user({ TableNo, TableName, Amount });
+    const {Id,Operater, TableNo, TableName, Amount} = req.body;
+    let data = new user({Id,Operater, TableNo, TableName, Amount });
     await data.save().then(result => {
         console.log(result, "item save to database")
         res.send("item saved to database");
