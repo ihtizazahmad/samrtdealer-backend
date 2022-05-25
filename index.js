@@ -1,22 +1,21 @@
-const express = require('express');
+import express, { json } from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import cors from 'cors';
+import payerrouter from './api-routes/payer.js';
+import tablerouter from './api-routes/tables.js';
+import helmet from 'helmet';
+import morgan from 'morgan';
 const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
-// const bodyParser= require('body-parser');
-const payerrouter = require('./api/payer');
-const tablerouter = require('./api/tables');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const port = process.env.PORT || 3333;
+const port = process.env.PORT;
 app.set('port', port);
-require('./config/config');
-require('./models/payerdata');
-require('./models/tabledata')
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+import './config/config.js';
+// import './models/payerdata.js';
+// import './models/tabledata.js';
+
 app.use(helmet());
 app.use(morgan("common"));
-app.use(express.json());
+app.use(json());
 const corsOptions ={
     origin:'http://localhost:18010', 
     credentials:true,            //access-control-allow-credentials:true
