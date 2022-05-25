@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const payerSchema = new mongoose.Schema({
     FirstName: {
@@ -42,4 +42,5 @@ const payerSchema = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("payer",payerSchema );
+const payer  = mongoose.model("payer",payerSchema );
+export default payer;

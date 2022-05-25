@@ -1,21 +1,20 @@
-const express = require('express');
+import express from 'express';
+
+import table from '../models/tabledata.js';
+
 const router = express.Router();
-// const { default: mongoose } = require('mongoose');
 const app = express();
-const mongoose = require('mongoose');
-const table = require('../models/tabledata');
-const user = mongoose.model('table');
 
 router.get('/table', async (req, res) => {
     console.log("this is get api of table")
-    const table = await user.find(req.data);
+    const table = await table.find(req.data);
     res.send(table);
 
 
 })
 router.post('/table', async(req, res) => {
-    const { TableNo, Name, Price} = req.body;
-    let data = new user({ TableNo, Name, Price });
+    const {Id,Operater, TableNo, TableName, Amount} = req.body;
+    let data = new table({Id,Operater, TableNo, TableName, Amount });
     await data.save().then(result => {
         console.log(result, "item save to database")
         res.send("item saved to database");
@@ -27,4 +26,4 @@ router.post('/table', async(req, res) => {
 
 })
 
-module.exports = router
+export default router

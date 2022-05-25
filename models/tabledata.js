@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const tableSchema = new mongoose.Schema({
     Id: {
@@ -27,4 +27,5 @@ const tableSchema = new mongoose.Schema({
     }
 
 })
-module.exports = mongoose.model("table", tableSchema);
+const table= mongoose.model("table", tableSchema);
+export default table;
