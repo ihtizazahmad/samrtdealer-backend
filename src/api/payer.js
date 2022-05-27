@@ -1,39 +1,41 @@
 import express from 'express';
 import payer from '../models/payerdata.js';
+import userModel from '../models/User.js';
 
 const router = express.Router();
-const app = express();
+
 
 router.get('/', (req, res) => {
-    res.send({"Hi":'this patron api'})
+    res.send({ "Hi": 'this patron api' })
 
 })
 
 router.get('/payer', async (req, res) => {
-    const payer = await payer.find(req.data);
-    res.send(payer);
+    let data = await payer.find(req.data);
+    res.send(data);
 
 });
 
 
 router.post('/payer', async (req, res) => {
-    // console.log(req.body);
-    // res.send('OK');
-    const { FirstName, LastName,  Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId  } = req.body;
-    let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
-    if (!FirstName ||!LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
+    const { FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
+    if (!FirstName || !LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
         return res.send("Please provide all the fields")
     }
+    let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
+    await data.save().then(result => {
+        res.status(200).send("payer Form saved to database");
+        console.log(result, "Form save to database")
+    }).catch((err) => {
+        res.status(400).send("unable to save to database");
+        console.log(err)
+    })
     const resEmail = await payer.findOne({ Email });
-
-    {
-
         if (resEmail) {
             console.log("this mail is also regiter", resEmail)
             return res.send("this user is already registered")
         }
-    }
- 
+
     await data.save().then(result => {
         console.log(result)
         res.json({ message: 'user data has been registered successfully' });
@@ -43,29 +45,29 @@ router.post('/payer', async (req, res) => {
 
 })
 router.put('/payer/:_id', async (req, res) => {
-    await user.updateOne(
+    await userModel.updateOne(
         req.params,
-     
+
         { $set: req.body }
     ).then((result) => {
         res.status(200).json(result);
     }).catch((err) => {
         console.log(err);
     });
- 
+
 })
 
-router.get('/search/:key', async (req, res) => { 
-console.log(req.params.key)
-    let data = await user.find(
+router.get('/search/:key', async (req, res) => {
+    console.log(req.params.key)
+    let data = await userModel.find(
         {
             "$or": [
-                { "Email": { $regex: req.params.key } } 
+                { "Email": { $regex: req.params.key } }
             ]
         }
     )
     res.send(data);
- 
+
 })
 
 
