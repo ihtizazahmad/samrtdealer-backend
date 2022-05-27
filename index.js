@@ -8,8 +8,8 @@ import bodyParser from 'body-parser';
 import middleware from './src/middlewares/middleware.js';
 import payer from './src/api/payer.js';
 import table from './src/api/tables.js';
-import register from './src/api/register.js';
-import login from './src/api/login.js';
+import user from './src/api/user.js';
+
 
 
 dotenv.config();
@@ -40,8 +40,8 @@ app.use(cors(corsOptions));
         //   });
         app.use('/api/v2',payer)
         app.use('/api/v2',table)
-        app.use('/api/v1',register)
-        app.use('/api/v1',login)
+        app.use('/api/v1',user)
+        
        
         app.use('*', (req, res) => {
             return res.status(404).json({
