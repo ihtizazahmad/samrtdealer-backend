@@ -19,13 +19,18 @@ router.post("/register", async (req, res) => {
       return res.send("this user is already registered")
   }
   const newUser = new userModel({ fullName, email, password });
-  const savedUser = await newUser.save().catch((err) => {
-    console.log("Error: ", err);
-   return res.send({ error: "Cannot register user at the moment!" });
-  });
-
-  if (savedUser) 
+  const savedUser = await newUser.save();
+  // .catch((err) => {
+  //   console.log("Error: ", err);
+  // });
+  
+  if (savedUser) {
   return res.send({ message: "Thanks for registering" });
+  }else{
+
+    return res.send({ error: "Cannot register user at the moment!" });
+  }
+
 });
 
 //Login Api
