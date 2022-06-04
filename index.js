@@ -6,9 +6,10 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
 import middleware from './src/middlewares/middleware.js';
+import user from './src/api/user.js';
 import payer from './src/api/payer.js';
 import table from './src/api/tables.js';
-import user from './src/api/user.js';
+// import posMenu from './src/api/posmenu-api.js';
 
 
 
@@ -38,9 +39,10 @@ app.use(cors(corsOptions));
         //       message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
         //     });
         //   });
+        app.use('/api/v1',user)
         app.use('/api/v2',payer)
         app.use('/api/v2',table)
-        app.use('/api/v1',user)
+        // app.use('/api/v3',posMenu)
         
        
         app.use('*', (req, res) => {
