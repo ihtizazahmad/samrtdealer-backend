@@ -8,6 +8,9 @@ import morgan from 'morgan';
 import user from './api/user.js';
 import payer from './api/payer.js';
 import table from './api/tables.js';
+import category from './api/category.js'
+import check from './api/check.js'
+import device from './api/device.js'
 // import posMenu from './src/api/posmenu-api.js';
 import './config/config.js';
 
@@ -31,10 +34,10 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-        app.use('/api/v1',user)
-        app.use('/api/v2',payer)
-        app.use('/api/v2',table)
-        // app.use('/api/v3',posMenu)
+app.use('/api/v1', user)
+    
+        app.use('/api/v2',payer, table, category, check, device)
+     
         
        
         app.use('*', (req, res) => {
