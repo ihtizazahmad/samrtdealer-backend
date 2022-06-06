@@ -19,20 +19,25 @@ router.post("/register", async (req, res) => {
       return res.send("this user is already registered")
   }
   const newUser = new userModel({ fullName, email, password });
-  const savedUser = await newUser.save().catch((err) => {
-    console.log("Error: ", err);
-   return res.send({ error: "Cannot register user at the moment!" });
-  });
-
-  if (savedUser) 
+  const savedUser = await newUser.save();
+  // .catch((err) => {
+  //   console.log("Error: ", err);
+  // });
+  
+  if (savedUser) {
   return res.send({ message: "Thanks for registering" });
+  }else{
+
+    return res.send({ error: "Cannot register user at the moment!" });
+  }
+
 });
 
 //Login Api
  router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   
-  const userWithEmail = await userModel.findOne({ where: { email } }).catch(
+  const userWithEmail = await userModel.findOne({ email }).catch(
     (err) => {
       console.log("Error: ", err);
     }
@@ -40,8 +45,8 @@ router.post("/register", async (req, res) => {
   if (!userWithEmail)
   return res.send({ message: "Email  does not match!" });
   
-  // if (userWithEmail.password !== password)
-  // return res.send({ message: "password does not match!" });
+  if (userWithEmail.password !== password)
+  return res.send({ message: "password does not match!" });
   
 
   const jwtToken = jwt.sign(
@@ -49,7 +54,7 @@ router.post("/register", async (req, res) => {
     process.env.JWT_SECRET
   );
 
-  res.send({ message: "user login Successfully", token: jwtToken });
+  res.json({ fullName:userWithEmail.fullName,email:userWithEmail.email,password:userWithEmail.password, token: jwtToken });
 });
 
 export default router;
