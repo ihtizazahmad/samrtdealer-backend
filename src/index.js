@@ -13,8 +13,8 @@ import './config/config.js';
 
 
 
-dotenv.config();
 const app = express();
+dotenv.config();
 const port = process.env.PORT;
 
 
@@ -25,7 +25,7 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use(express.json());
 const corsOptions ={
-    origin:'http://localhost:18010', 
+    origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
