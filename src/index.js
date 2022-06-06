@@ -25,7 +25,7 @@ app.use(helmet());
 app.use(morgan("common"));
 app.use(express.json());
 const corsOptions ={
-    origin:'*', 
+    origin:'http://localhost:18010', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
