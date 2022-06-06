@@ -1,20 +1,19 @@
-import express, { json } from 'express';
+import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import bodyParser from 'body-parser';
 
-import middleware from './src/middlewares/middleware.js';
-import user from './src/api/user.js';
-import payer from './src/api/payer.js';
-import table from './src/api/tables.js';
+// import middleware from './src/middlewares/middleware.js';
+import user from './api/user.js';
+import payer from './api/payer.js';
+import table from './api/tables.js';
 // import posMenu from './src/api/posmenu-api.js';
+import './config/config.js';
 
 
 
 dotenv.config();
-import './src/config/config.js';
 const app = express();
 const port = process.env.PORT;
 
@@ -32,13 +31,6 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-
-
-// app.get("/", (req, res) => {
-    //     res.json({
-        //       message: "🦄🌈✨👋🌎🌍🌏✨🌈🦄",
-        //     });
-        //   });
         app.use('/api/v1',user)
         app.use('/api/v2',payer)
         app.use('/api/v2',table)
@@ -51,9 +43,6 @@ app.use(cors(corsOptions));
                 message: 'API endpoint doesnt exist'
             })
         });
-
-app.use(middleware.notFound);
-app.use(middleware.errorHandler);
 
 
 app.listen(port, () => {
