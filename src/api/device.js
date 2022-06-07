@@ -18,9 +18,14 @@ router.post('/device', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/device/:key', async (req, res) => {
-    const data= await device();
-    const result = data.updateOne({key : req.params.key}, {$set: req.body});
-    res.status(result,'data updated').send('data updated');
+router.put('/device/:_id', async (req, res) => {
+    // const data= await device();
+    console.log(req.params)
+    let data = await device.updateOne(
+        req.params,
+        {
+            $set: req.body
+        });
+    res.status(data,'data updated').send('data updated')
 })
 export default router
