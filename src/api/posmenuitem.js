@@ -10,7 +10,7 @@ router.get('/PosMenuItem', async (req, res) => {
 
 })
 
-router.post('/PosMenuItem', async (req, res) => {
+router.post('/PosMenuItem/add', async (req, res) => {
     const { id, row , column } = req.body;
     const data = await new posmenuitem({ id, row, column  });
     await data.save().then(result => {
@@ -21,7 +21,7 @@ router.post('/PosMenuItem', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenuItem/:id', async (req, res) => {
+router.put('/PosMenuItem/edit/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await posmenuitem.updateOne(

@@ -8,7 +8,7 @@ router.get('/paymenttype', async (req, res) => {
 
 })
 
-router.post('/paymenttype', async (req, res) => {
+router.post('/paymenttype/add', async (req, res) => {
     const { id, name, paymentGTypeId, inactive, defaultPayment, showCaption, updatedAt } = req.body;
     const data = await new paymentlist({ id, name, paymentGTypeId, inactive, defaultPayment, showCaption, updatedAt });
     await data.save().then(result => {
@@ -19,7 +19,7 @@ router.post('/paymenttype', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/paymenttype/:id', async (req, res) => {
+router.put('/paymenttype/edit/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await paymentlist.updateOne(

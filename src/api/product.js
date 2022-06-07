@@ -13,7 +13,7 @@ router.get('/product', async (req, res) => {
 
 })
 
-router.post('/product', async (req, res) => {
+router.post('/product/add', async (req, res) => {
     const { id, categoryName, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId } = req.body;
     const data = await new product({ id, categoryName, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId });
     await data.save().then(result => {
@@ -24,7 +24,7 @@ router.post('/product', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/product/:id', async (req, res) => {
+router.put('/product/edit/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await product.updateOne(

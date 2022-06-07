@@ -13,7 +13,7 @@ router.get('/tax', async (req, res) => {
 
 })
 
-router.post('/tax', async (req, res) => {
+router.post('/tax/add', async (req, res) => {
     const { id,name, taxValue } = req.body;
     const data = await new tax({ id, name, taxValue});
     await data.save().then(result => {
@@ -24,7 +24,7 @@ router.post('/tax', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/tax/:id', async (req, res) => {
+router.put('/tax/edit/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await tax.updateOne(

@@ -11,7 +11,7 @@ router.get('/user',async(req,res)=>{
    res.send(user)
 })
 
-router.post("/user", async (req, res) => {
+router.post("/user/add", async (req, res) => {
 
   const {id, firstName,lastName, email, password } = req.body;
   const userRegister = await userModel.findOne({ email });
@@ -34,7 +34,7 @@ router.post("/user", async (req, res) => {
 });
 
 //Login Api
- router.post("/login", async (req, res) => {
+ router.post("/user/add", async (req, res) => {
   const { email, password } = req.body;
   
   const userWithEmail = await userModel.findOne({ email }).catch(

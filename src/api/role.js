@@ -13,7 +13,7 @@ router.get('/role', async (req, res) => {
 
 })
 
-router.post('/role', async (req, res) => {
+router.post('/role/add', async (req, res) => {
     const { id, name } = req.body;
     const data = await new role({ id, name });
     await data.save().then(result => {
@@ -24,7 +24,7 @@ router.post('/role', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/role/:id', async (req, res) => {
+router.put('/role/edit/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await role.updateOne(

@@ -8,7 +8,7 @@ router.get('/check', async (req, res) => {
     res.send(data);
 })
 
-router.post('/check', async (req, res) => {
+router.post('/check/add', async (req, res) => {
     const { id, checkNo, operator, subTotal, tax, amount, table,   } = req.body;
     let data = await new check({ id, checkNo, operator, subTotal, tax, amount, table });
     await data.save().then(result => {
