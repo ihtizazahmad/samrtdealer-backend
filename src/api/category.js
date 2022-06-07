@@ -20,4 +20,5 @@ router.post('/category', async (req, res) => {
     });
 
 })
+router
 export default router
