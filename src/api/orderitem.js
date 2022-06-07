@@ -1,6 +1,4 @@
 
-
-
 import express from 'express'
 import orderitem from '../models/orderitem.js'
 
@@ -12,7 +10,7 @@ router.get('/orderitem', async (req, res) => {
 
 })
 
-router.post('/orderitem/add', async (req, res) => {
+router.post('/orderitem', async (req, res) => {
     const { id, orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
     const data = await new orderitem({ id, orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
     await data.save().then(result => {
@@ -23,7 +21,7 @@ router.post('/orderitem/add', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/orderitem/edit/:id', async (req, res) => {
+router.put('/orderitem/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await orderitem.updateOne(

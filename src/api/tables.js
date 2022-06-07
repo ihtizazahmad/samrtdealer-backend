@@ -11,7 +11,7 @@ router.get('/table', async (req, res) => {
 
 
 })
-router.post('/table/add', async (req, res) => {
+router.post('/table', async (req, res) => {
     const { Id, Operater, TableNo, TableName, Amount } = req.body;
     let data = new table({ Id, Operater, TableNo, TableName, Amount });
     await data.save().then(result => {

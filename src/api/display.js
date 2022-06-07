@@ -8,7 +8,7 @@ router.get('/display', async (req, res) => {
     res.send(data);
 })
 
-router.post('/display/add', async (req, res) => {
+router.post('/display', async (req, res) => {
     const { id, name, order, systemDisplay, displayKey } = req.body;
     const data = await new display({ id, name, order, systemDisplay, displayKey });
     await data.save().then(result => {
@@ -21,7 +21,7 @@ router.post('/display/add', async (req, res) => {
     }
     )
 })
-router.put('/display/edit/:id', async (req, res) => {
+router.put('/display/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await display.updateOne(

@@ -17,7 +17,7 @@ router.get('/payer', async (req, res) => {
 });
 
 
-router.post('/payer/add', async (req, res) => {
+router.post('/payer', async (req, res) => {
     const { id,FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
     if (!id || !FirstName || !LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
         return res.send("Please provide all the fields")
@@ -44,7 +44,7 @@ router.post('/payer/add', async (req, res) => {
 
 
 })
-router.put('/payer/edit/:id', async (req, res) => {
+router.put('/payer/:id', async (req, res) => {
     await userModel.updateOne(
         req.params.id,
 

@@ -8,7 +8,7 @@ router.get('/mu', async (req, res) => {
     res.send(data)
 })
 
-router.post('/mu/add', async (req, res) => {
+router.post('/mu', async (req, res) => {
     const { id, name, code } = req.body;
     let data = await new mu({ id, name, code })
     await data.save().then(result => {
@@ -20,7 +20,7 @@ router.post('/mu/add', async (req, res) => {
     })
 })
 
-router.put('/mu/edit/:id', async (req, res) => {
+router.put('/mu/:id', async (req, res) => {
     let data = await mu.updateOne(
         req.params.id,
         {

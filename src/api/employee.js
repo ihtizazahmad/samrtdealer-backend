@@ -7,7 +7,7 @@ router.get('/employee', async (req, res) => {
     res.send(data);
 
 })
-router.post('/employee/add', async (req, res) => {
+router.post('/employee', async (req, res) => {
     const { id, userName, firstName, lastName, email, password, confirmPassword, role, } = req.body;
     const data = await new employee({ id, userName, firstName, lastName, email,password, confirmPassword, role, });
     await data.save().then(result => {
@@ -19,7 +19,7 @@ router.post('/employee/add', async (req, res) => {
     })
 }
 )
-router.put('/employee/edit/:id', async(req, res) => {
+router.put('/employee/:id', async(req, res) => {
     // const data= await device();
     console.log(req.params);
     let data = await employee.updateOne(

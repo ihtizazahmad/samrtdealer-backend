@@ -7,7 +7,7 @@ router.get('/category', async(req, res) => {
     res.send(data);
 })
 
-router.post('/category/add', async (req, res) => {
+router.post('/category', async (req, res) => {
     const { id, name, parent, extraData, categoryType, displayMangerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, productTitleNo, showPictures } = req.body;
     let data = await new category({id, name, parent, extraData, categoryType, displayMangerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, productTitleNo, showPictures });
     await data.save().then(result => {
