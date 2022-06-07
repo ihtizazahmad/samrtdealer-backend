@@ -11,6 +11,19 @@ import table from './api/tables.js';
 import category from './api/category.js'
 import check from './api/check.js'
 import device from './api/device.js'
+import display from './api/display.js'
+import employee from './api/employee.js'
+import language from './api/language.js'
+import menu from './api/menu.js'
+import mu from './api/mu.js'
+import order from './api/order.js'
+import orderitem from './api/orderitem.js'
+import paymentlist from './api/paymentList.js'
+import posmenuitem from './api/posmenuitem.js'
+import posmenu from './api/posmenu.js'
+import product from './api/product.js'
+import role from './api/role.js'
+import tax from './api/tax.js'
 // import posMenu from './src/api/posmenu-api.js';
 import './config/config.js';
 
@@ -34,8 +47,12 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-app.use('/api/v1', user,payer,table,category,check,device);
-   
+app.use('/api/v1', user)
+    
+        app.use('/api/v2',payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax)
+     
+        
+       
         app.use('*', (req, res) => {
             return res.status(404).json({
                 success: false,
