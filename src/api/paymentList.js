@@ -19,11 +19,11 @@ router.post('/paymenttype', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/paymenttype/:_id', async (req, res) => {
+router.put('/paymenttype/:id', async (req, res) => {
     // const data= await device();
-    console.log(req.params)
+    console.log(req.params.id)
     let data = await paymentlist.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });

@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const payerSchema = new mongoose.Schema({
+    id:{
+        type: String
+    },
     FirstName: {
         type: String
     },

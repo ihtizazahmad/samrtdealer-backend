@@ -21,11 +21,11 @@ router.post('/display', async (req, res) => {
     }
     )
 })
-router.put('/display/:_id', async (req, res) => {
+router.put('/display/:id', async (req, res) => {
     // const data= await device();
-    console.log(req.params)
+    console.log(req.params.id)
     let data = await display.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });
