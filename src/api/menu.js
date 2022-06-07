@@ -3,12 +3,12 @@ import menu from '../models/menu.js';
 
 const router = express.Router();
 
-router.get('/menu', async (req, res) => {
+router.get('/menus', async (req, res) => {
     let data = await menu.find(req.data);
     res.send(data);
 })
 
-router.post('/menu', async (req, res) => {
+router.post('/menus', async (req, res) => {
     const { id, header, icon, links, titles, sublinks, target, external, description, translationKey, color } = req.body;
     let data = await new menu({ id, header, icon, links, titles, sublinks, target, external, description, translationKey, color });
     await data.save().then(result => {
@@ -19,7 +19,7 @@ router.post('/menu', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/menu/:_id', async (req, res) => {
+router.put('/menus/:_id', async (req, res) => {
     let data = await menu.updateOne(
         req.params,
         {
