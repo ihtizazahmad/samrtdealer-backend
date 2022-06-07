@@ -34,12 +34,8 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-app.use('/api/v1', user)
-    
-        app.use('/api/v2',payer, table, category, check, device)
-     
-        
-       
+app.use('/api/v1', user,payer,table,category,check,device);
+   
         app.use('*', (req, res) => {
             return res.status(404).json({
                 success: false,
