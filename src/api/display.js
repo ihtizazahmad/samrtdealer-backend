@@ -21,15 +21,20 @@ router.post('/display', async (req, res) => {
     }
     )
 })
-router.put('/display/:id', async (req, res) => {
+router.put('/display/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await display.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });
     res.status(data,'data updated').send('data updated')
 }
 )
+router.delete('/display/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await display.deleteOne(req.params)
+    res.send(data)
+})
 export default router;

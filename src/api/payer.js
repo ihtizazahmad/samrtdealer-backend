@@ -44,9 +44,9 @@ router.post('/payer', async (req, res) => {
 
 
 })
-router.put('/payer/:id', async (req, res) => {
+router.put('/payer/:_id', async (req, res) => {
     await userModel.updateOne(
-        req.params.id,
+        req.params,
 
         { $set: req.body }
     ).then((result) => {
@@ -55,6 +55,11 @@ router.put('/payer/:id', async (req, res) => {
         console.log(err);
     });
 
+})
+router.delete('/payer/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await payer.deleteOne(req.params)
+    res.send(data)
 })
 
 router.get('/search/:key', async (req, res) => {

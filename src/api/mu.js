@@ -20,13 +20,19 @@ router.post('/mu', async (req, res) => {
     })
 })
 
-router.put('/mu/:id', async (req, res) => {
+router.put('/mu/:_id', async (req, res) => {
     let data = await mu.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });
     res.status(data, 'data updated').send('data updated')
+})
+
+router.delete('/mu/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await mu.deleteOne(req.params)
+    res.send(data)
 })
 
 export default router;

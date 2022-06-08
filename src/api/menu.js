@@ -19,12 +19,18 @@ router.post('/user/menus', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/user/menus:id', async (req, res) => {
+router.put('/user/menus:_id', async (req, res) => {
     let data = await menu.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });
     res.status(data, 'data updated').send('data updated')
+})
+
+router.delete('/menu/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await menu.deleteOne(req.params)
+    res.send(data)
 })
 export default router;

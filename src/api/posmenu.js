@@ -21,15 +21,20 @@ router.post('/PosMenu', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenu/:id', async (req, res) => {
+router.put('/PosMenu/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await posMenu.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });
     res.status(data, 'data updated').send('data updated')
+})
+router.delete('/PosMenu/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await posMenu.deleteOne(req.params)
+    res.send(data)
 })
 
 export default router;

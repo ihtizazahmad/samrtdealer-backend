@@ -25,4 +25,20 @@ router.post('/table', async (req, res) => {
 
 })
 
+router.put('/table/:_id', async (req, res) => {
+    // const data= await device();
+    console.log(req.params)
+    let data = await table.updateOne(
+        req.params,
+        {
+            $set: req.body
+        });
+    res.status(data, 'data updated').send('data updated')
+})
+router.delete('/table/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await table.deleteOne(req.params)
+    res.send(data)
+})
+
 export default router
