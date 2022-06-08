@@ -24,11 +24,11 @@ router.post('/role', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/role/:_id', async (req, res) => {
+router.put('/role/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await role.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });

@@ -34,7 +34,7 @@ router.post("/user", async (req, res) => {
 });
 
 //Login Api
- router.post("/login", async (req, res) => {
+ router.post("/user", async (req, res) => {
   const { email, password } = req.body;
   
   const userWithEmail = await userModel.findOne({ email }).catch(

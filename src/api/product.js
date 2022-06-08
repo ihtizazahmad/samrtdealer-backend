@@ -24,11 +24,11 @@ router.post('/product', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/product/:_id', async (req, res) => {
+router.put('/product/:id', async (req, res) => {
     // const data= await device();
-    console.log(req.params)
+    console.log(req.params.id)
     let data = await product.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });

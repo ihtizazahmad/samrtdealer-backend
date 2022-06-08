@@ -4,13 +4,13 @@ import posmenuitem from '../models/posmenuitem.js'
 const router = express.Router()
 
 
-router.get('/posmenuitem', async (req, res) => {
+router.get('/PosMenuItem', async (req, res) => {
     let data = await posmenuitem.find(req.data);
     res.send(data);
 
 })
 
-router.post('/posmenuitem', async (req, res) => {
+router.post('/PosMenuItem', async (req, res) => {
     const { id, row , column } = req.body;
     const data = await new posmenuitem({ id, row, column  });
     await data.save().then(result => {
@@ -21,11 +21,11 @@ router.post('/posmenuitem', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/posmenuitem/:_id', async (req, res) => {
+router.put('/PosMenuItem/:id', async (req, res) => {
     // const data= await device();
-    console.log(req.params)
+    console.log(req.params.id)
     let data = await posmenuitem.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });
