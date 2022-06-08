@@ -30,4 +30,9 @@ router.put('/employee/:_id', async(req, res) => {
     res.status(data, 'data updated').send('data updated')
         
 })
+router.delete('/employee/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await employee.deleteOne(req.params)
+    res.send(data)
+})
 export default router;

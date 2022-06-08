@@ -30,4 +30,6 @@ router.put('/paymentlist/:_id', async (req, res) => {
     res.status(data, 'data updated').send('data updated')
 })
 
+
+
 export default router;

@@ -28,4 +28,9 @@ router.put('/device/:_id', async (req, res) => {
         });
     res.status(data,'data updated').send('data updated')
 })
+router.delete('/device/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await device.deleteOne(req.params)
+    res.send(data)
+})
 export default router

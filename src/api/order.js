@@ -31,5 +31,11 @@ router.put('/order/:_id', async (req, res) => {
     res.status(data, 'data updated').send('data updated')
 })
 
+router.delete('/order/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await order.deleteOne(req.params)
+    res.send(data)
+})
+
 
 export default router;

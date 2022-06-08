@@ -56,6 +56,11 @@ router.put('/payer/:_id', async (req, res) => {
     });
 
 })
+router.delete('/payer/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await payer.deleteOne(req.params)
+    res.send(data)
+})
 
 router.get('/search/:key', async (req, res) => {
     console.log(req.params.key)

@@ -21,4 +21,20 @@ router.post('/check', async (req, res) => {
     });
 
 })
+router.put('/check/:_id', async (req, res) => {
+    // const data= await device();
+    console.log(req.params)
+    let data = await device.updateOne(
+        req.params,
+        {
+            $set: req.body
+        });
+    res.status(data, 'data updated').send('data updated')
+})
+
+router.delete('/check/:_id', async (req, res) => { 
+    console.log(req.params)
+    let data = await check.deleteOne(req.params)
+    res.send(data)
+})
 export default router

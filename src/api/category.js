@@ -20,5 +20,21 @@ router.post('/category', async (req, res) => {
     });
 
 })
+router.put('/category/:_id', async (req, res) => {
+    // const data= await device();
+    console.log(req.params)
+    let data = await device.updateOne(
+        req.params,
+        {
+            $set: req.body
+        });
+    res.status(data, 'data updated').send('data updated')
+})
+
+router.delete('/category/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await category.deleteOne(req.params)
+    res.send(data)
+})
 router
 export default router

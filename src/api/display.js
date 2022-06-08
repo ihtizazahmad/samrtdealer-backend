@@ -32,4 +32,9 @@ router.put('/display/:_id', async (req, res) => {
     res.status(data,'data updated').send('data updated')
 }
 )
+router.delete('/display/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await display.deleteOne(req.params)
+    res.send(data)
+})
 export default router;
