@@ -20,11 +20,11 @@ router.post('/language', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/language/:id', async (req, res) => {
+router.put('/language/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await language.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });

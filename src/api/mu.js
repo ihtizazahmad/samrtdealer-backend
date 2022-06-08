@@ -20,9 +20,9 @@ router.post('/mu', async (req, res) => {
     })
 })
 
-router.put('/mu/:id', async (req, res) => {
+router.put('/mu/:_id', async (req, res) => {
     let data = await mu.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });

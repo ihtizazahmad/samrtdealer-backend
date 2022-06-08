@@ -4,13 +4,13 @@ import posMenuSize from '../models/posMenuSize.js'
 const router = express.Router()
 
 
-router.get('/posmenusize', async (req, res) => {
+router.get('/PosMenuSize', async (req, res) => {
     let data = await posMenuSize.find(req.data);
     res.send(data);
 
 })
 
-router.post('/posmenusize', async (req, res) => {
+router.post('/PosMenuSize', async (req, res) => {
     const { id, row, column } = req.body;
     const data = await new posMenuSize({ id, row, column });
     await data.save().then(result => {
@@ -21,7 +21,7 @@ router.post('/posmenusize', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/posmenusize/:_id', async (req, res) => {
+router.put('/PosMenuSize/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await posMenuSize.updateOne(
@@ -30,6 +30,11 @@ router.put('/posmenusize/:_id', async (req, res) => {
             $set: req.body
         });
     res.status(data, 'data updated').send('data updated')
+})
+router.delete('/PosMeneSize/:_id', async (req, res) => {
+    console.log(req.params)
+    let data = await posMenuSize.deleteOne(req.params)
+    res.send(data)
 })
 
 export default router;

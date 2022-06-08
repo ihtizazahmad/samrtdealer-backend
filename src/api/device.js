@@ -18,7 +18,7 @@ router.post('/device', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/device/:id', async (req, res) => {
+router.put('/device/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await device.updateOne(

@@ -20,11 +20,11 @@ router.post('/order', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/order/:id', async (req, res) => {
+router.put('/order/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await order.updateOne(
-        req.params.id,
+        req.params,
         {
             $set: req.body
         });

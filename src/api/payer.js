@@ -44,9 +44,9 @@ router.post('/payer', async (req, res) => {
 
 
 })
-router.put('/payer/:id', async (req, res) => {
+router.put('/payer/:_id', async (req, res) => {
     await userModel.updateOne(
-        req.params.id,
+        req.params,
 
         { $set: req.body }
     ).then((result) => {
