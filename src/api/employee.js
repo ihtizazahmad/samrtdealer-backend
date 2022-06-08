@@ -19,11 +19,11 @@ router.post('/employee', async (req, res) => {
     })
 }
 )
-router.put('/employee/:_id', async(req, res) => {
+router.put('/employee/:id', async(req, res) => {
     // const data= await device();
     console.log(req.params);
     let data = await employee.updateOne(
-        req.params,
+        req.params.id,
         {
             $set: req.body
         });

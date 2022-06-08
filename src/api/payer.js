@@ -18,11 +18,11 @@ router.get('/payer', async (req, res) => {
 
 
 router.post('/payer', async (req, res) => {
-    const { FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
-    if (!FirstName || !LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
+    const { id,FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
+    if (!id || !FirstName || !LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
         return res.send("Please provide all the fields")
     }
-    let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
+    let data = new payer({ id,FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
     await data.save().then(result => {
         res.status(200).send("payer Form saved to database");
         console.log(result, "Form save to database")
@@ -44,9 +44,9 @@ router.post('/payer', async (req, res) => {
 
 
 })
-router.put('/payer/:_id', async (req, res) => {
+router.put('/payer/:id', async (req, res) => {
     await userModel.updateOne(
-        req.params,
+        req.params.id,
 
         { $set: req.body }
     ).then((result) => {

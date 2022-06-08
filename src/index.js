@@ -47,9 +47,9 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
-app.use('/api/v1', user)
+
     
-        app.use('/api/v2',payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax)
+        app.use('/api/v1',user,payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax)
      
         
        
