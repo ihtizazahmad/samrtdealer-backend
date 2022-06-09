@@ -25,12 +25,24 @@ router.put('/user/menus:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "menu data updated successfully" });
+    }
+    else {
+        res.send({ message: "menu data cannot be updated successfully" })
+    }
 })
 
 router.delete('/menu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await menu.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "menu data delete successfully" });
+    }
+    else {
+        res.send({ message: "menu data cannot delete successfully" })
+    }
 })
 export default router;

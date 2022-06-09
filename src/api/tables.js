@@ -32,12 +32,24 @@ router.put('/table/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "tables data updated successfully" });
+    }
+    else {
+        res.send({ message: "tables data cannot be updated successfully" })
+    }
 })
 router.delete('/table/:_id', async (req, res) => {
     console.log(req.params)
     let data = await table.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "tables data delete successfully" });
+    }
+    else {
+        res.send({ message: "tables data cannot delete successfully" })
+    }
 })
 
 export default router

@@ -26,11 +26,21 @@ router.put('/device/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data,'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "device data updated successfully" });
+    }
+    else {
+        res.send({ message: "device data cannot be updated successfully" })
+    }
 })
 router.delete('/device/:_id', async (req, res) => {
     console.log(req.params)
     let data = await device.deleteOne(req.params)
-    res.send(data)
+    if (data) {
+        res.send({ message: "device data delete successfully" });
+    }
+    else {
+        res.send({ message: "device data cannot delete successfully" })
+    }
 })
 export default router

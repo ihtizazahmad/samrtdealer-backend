@@ -28,12 +28,24 @@ router.put('/PosMenuItem/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "posmenuitem data updated successfully" });
+    }
+    else {
+        res.send({ message: "posmenuitem data cannot be updated successfully" })
+    }
 })
 router.delete('/PosMenuItem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await posmenuitem.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "posmenuitem data delete successfully" });
+    }
+    else {
+        res.send({ message: "posmenuitem data cannot delete successfully" })
+    }
 })
 
 export default router;

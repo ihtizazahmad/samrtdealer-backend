@@ -29,12 +29,22 @@ router.put('/check/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "check data updated successfully" });
+    }
+    else {
+        res.send({ message: "check data cannot be updated successfully" })
+    }
 })
 
 router.delete('/check/:_id', async (req, res) => { 
     console.log(req.params)
     let data = await check.deleteOne(req.params)
-    res.send(data)
+    if (data) {
+        res.send({ message: "check data delete successfully" });
+    }
+    else {
+        res.send({ message: "check data cannot delete successfully" })
+    }
 })
 export default router

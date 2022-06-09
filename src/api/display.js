@@ -29,12 +29,24 @@ router.put('/display/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data,'data updated').send('data updated')
+    // res.status(data,'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "display data updated successfully" });
+    }
+    else {
+        res.send({ message: "display data cannot be updated successfully" })
+    }
 }
 )
 router.delete('/display/:_id', async (req, res) => {
     console.log(req.params)
     let data = await display.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "display data delete successfully" });
+    }
+    else {
+        res.send({ message: "display data cannot delete successfully" })
+    }
 })
 export default router;
