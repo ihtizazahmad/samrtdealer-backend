@@ -22,14 +22,11 @@ router.post('/display', async (req, res) => {
     )
 })
 router.put('/display/:_id', async (req, res) => {
-    // const data= await device();
-    console.log(req.params.id)
     let data = await display.updateOne(
         req.params,
         {
             $set: req.body
         });
-    // res.status(data,'data updated').send('data updated')
     if (data) {
         res.send({ message: "display data updated successfully" });
     }
@@ -41,7 +38,6 @@ router.put('/display/:_id', async (req, res) => {
 router.delete('/display/:_id', async (req, res) => {
     console.log(req.params)
     let data = await display.deleteOne(req.params)
-    // res.send(data)
     if (data) {
         res.send({ message: "display data delete successfully" });
     }
