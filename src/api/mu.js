@@ -26,13 +26,25 @@ router.put('/mu/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "mu data updated successfully" });
+    }
+    else {
+        res.send({ message: "mu data cannot be updated successfully" })
+    }
 })
 
 router.delete('/mu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await mu.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "mu data delete successfully" });
+    }
+    else {
+        res.send({ message: "mu data cannot delete successfully" })
+    }
 })
 
 export default router;

@@ -27,12 +27,24 @@ router.put('/employee/:_id', async(req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "employee data updated successfully" });
+    }
+    else {
+        res.send({ message: "employee data cannot be updated successfully" })
+    }
         
 })
 router.delete('/employee/:_id', async (req, res) => {
     console.log(req.params)
     let data = await employee.deleteOne(req.params)
-    res.send(data," employee data updated")
+    // res.send(data," employee data updated")
+    if (data) {
+        res.send({ message: "employee data delete successfully" });
+    }
+    else {
+        res.send({ message: "employee data cannot delete successfully" })
+    }
 })
 export default router;
