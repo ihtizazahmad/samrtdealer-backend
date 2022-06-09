@@ -1,6 +1,3 @@
-
-
-
 import express from 'express'
 import product from '../models/product.js'
 
@@ -25,7 +22,7 @@ router.post('/product', async (req, res) => {
     })
 })
 router.put('/product/:_id', async (req, res) => {
-    // const data= await device();
+
     console.log(req.params.id)
     let data = await product.updateOne(
         req.params,

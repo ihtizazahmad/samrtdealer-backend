@@ -26,7 +26,6 @@ router.post('/table', async (req, res) => {
 })
 
 router.put('/table/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params)
     let data = await table.updateOne(
         req.params,
