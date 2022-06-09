@@ -7,12 +7,12 @@ const paymentlistSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    paymentGTypeId: {
+    paymentsGTypeId: {
         type: String
     },
 
     
-    inactive: {
+    isActive: {
         type: Boolean
     },
     defaultPayment: {
