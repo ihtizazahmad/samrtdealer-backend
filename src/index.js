@@ -24,6 +24,7 @@ import posmenu from './api/posmenu.js'
 import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
+import translate from './api/languagetranslation.js'
 // import posMenu from './src/api/posmenu-api.js';
 import './config/config.js';
 
@@ -49,7 +50,7 @@ app.use(cors(corsOptions));
 
 
     
-        app.use('/api/v1',user,payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax)
+        app.use('/api/v1',user,payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
      
         
        

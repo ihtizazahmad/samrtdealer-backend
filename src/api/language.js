@@ -28,12 +28,24 @@ router.put('/language/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data,'data updated').send('data updated')
+    // res.status(data,'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "language data updated successfully" });
+    }
+    else {
+        res.send({ message: "language data cannot be updated successfully" })
+    }
 })
 
 router.delete('/language/:_id', async (req, res) => {
     console.log(req.params)
     let data = await language.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "language data delete successfully" });
+    }
+    else {
+        res.send({ message: "language data cannot delete successfully" })
+    }
 })
 export default router;

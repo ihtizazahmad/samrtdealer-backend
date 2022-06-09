@@ -45,7 +45,7 @@ router.post('/payer', async (req, res) => {
 
 })
 router.put('/payer/:_id', async (req, res) => {
-    await userModel.updateOne(
+    await payer.updateOne(
         req.params,
 
         { $set: req.body }
@@ -54,17 +54,29 @@ router.put('/payer/:_id', async (req, res) => {
     }).catch((err) => {
         console.log(err);
     });
+    // if (data) {
+    //     res.send({ message: "payer data updated successfully" });
+    // }
+    // else {
+    //     res.send({ message: "payer data cannot be updated successfully" })
+    // }
 
 })
 router.delete('/payer/:_id', async (req, res) => {
     console.log(req.params)
     let data = await payer.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "payer data delete successfully" });
+    }
+    else {
+        res.send({ message: "payer data cannot delete successfully" })
+    }
 })
 
 router.get('/search/:key', async (req, res) => {
     console.log(req.params.key)
-    let data = await userModel.find(
+    let data = await payer.find(
         {
             "$or": [
                 { "Email": { $regex: req.params.key } }

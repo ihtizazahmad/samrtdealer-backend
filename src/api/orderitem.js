@@ -29,13 +29,25 @@ router.put('/orderitem/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "orderitem data updated successfully" });
+    }
+    else {
+        res.send({ message: "orderitem data cannot be updated successfully" })
+    }
 })
 
 router.delete('/orderitem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await orderitem.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "orderitem data delete successfully" });
+    }
+    else {
+        res.send({ message: "orderitem data cannot delete successfully" })
+    }
 })
 
 export default router;

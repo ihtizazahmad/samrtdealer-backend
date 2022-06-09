@@ -32,12 +32,24 @@ router.put('/role/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    res.status(data, 'data updated').send('data updated')
+    // res.status(data, 'data updated').send('data updated')
+    if (data) {
+        res.send({ message: "role data updated successfully" });
+    }
+    else {
+        res.send({ message: "role data cannot be updated successfully" })
+    }
 })
 router.delete('/role/:_id', async (req, res) => {
     console.log(req.params)
     let data = await role.deleteOne(req.params)
-    res.send(data)
+    // res.send(data)
+    if (data) {
+        res.send({ message: "role data delete successfully" });
+    }
+    else {
+        res.send({ message: "role data cannot delete successfully" })
+    }
 })
 
 export default router;
