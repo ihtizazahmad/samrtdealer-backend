@@ -30,8 +30,7 @@ router.put('/category/:_id', async (req, res) => {
         });
     if (data) {
         res.send({ message: "category data updated successfully" });
-    }
-    else {
+    }else {
         res.send({ message: "category data cannot be updated successfully" })
     }
 })
@@ -41,10 +40,9 @@ router.delete('/category/:_id', async (req, res) => {
     let data = await category.deleteOne(req.params)
     if (data) {
         res.send({ message: "category data delete successfully" });
-    }
-    else {
+    }else {
         res.send({ message: "category data cannot delete successfully" })
     }
 })
 
-export default router
+export default router;
