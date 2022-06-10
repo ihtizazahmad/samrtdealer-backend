@@ -19,7 +19,6 @@ router.post('/device', async (req, res) => {
     })
 })
 router.put('/device/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params.id)
     let data = await device.updateOne(
         req.params.id,
@@ -43,4 +42,4 @@ router.delete('/device/:_id', async (req, res) => {
         res.send({ message: "device data cannot delete successfully" })
     }
 })
-export default router
+export default router;

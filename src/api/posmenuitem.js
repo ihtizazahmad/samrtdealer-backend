@@ -22,7 +22,6 @@ router.post('/PosMenuItem', async (req, res) => {
     })
 })
 router.put('/PosMenuItem/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params.id)
     let data = await posmenuitem.updateOne(
         req.params,

@@ -25,7 +25,6 @@ router.post('/tax', async (req, res) => {
     })
 })
 router.put('/tax/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params)
     let data = await tax.updateOne(
         req.params,

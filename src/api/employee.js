@@ -20,14 +20,12 @@ router.post('/employee', async (req, res) => {
 }
 )
 router.put('/employee/:_id', async(req, res) => {
-    // const data= await device();
     console.log(req.params);
     let data = await employee.updateOne(
         req.params,
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
     if (data) {
         res.send({ message: "employee data updated successfully" });
     }
@@ -39,7 +37,6 @@ router.put('/employee/:_id', async(req, res) => {
 router.delete('/employee/:_id', async (req, res) => {
     console.log(req.params)
     let data = await employee.deleteOne(req.params)
-    // res.send(data," employee data updated")
     if (data) {
         res.send({ message: "employee data delete successfully" });
     }

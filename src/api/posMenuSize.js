@@ -22,7 +22,6 @@ router.post('/PosMenuSize', async (req, res) => {
     })
 })
 router.put('/PosMenuSize/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params)
     let data = await posMenuSize.updateOne(
         req.params,
