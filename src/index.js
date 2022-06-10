@@ -24,7 +24,7 @@ import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
 import translate from './api/languagetranslation.js'
-// import posMenu from './src/api/posmenu-api.js';
+
 import './config/config.js';
 import './middlewares/init-redis.js'
 
@@ -38,24 +38,25 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-const corsOptions ={
-    origin:'*', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+const corsOptions = {
+    origin: '*',
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
 
-app.use('/api/user',user);
-app.use('/api/v2',payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
 
-        
-       
-        app.use('*', (req, res) => {
-            return res.status(404).json({
-                success: false,
-                message: 'API endpoint doesnt exist'
-            })
-        });
+
+app.use('/api/user', user);
+app.use('/api/v2', payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
+
+
+app.use('*', (req, res) => {
+    return res.status(404).json({
+        success: false,
+        message: 'API endpoint doesnt exist'
+    })
+});
 
 
 app.listen(port, () => {

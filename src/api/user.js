@@ -1,13 +1,13 @@
 import  createError from 'http-errors'
 import User from '../models/User.js'
 import  authSchema  from '../middlewares/validate-schema.js'
-import {signAccessToken} from '../middlewares/jwt-helper.js'
-import {signRefreshToken} from '../middlewares/jwt-helper.js'
-import {verifyRefreshToken} from '../middlewares/jwt-helper.js'
+import signAccessToken from '../middlewares/jwt-helper.js'
+import signRefreshToken from '../middlewares/jwt-helper.js'
+import verifyRefreshToken from '../middlewares/jwt-helper.js'
 
 import  client from '../middlewares/init-redis.js'
 
-export default  {
+const Auth=  {
   register: async (req, res, next) => {
     try {
       // const { email, password } = req.body
@@ -83,6 +83,7 @@ export default  {
     }
   },
 }
+export default Auth;
 // import express from "express";
 // import userModel from "../models/User.js";
 // import jwt from "jsonwebtoken";

@@ -1,18 +1,22 @@
 import express from 'express'
-import {register} from '../api/user.js'
-import {login} from '../api/user.js'
-import {refreshToken} from '../api/user.js'
-import {logout} from '../api/user.js'
-// login, refreshToken, logout
+import Auth from '../api/user.js'
 
 const router = express.Router()
 
-router.post('/register', register)
+router.post('/register',(req,res)=>{
+    Auth.register
+})
 
-router.post('/login', login)
+router.post('/login', (req,res)=>{
+    Auth.login
+})
 
-router.post('/refresh-token', refreshToken)
+router.post('/refresh-token', (req,res)=>{
+    Auth.refreshToken
+})
 
-router.delete('/logout', logout)
+router.delete('/logout', (req,res)=>{
+    Auth.logout
+})
 
 export default router;

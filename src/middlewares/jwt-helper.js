@@ -2,7 +2,7 @@ import JWT from 'jsonwebtoken'
 import  createError from 'http-errors'
 import  client from './init-redis.js'
 
-module.exports = {
+const tokenAcess= {
   signAccessToken: (userId) => {
     return new Promise((resolve, reject) => {
       const payload = {}
@@ -85,4 +85,6 @@ module.exports = {
       )
     })
   },
+
 }
+export default tokenAcess;

@@ -5,27 +5,12 @@ import translate from 'translate';
 const router = express.Router();
 
 router.get('/language', async (req, res) => {
-    // let data = await language.find(req.data);
-    // res.send(data);
-    translate.engine = 'libre';
-    const translation_string = await translate(req.body, 'es');
+   
+    const translation_string = await language(req.body);
     res.send(translation_string);
     console.log(translation_string);
 
 })
-
-router.get('/translation', function (request, response) {
-    var lang = request.acceptsLanguages('fr', 'es', 'en');
-    response.json(lang)
-    if (lang)
-    {
-        console.log('The first accepted of [fr, es, en] is: ' + lang);
-    }
-    else
-    {
-        console.log('None of [fr, es, en] is accepted');
-    }
-});
 
 router.post('/language', async (req, res) => {
     
