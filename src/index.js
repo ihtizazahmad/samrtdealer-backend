@@ -4,8 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-// import middleware from './src/middlewares/middleware.js';
-import user from './api/user.js';
+import user from './routes/user.route.js';
 import payer from './api/payer.js';
 import table from './api/tables.js';
 import category from './api/category.js'
@@ -27,31 +26,28 @@ import tax from './api/tax.js'
 import translate from './api/languagetranslation.js'
 // import posMenu from './src/api/posmenu-api.js';
 import './config/config.js';
-
-
+import './middlewares/init-redis.js'
 
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
-
-
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 
 app.use(helmet());
-app.use(morgan("common"));
+app.use(morgan("dev"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 const corsOptions ={
-    origin:'http://localhost:18010', 
+    origin:'*', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
 
+app.use('/api/user',user);
+app.use('/api/v2',payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
 
-    
-        app.use('/api/v1',user,payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
-     
         
        
         app.use('*', (req, res) => {

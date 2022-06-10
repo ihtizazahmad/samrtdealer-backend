@@ -1,0 +1,42 @@
+GET http://localhost:3333
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQ4NTcyNTYsImV4cCI6MTY4NjQxNDg1NiwiYXVkIjoiNjJhMzFlMjdlMWYwNGZlNjhmMTE4MDg4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.4fDGfC6C2wZ_W7f-lG3XRvnVHyyZJKSgBl8BW8rHS5Y
+
+###Login Route
+POST http://localhost:3333/api/v1/user/login
+Content-Type: application/json
+
+
+{
+  "email": "saadk447@gmail.com",
+  "password": "1234"
+}
+
+
+
+###Register Route
+POST http://localhost:3333/api/v1/user/register
+Content-Type: application/json
+
+{
+  "email": "saadk447@gmail.com",
+  "password": "1234"
+}
+
+###Refresh token Route
+POST http://localhost:3333/api/v1/user/refresh-token
+Content-Type: application/json
+
+
+{
+"email":"saadk447@gmail.com",
+"password":"1234"
+}
+
+###Logout Route
+DELETE http://localhost:3333/api/v1/user/logout
+Content-Type: application/json
+
+{
+"email":"saadk447@gmail.com",
+"password":"1234"
+}
