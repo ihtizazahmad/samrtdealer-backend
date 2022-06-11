@@ -47,8 +47,8 @@ app.use(cors(corsOptions));
 
 
 
-app.use('/api/user', Auth);
-app.use('/api/v2', payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
+// app.use('/api/user', Auth);
+app.use('/api/v1',Auth, payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
 
 
 app.use('*', (req, res) => {
