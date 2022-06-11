@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import user from './routes/user.route.js';
+import Auth from './api/user.js';
 import payer from './api/payer.js';
 import table from './api/tables.js';
 import category from './api/category.js'
@@ -32,7 +32,7 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT;
 app.use(express.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+
 
 app.use(helmet());
 app.use(morgan("dev"));
@@ -47,7 +47,7 @@ app.use(cors(corsOptions));
 
 
 
-app.use('/api/user', user);
+app.use('/api/user', Auth);
 app.use('/api/v2', payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
 
 
