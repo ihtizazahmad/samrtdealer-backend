@@ -1,0 +1,40 @@
+GET http://localhost:3333
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQ5MjU1NTAsImV4cCI6MTY4NjQ4MzE1MCwiYXVkIjoiNjJhMzFlMjdlMWYwNGZlNjhmMTE4MDg4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.LopeZSceTiV7ONR599jSg12mddcAe3GPXKnDkMWD1YI
+
+###Login Route
+POST http://localhost:3333/api/user/login
+Content-Type: application/json
+
+
+{
+  "email": "saadk447@gmail.com",
+  "password": "1234"
+}
+
+
+
+###Register Route
+POST http://localhost:3333/api/user/register
+Content-Type: application/json
+
+{
+  "email": "saadk447@gmail.com",
+  "password": "1234"
+}
+
+###Refresh token Route
+POST http://localhost:3333/api/user/refresh-token
+Content-Type: application/json
+
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQ5MjQ5OTYsImV4cCI6MTY4NjQ4MjU5NiwiYXVkIjoiNjJhMzFlMjdlMWYwNGZlNjhmMTE4MDg4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.dQAnmVzgY_c_FkRU5tVJOgLZmN_utmfUEl7uYgieaXM"
+}
+
+###Logout Route
+DELETE http://localhost:3333/api/user/logout
+Content-Type: application/json
+
+{
+"refreshToken":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTQ5MjU1NTAsImV4cCI6MTY4NjQ4MzE1MCwiYXVkIjoiNjJhMzFlMjdlMWYwNGZlNjhmMTE4MDg4IiwiaXNzIjoicGlja3VycGFnZS5jb20ifQ.LopeZSceTiV7ONR599jSg12mddcAe3GPXKnDkMWD1YI"
+}

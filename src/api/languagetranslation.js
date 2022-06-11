@@ -7,7 +7,7 @@ const router = express.Router();
 // translate.key = process.env.TRANSLATE_KEY;
 
 
-router.get('/translation', function (request, response) {
+router.get('/translationlist', function (request, response) {
     var lang = request.acceptsLanguages('en', 'es',);
     response.json(lang)
     if (lang) {
