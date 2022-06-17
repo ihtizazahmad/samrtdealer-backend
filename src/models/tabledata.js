@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
-const tableSchema = new mongoose.Schema({
+const tabledataSchema = new mongoose.Schema({
     Id: {
         type: Number,
         required: true
     },
-    Operater: {
+    Operator: {
         type: String,
         required: true
     },
@@ -27,5 +27,5 @@ const tableSchema = new mongoose.Schema({
     }
 
 })
-const table= mongoose.model("table", tableSchema);
-export default table;
+const tabledata= mongoose.model("tabledata", tabledataSchema);
+export default tabledata;
