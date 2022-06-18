@@ -13,7 +13,7 @@ const posmenuitemSchema = new mongoose.Schema({
         type:Number
     },
     category: {
-        type: Schema.Types.ObjectId, ref: 'category'
+        type:String
     },
     products: {
         type: String
