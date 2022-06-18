@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const categorySchema = new mongoose.Schema({
+   
     id: {
         type: String
     },
@@ -13,7 +14,7 @@ const categorySchema = new mongoose.Schema({
         type: String
     },
     categoryType: {
-        type : String
+        type: String, enum: ['starter', 'drink', 'desserts','main']
     },
     displayMangerName: {
         type: String

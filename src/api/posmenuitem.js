@@ -11,8 +11,8 @@ router.get('/PosMenuItem', async (req, res) => {
 })
 
 router.post('/PosMenuItem', async (req, res) => {
-    const { id, row , column } = req.body;
-    const data = await new posmenuitem({ id, row, column  });
+    const { id, row , column, category, products } = req.body;
+    const data = await new posmenuitem({ id, row, column , category, products });
     await data.save().then(result => {
         console.log(result, "Product data save to database")
         res.send("Product data saved to database");

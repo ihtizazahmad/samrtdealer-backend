@@ -36,10 +36,10 @@ const orderSchema = new mongoose.Schema({
         type: Number
     },
     orderStatus: {
-        type: String
+        type: String, enum : ['new', 'processing', 'done']
     },
     orderType: {
-        type: String
+        type: String, enum : ['standard', 'notification']
     }
 
 

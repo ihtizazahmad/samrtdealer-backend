@@ -6,7 +6,7 @@ import morgan from 'morgan';
 
 import Auth from './api/user.js';
 import payer from './api/payer.js';
-import table from './api/tables.js';
+import tabledata from './api/tablesdata.js';
 import category from './api/category.js'
 import check from './api/check.js'
 import device from './api/device.js'
@@ -24,6 +24,7 @@ import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
 import translate from './api/languagetranslation.js'
+import tables from './api/tables.js'
 
 import './config/config.js';
 import './middlewares/init-redis.js'
@@ -48,7 +49,7 @@ app.use(cors(corsOptions));
 
 
 // app.use('/api/user', Auth);
-app.use('/api/v1',Auth, payer, table, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate, tables)
 
 
 app.use('*', (req, res) => {
