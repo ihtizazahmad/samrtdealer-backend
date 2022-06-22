@@ -20,6 +20,7 @@ import orderitem from './api/orderitem.js'
 import paymentlist from './api/paymentList.js'
 import posmenuitem from './api/posmenuitem.js'
 import posmenu from './api/posmenu.js'
+import posMenuSizes from '././api/posMenuSize.js'
 import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
@@ -49,7 +50,7 @@ app.use(cors(corsOptions));
 
 
 // app.use('/api/user', Auth);
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate, tables)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax, translate, tables,)
 
 
 app.use('*', (req, res) => {
