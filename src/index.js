@@ -41,7 +41,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 const corsOptions = {
-    origin: '*',
+    origin:'http://localhost:18020',
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
