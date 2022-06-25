@@ -8,6 +8,9 @@ const productSchema = new mongoose.Schema({
     categoryName: {
         type: String
     },
+    categoryParents:{
+        type: String
+    },
     barCode: {
         type: String
     },
