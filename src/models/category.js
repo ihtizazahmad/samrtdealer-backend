@@ -14,7 +14,7 @@ const categorySchema = new mongoose.Schema({
         type: String
     },
     categoryType: {
-        type: String, enum: ['starter', 'drink', 'desserts','main']
+        type: String,
     },
     displayMangerName: {
         type: String
