@@ -14,7 +14,7 @@ const categorySchema = new mongoose.Schema({
         type: String
     },
     categoryType: {
-        type: String, enum: ['starter', 'drink', 'desserts','main']
+        type: String
     },
     displayMangerName: {
         type: String
@@ -40,9 +40,9 @@ const categorySchema = new mongoose.Schema({
     translation: {
         type: String
     },
-    productTitleNo: {
-        type: Number
-    },
+    // productTitleNo: {
+    //     type: mongoose.Schema.ObjectId, ref: 'product'
+    // },
     showPictures: {
         type: Boolean
     },
