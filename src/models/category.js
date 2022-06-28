@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const categorySchema = new mongoose.Schema({
+   
     id: {
         type: String
     },
@@ -13,7 +14,7 @@ const categorySchema = new mongoose.Schema({
         type: String
     },
     categoryType: {
-        type : String
+        type: String
     },
     displayMangerName: {
         type: String
@@ -39,9 +40,9 @@ const categorySchema = new mongoose.Schema({
     translation: {
         type: String
     },
-    productTitleNo: {
-        type: Number
-    },
+    // productTitleNo: {
+    //     type: mongoose.Schema.ObjectId, ref: 'product'
+    // },
     showPictures: {
         type: Boolean
     },

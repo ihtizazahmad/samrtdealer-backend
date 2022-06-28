@@ -1,22 +1,22 @@
 import express from 'express';
-import table from '../models/tabledata.js';
+import tables from '../models/tables.js';
 
 
 const router = express.Router();
 
-router.get('/table', async (req, res) => {
+router.get('/tables', async (req, res) => {
     console.log("this is get api of table")
-    const data = await table.find(req.data);
+    const data = await tables.find(req.data);
     res.send(data);
 
 
 })
-router.post('/table', async (req, res) => {
-    const { Id, Operater, TableNo, TableName, Amount } = req.body;
-    let data = new table({ Id, Operater, TableNo, TableName, Amount });
+router.post('/tables', async (req, res) => {
+    const { Id, tableNo, name, description, hasLampixDevice } = req.body;
+    let data = new tables({ Id, tableNo, name, description, hasLampixDevice });
     await data.save().then(result => {
-        console.log(result, "Table data save to database")
-        res.send("Table saved to database");
+        console.log(result, "Tables data save to database")
+        res.send("Tables saved to database");
 
     }).catch(err => {
         res.status(400).send("unable to save to database");
@@ -25,9 +25,9 @@ router.post('/table', async (req, res) => {
 
 })
 
-router.put('/table/:_id', async (req, res) => {
+router.put('/tables/:_id', async (req, res) => {
     console.log(req.params)
-    let data = await table.updateOne(
+    let data = await tables.updateOne(
         req.params,
         {
             $set: req.body
@@ -40,9 +40,9 @@ router.put('/table/:_id', async (req, res) => {
         res.send({ message: "tables data cannot be updated successfully" })
     }
 })
-router.delete('/table/:_id', async (req, res) => {
+router.delete('/tables/:_id', async (req, res) => {
     console.log(req.params)
-    let data = await table.deleteOne(req.params)
+    let data = await tables.deleteOne(req.params)
     // res.send(data)
     if (data) {
         res.send({ message: "tables data delete successfully" });
