@@ -1,23 +1,28 @@
-import mongoosecategory from './category.js'
+
 import mongoose from 'mongoose';
-// import category from '../models/category.js'
-// import category from './models/category.js';
+
+const Schema = mongoose.Schema;
+
 const posmenuitemSchema = new mongoose.Schema({
     id: {
         type:String
     },
-    row: {
-        type:Number
-    },
-    column: {
-        type:Number
-    },
-    category: {
-        type:String
-    },
-    products: {
+    level: {
         type: String
-    }
+    },
+   
+    category: 
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'category'
+        }]
+    ,
+    product:
+        
+[{
+        type: mongoose.Schema.Types.ObjectId,
+    ref: 'product'
+    }]
 
   
 })

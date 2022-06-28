@@ -5,12 +5,9 @@ const productSchema = new mongoose.Schema({
     id: {
         type: String
     },
-    categoryName: {
-        type: String
-    },
-    categoryParents:{
-        type: String
-    },
+    category: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'category'
+    }],
     barCode: {
         type: String
     },
