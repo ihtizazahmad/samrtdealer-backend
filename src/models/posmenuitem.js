@@ -11,18 +11,18 @@ const posmenuitemSchema = new mongoose.Schema({
         type: String
     },
    
-    category: 
-        [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'category'
-        }]
-    ,
-    product:
+//     category: 
+//         [{
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: 'category'
+//         }]
+//     ,
+//     product:
         
-[{
-        type: mongoose.Schema.Types.ObjectId,
-    ref: 'product'
-    }]
+// [{
+//         type: mongoose.Schema.Types.ObjectId,
+//     ref: 'product'
+//     }]
 
   
 })
