@@ -40,9 +40,9 @@ const categorySchema = new mongoose.Schema({
     translation: {
         type: String
     },
-    // productTitleNo: {
-    //     type: mongoose.Schema.ObjectId, ref: 'product'
-    // },
+    product: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'product'
+    }],
     showPictures: {
         type: Boolean
     },

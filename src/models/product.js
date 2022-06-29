@@ -5,9 +5,9 @@ const productSchema = new mongoose.Schema({
     id: {
         type: String
     },
-    category: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'category'
-    }],
+    category: {
+        type: String
+    },
     barCode: {
         type: String
     },
