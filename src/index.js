@@ -38,12 +38,12 @@ app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-  });
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     next();
+//   });
 const corsOptions = {
-    origin:'http://localhost:18020',
+    origin:true,
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
