@@ -11,8 +11,8 @@ router.get('/orderitem', async (req, res) => {
 })
 
 router.post('/orderitem', async (req, res) => {
-    const { id, orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
-    const data = await new orderitem({ id, orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
+    const { id, orderId, needToPrintQty, categoryId, category, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
+    const data = await new orderitem({ id, orderId, needToPrintQty, categoryId, category, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.send("OrderItem data saved to database");

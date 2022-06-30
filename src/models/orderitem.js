@@ -15,11 +15,6 @@ needToPrintQty: {
 
         type: Number
     },
-
-    productId: {
-        type: String
-    
-    },
         
     points: {
         type: Number
@@ -59,7 +54,10 @@ needToPrintQty: {
     },
 
 
-    productName: {
+    category: {
+        type: String
+    },
+    categoryId: {
         type: String
     },
 
