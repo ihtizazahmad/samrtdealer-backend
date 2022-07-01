@@ -46,6 +46,7 @@ const categorySchema = new mongoose.Schema({
     showPictures: {
         type: Boolean
     },
+    
     creatdateFormat: {
         type: Date,
         default: Date.now

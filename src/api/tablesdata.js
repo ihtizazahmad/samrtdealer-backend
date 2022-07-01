@@ -4,14 +4,14 @@ import tabledata from '../models/tabledata.js';
 
 const router = express.Router();
 
-router.get('/table', async (req, res) => {
+router.get('/footer-table', async (req, res) => {
     console.log("this is get api of table")
     const data = await tabledata.find(req.data);
     res.send(data);
 
 
 })
-router.post('/table', async (req, res) => {
+router.post('/footer-table', async (req, res) => {
     const { Id, Operator, TableNo, TableName, Amount } = req.body;
     let data = new tabledata({ Id, Operator, TableNo, TableName, Amount });
     await data.save().then(result => {
@@ -25,7 +25,7 @@ router.post('/table', async (req, res) => {
 
 })
 
-router.put('/table/:_id', async (req, res) => {
+router.put('/footer-table/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.updateOne(
         req.params,
@@ -40,7 +40,7 @@ router.put('/table/:_id', async (req, res) => {
         res.send({ message: "table data cannot be updated successfully" })
     }
 })
-router.delete('/table/:_id', async (req, res) => {
+router.delete('/footer-table/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.deleteOne(req.params)
     // res.send(data)
