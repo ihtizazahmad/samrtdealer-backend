@@ -1,5 +1,9 @@
 import  redis from 'redis';
+// import  url  from 'url';
 
+// var redisURL = url.parse(process.env.REDISCLOUD_URL);
+// var client = redis.createClient(redisURL.port, redisURL.hostname, {no_ready_check: true});
+// client.auth(redisURL.auth.split(":")[1]);
 const client = redis.createClient({
   port: 6379,
   host: '127.0.0.1',

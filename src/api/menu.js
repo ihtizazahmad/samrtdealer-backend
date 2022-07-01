@@ -5,6 +5,9 @@ const router = express.Router();
 
 router.get('/user/menus', async (req, res) => {
     let data = await menu.find(req.data);
+    if(!data){
+        res.send({message:"no data found"})
+    }
     res.send(data);
 })
 

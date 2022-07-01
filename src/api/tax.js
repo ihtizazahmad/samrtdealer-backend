@@ -1,6 +1,4 @@
 
-
-
 import express from 'express'
 import tax from '../models/tax.js'
 

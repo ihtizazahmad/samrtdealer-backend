@@ -20,6 +20,7 @@ import orderitem from './api/orderitem.js'
 import paymentlist from './api/paymentList.js'
 import posmenuitem from './api/posmenuitem.js'
 import posmenu from './api/posmenu.js'
+import posMenuSizes from '././api/posMenuSize.js'
 import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
@@ -32,24 +33,25 @@ import './middlewares/init-redis.js'
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
-app.use(express.urlencoded({ extended: true }));
-
 
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 const corsOptions = {
-    origin: '*',
+    origin:true,
     credentials: true,            //access-control-allow-credentials:true
     optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
-
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", true);
+    next();
+  });
 
 
 // app.use('/api/user', Auth);
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, translate, tables)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax, translate, tables,)
 
 
 app.use('*', (req, res) => {
