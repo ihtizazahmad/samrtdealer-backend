@@ -6,6 +6,10 @@ router.get('/category/:_id', async(req, res) => {
     let data = await category.find(req.params).populate('product')
     res.send(data);
 })
+router.get('/category', async(req, res) => {
+    let data = await category.find(req.params).populate('product')
+    res.send(data);
+})
 
 router.post('/category', async (req, res) => {
     const { id, name, parent, extraData, categoryType, displayMangerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures } = req.body;
