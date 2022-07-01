@@ -10,6 +10,12 @@ const posmenuitemSchema = new mongoose.Schema({
     level: {
         type: String
     },
+    row: {
+        type: String
+    },
+    colomn: {
+        type: String
+    },
    
     category: 
         [{
