@@ -2,7 +2,7 @@ import express from 'express';
 import category from '../models/category.js'
 const router = express.Router();
 
-router.get('/category/:_id', async(req, res) => {
+router.get('/category/:id', async(req, res) => {
     let data = await category.find(req.params).populate('product')
     res.send(data);
 })
