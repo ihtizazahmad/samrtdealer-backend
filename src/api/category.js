@@ -7,7 +7,7 @@ router.get('/category/:id', async(req, res) => {
     res.send(data);
 })
 
-router.get('/category/:_id', async(req, res) => {
+router.get('/category', async(req, res) => {
     let data = await category.find(req.params).populate('product')
     res.send(data);
 })
