@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
 
-    
+
     id: {
         type: String
     },
@@ -35,9 +35,12 @@ const productSchema = new mongoose.Schema({
     active: {
         type: Boolean
     },
-    categoryId: {
-        type: String
-    },
+    categoryId:
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'category'
+
+        }],
     inHouseTaxId: {
         type: Number
     },

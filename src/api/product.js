@@ -5,7 +5,12 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find(req.data)
+    let data = await product.find(req.params).populate('category')
+    res.send(data);
+
+})
+router.get('/product/id', async (req, res) => {
+    let data = await product.find(req.params).populate('category')
     res.send(data);
 
 })
@@ -21,18 +26,20 @@ router.post('/product', async (req, res) => {
         console.log(err)
     })
 })
-// router.put('/productcategory/:_id', async (req, res) => {
+router.put('/productcategory/:_id', async (req, res) => {
 
-//     console.log(req.params.id)
-//     let data = await product.findByIdAndUpdate(
-//         { _id: req.params._id }, { $push: { category: req.body.categoryId } }, { new: true });
-//     if (data) {
-//         res.send({message:"product data updated successfully"});
-//     }
-//     else {
-//         res.send({message:"product data cannot be updated successfully"})
-//     }
-// })
+    console.log(req.params.id)
+    let data = await product.findByIdAndUpdate(
+        { _id: req.params._id },
+         { $push: { category: req.body.categoryId } },
+          { new: true });
+    if (data) {
+        res.send({message:"product data updated successfully"});
+    }
+    else {
+        res.send({message:"product data cannot be updated successfully"})
+    }
+})
 router.put('/product/:_id', async (req, res) => {
 
     console.log(req.params.id)
