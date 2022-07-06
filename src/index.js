@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-
+import bodyParser from 'body-parser';
 import Auth from './api/user.js';
 import payer from './api/payer.js';
 import tabledata from './api/tablesdata.js';
@@ -37,7 +37,8 @@ const port = process.env.PORT;
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 const corsOptions = {
     origin:true,
     credentials: true,            //access-control-allow-credentials:true
