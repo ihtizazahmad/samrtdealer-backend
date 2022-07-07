@@ -16,20 +16,8 @@ router.get('/product/id', async (req, res) => {
 })
 
 router.post('/product', async (req, res) => {
-    const { active, barCode, categoryId, fullDescription, inHouseTaxId,
-        name,
-           order,
-           price,
-           shortDescription,
-           takeawayTaxId} = req.body;
-    const productData = await new product({
-        active, barCode, categoryId, fullDescription, inHouseTaxId,
-     name,
-        order,
-        price,
-        shortDescription,
-        takeawayTaxId
-    });
+    const { id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
+    const productData = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json(result);
@@ -44,13 +32,13 @@ router.put('/productcategory/:_id', async (req, res) => {
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id },
-        { $push: { category: req.body.categoryId } },
-        { new: true });
+         { $push: { category: req.body.categoryId } },
+          { new: true });
     if (data) {
-        res.send({ message: "product data updated successfully" });
+        res.send({message:"product data updated successfully"});
     }
     else {
-        res.send({ message: "product data cannot be updated successfully" })
+        res.send({message:"product data cannot be updated successfully"})
     }
 })
 router.put('/product/:_id', async (req, res) => {
@@ -62,10 +50,10 @@ router.put('/product/:_id', async (req, res) => {
             $set: req.body
         });
     if (data) {
-        res.send({ message: "product data updated successfully" });
+        res.send({message:"product data updated successfully"});
     }
     else {
-        res.send({ message: "product data cannot be updated successfully" })
+        res.send({message:"product data cannot be updated successfully"})
     }
 })
 router.delete('/product/:_id', async (req, res) => {
