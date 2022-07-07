@@ -36,11 +36,9 @@ const productSchema = new mongoose.Schema({
         type: Boolean
     },
     categoryId:
-        [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'category'
-
-        }],
+     {
+        type: String
+     },
     inHouseTaxId: {
         type: Number   
     },
