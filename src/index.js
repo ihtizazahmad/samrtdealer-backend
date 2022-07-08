@@ -35,7 +35,9 @@ dotenv.config();
 const port = process.env.PORT;
 
 app.use(cors({
-    origin:'*',
+    origin:'http://localhost:18020',
+    credentials: true,
+    optionsSucessStatus: 200
 }));
 app.use(helmet());
 app.use(morgan("dev"));
