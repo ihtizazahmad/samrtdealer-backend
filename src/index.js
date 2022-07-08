@@ -37,19 +37,14 @@ const port = process.env.PORT;
 app.use(cors({
     origin:'http://localhost:18020',
     credentials: true,
-    optionsSucessStatus: 200
+    optionsSucessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
-app.use(helmet());
-app.use(morgan("dev"));
 app.use(express.json());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// const corsOptions = {
-//     origin:'http://localhost:18020',
-
-//     optionSuccessStatus: 200
-// }
+app.use(helmet());
+app.use(morgan("dev"));
 
 app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax, translate, tables,)
 
