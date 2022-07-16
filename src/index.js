@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-
+import bodyParser from 'body-parser';
 import Auth from './api/user.js';
 import payer from './api/payer.js';
 import tabledata from './api/tablesdata.js';
@@ -34,23 +34,18 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT;
 
+app.use(cors({
+    origin:'http://localhost:18020',
+    credentials: true,
+    optionsSucessStatus: 200,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+app.use(express.json());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-const corsOptions = {
-    origin:true,
-    credentials: true,            //access-control-allow-credentials:true
-    optionSuccessStatus: 200
-}
-app.use(cors(corsOptions));
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", true);
-    next();
-  });
 
-
-// app.use('/api/user', Auth);
 app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax, translate, tables,)
 
 

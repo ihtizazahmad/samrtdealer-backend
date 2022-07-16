@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 const posmenuitemSchema = new mongoose.Schema({
     id: {
-        type:String
+        type: String
     },
     level: {
         type: String
@@ -13,18 +13,20 @@ const posmenuitemSchema = new mongoose.Schema({
     row: {
         type: String
     },
-    colomn: {
+    column: {
         type: String
     },
-   
-    category: 
+
+    category:
         [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'category'
-        }]
-  
+        }],
+    product: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'product'
+    }]
 
-  
 })
 const posmenuitem = mongoose.model('posmenuitem', posmenuitemSchema);
 export default posmenuitem;

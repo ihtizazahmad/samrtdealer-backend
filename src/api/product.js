@@ -5,34 +5,42 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find(req.data)
+    let data = await product.find(req.params).populate('category')
+    res.send(data);
+
+})
+router.get('/product/id', async (req, res) => {
+    let data = await product.find(req.params).populate('category')
     res.send(data);
 
 })
 
 router.post('/product', async (req, res) => {
     const { id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
-    const data = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
-    await data.save().then(result => {
+    const productData = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
+    await productData.save().then(result => {
         console.log(result, "Product data save to database")
-        res.send("Product data saved to database");
+        res.json(result);
+        res.send('Product data save to database')
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
     })
 })
-// router.put('/productcategory/:_id', async (req, res) => {
+router.put('/productcategory/:_id', async (req, res) => {
 
-//     console.log(req.params.id)
-//     let data = await product.findByIdAndUpdate(
-//         { _id: req.params._id }, { $push: { category: req.body.categoryId } }, { new: true });
-//     if (data) {
-//         res.send({message:"product data updated successfully"});
-//     }
-//     else {
-//         res.send({message:"product data cannot be updated successfully"})
-//     }
-// })
+    console.log(req.params.id)
+    let data = await product.findByIdAndUpdate(
+        { _id: req.params._id },
+         { $push: { category: req.body.categoryId } },
+          { new: true });
+    if (data) {
+        res.send({message:"product data updated successfully"});
+    }
+    else {
+        res.send({message:"product data cannot be updated successfully"})
+    }
+})
 router.put('/product/:_id', async (req, res) => {
 
     console.log(req.params.id)

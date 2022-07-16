@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
 
-    
+
     id: {
         type: String
     },
@@ -35,11 +35,12 @@ const productSchema = new mongoose.Schema({
     active: {
         type: Boolean
     },
-    categoryId: {
+    categoryId:
+     {
         type: String
-    },
+     },
     inHouseTaxId: {
-        type: Number
+        type: Number   
     },
     takeawayTaxId: {
         type: Number

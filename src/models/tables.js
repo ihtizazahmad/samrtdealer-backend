@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const tablesSchema = new mongoose.Schema({
-    Id: {
+    id: {
         type: String
     },
     tableNo: {
