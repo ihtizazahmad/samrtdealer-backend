@@ -37,7 +37,8 @@ router.put('/display/:id', async (req, res) => {
 )
 router.delete('/display/:id', async (req, res) => {
     console.log(req.params)
-    let data = await display.deleteOne(req.params)
+    const displayId=req.params
+    let data = await display.deleteOne(displayId)
     if (data) {
         res.send({ message: "display data delete successfully" });
     }

@@ -1,92 +1,53 @@
 import express from 'express'
 import  createError from 'http-errors'
 import User from '../models/User.js'
-import  authSchema  from '../middlewares/validate-schema.js'
-import tokenAcess from '../middlewares/jwt-helper.js'
-// import signRefreshToken from '../middlewares/jwt-helper.js'
-// import verifyRefreshToken from '../middlewares/jwt-helper.js'
-import  client from '../middlewares/init-redis.js'
+import jwt from "jsonwebtoken";
+
 const router=express.Router()
-const signToken=tokenAcess.signAccessToken;
-const verifyaccessToken=tokenAcess.verifyAccessToken;
-const signrefreshToken=tokenAcess.signRefreshToken;
-const verifyrefreshToken=tokenAcess.verifyRefreshToken;
 
-router.post('/register',async (req, res, next)  => {
-  try {
-    const { email, password } = req.body
-    if (!email || !password) res.send("email and password are required")
-    const result = await authSchema.validateAsync(req.body)
-    
-    const doesExist = await User.findOne({ email: result.email })
-    if (doesExist)
-    res.send(`${result.email} is already been registered`)
-    
-    const user = new User(result)
-    const savedUser = await user.save()
-      const accessToken = await signToken(savedUser.id)
-      const refreshToken = await signrefreshToken(savedUser.id)
 
-      res.send({ accessToken, refreshToken })
-    } catch (error) {
-      if (error.isJoi === true) error.status = 422
-      next(error)
-    }
-  })
+router.get('/register', async (req, res) => {
+  const user = await User.find(req.data)
+  res.send(user)
+})
 
-  router.post('/login',async (req, res, next) => {
-    try {
-      const result = await authSchema.validateAsync(req.body)
-      const user = await User.findOne({ email: result.email })
-      if (!user) res.send('User not registered')
 
-      const isMatch = await user.isValidPassword(result.password)
-      if (!isMatch)
-        res.send('password not valid')
+router.post("/register", async (req, res) => {
 
-      const accessToken = await signToken(user.id)
-      const refreshToken = await signrefreshToken(user.id)
+  const { userName,email, password } = req.body;
+  const userRegister = await User.findOne({ email });
+  if (userRegister) {
+    return res.send({ message: "this user is already registered" })
+  }
+  const newUser = new User({ userName, email, password });
+  const savedUser = await newUser.save()
+    .catch((err) => {
+    console.log("Error: ", err);
+    return res.send({ error: "Cannot register user at the moment!" });
+  });
 
-      res.send({ accessToken, refreshToken })
-    } catch (error) {
-      if (error.isJoi === true)
-        return next(res.send('Invalid Password'))
-      next(error)
-    }
-  })
+  if (savedUser) {
+ res.send({ message: "Thanks for registering" });
+  } else {
+    res.send({ error: "Cannot register user at the moment!" });
+  } 
 
-  router.post('/refresh-token',async (req, res, next) => {
-    try {
-      const { refreshToken } = req.body
-      if (!refreshToken) throw createError.BadRequest()
-      const userId = await verifyrefreshToken(refreshToken)
-        
+});
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.send({ message: "User not found" });
+  }
+  if (user.password !== password) {
+    return res.send({ message: "Wrong password" });
+  }
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.send({message: "user login successfully",  token });
+}
+  
+);
 
-      const accessToken = await signToken(userId)
-      const refToken = await signrefreshToken(userId)
-      res.send({ accessToken: accessToken, refreshToken: refToken })
-    } catch (error) {
-      next(error)
-    }
-  }),
-
-  router.delete('/logout',async (req, res, next)=> {
-    try {
-      const { refreshToken } = req.body
-      if (!refreshToken) res.send("No refresh token provided")
-      const userId = await verifyrefreshToken(refreshToken)
-      client.DEL(userId, (err, val) => {
-        if (err) {
-          console.log(err.message)
-          throw createError.InternalServerError()
-        }
-        console.log(val)
-        res.sendStatus(204)
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
 export default router;
 
 

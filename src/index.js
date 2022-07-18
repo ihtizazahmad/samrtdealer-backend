@@ -28,7 +28,7 @@ import translate from './api/languagetranslation.js'
 import tables from './api/tables.js'
 
 import './config/config.js';
-import './middlewares/init-redis.js'
+
 
 const app = express();
 dotenv.config();
