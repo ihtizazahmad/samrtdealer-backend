@@ -21,7 +21,7 @@ router.post('/PosMenuSize', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenuSize/:_id', async (req, res) => {
+router.put('/PosMenuSize/:id', async (req, res) => {
     console.log(req.params)
     let data = await posMenuSize.updateOne(
         req.params,
@@ -36,7 +36,7 @@ router.put('/PosMenuSize/:_id', async (req, res) => {
         res.send({ message: "posmenusize data cannot be updated successfully" })
     }
 })
-router.delete('/PosMeneSize/:_id', async (req, res) => {
+router.delete('/PosMeneSize/:id', async (req, res) => {
     console.log(req.params)
     let data = await posMenuSize.deleteOne(req.params)
     // res.send(data)

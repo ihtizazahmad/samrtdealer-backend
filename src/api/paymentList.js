@@ -19,7 +19,7 @@ router.post('/paymenttype', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/paymenttype/:_id', async (req, res) => {
+router.put('/paymenttype/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await paymentlist.updateOne(
@@ -35,7 +35,7 @@ router.put('/paymenttype/:_id', async (req, res) => {
         res.send({ message: "paymentList data cannot be updated successfully" })
     }
 })
-router.delete('/paymenttype/:_id', async (req, res) => {
+router.delete('/paymenttype/:id', async (req, res) => {
     console.log(req.params)
     let data = await paymentlist.deleteOne(req.params)
     // res.send(data)

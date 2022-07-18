@@ -27,7 +27,7 @@ router.post('/product', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/productcategory/:_id', async (req, res) => {
+router.put('/productcategory/:id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
@@ -41,7 +41,7 @@ router.put('/productcategory/:_id', async (req, res) => {
         res.send({message:"product data cannot be updated successfully"})
     }
 })
-router.put('/product/:_id', async (req, res) => {
+router.put('/product/:id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await product.updateOne(
@@ -56,7 +56,7 @@ router.put('/product/:_id', async (req, res) => {
         res.send({message:"product data cannot be updated successfully"})
     }
 })
-router.delete('/product/:_id', async (req, res) => {
+router.delete('/product/:id', async (req, res) => {
     console.log(req.params)
     let data = await product.deleteOne(req.params)
     if (data) {

@@ -21,7 +21,7 @@ router.post('/display', async (req, res) => {
     }
     )
 })
-router.put('/display/:_id', async (req, res) => {
+router.put('/display/:id', async (req, res) => {
     let data = await display.updateOne(
         req.params,
         {
@@ -35,7 +35,7 @@ router.put('/display/:_id', async (req, res) => {
     }
 }
 )
-router.delete('/display/:_id', async (req, res) => {
+router.delete('/display/:id', async (req, res) => {
     console.log(req.params)
     let data = await display.deleteOne(req.params)
     if (data) {

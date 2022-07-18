@@ -13,7 +13,7 @@ router.get('/PosMenuItem/:id', async(req, res) => {
     res.send(data);
 })
 
-router.put('/PosMenuCategory/:_id', async (req, res) => {
+router.put('/PosMenuCategory/:id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await posmenuitem.findByIdAndUpdate(
@@ -30,7 +30,7 @@ router.put('/PosMenuCategory/:_id', async (req, res) => {
         res.send({message:"product data cannot be updated successfully"})
     }
 })
-router.put('/PosMenuProduct/:_id', async (req, res) => {
+router.put('/PosMenuProduct/:id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await posmenuitem.findByIdAndUpdate(
@@ -61,7 +61,7 @@ router.post('/PosMenuItem', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenuItem/:_id', async (req, res) => {
+router.put('/PosMenuItem/:id', async (req, res) => {
     console.log(req.params.id)
     let data = await posmenuitem.updateOne(
         req.params,
@@ -76,7 +76,7 @@ router.put('/PosMenuItem/:_id', async (req, res) => {
         res.send({ message: "posmenuitem data cannot be updated successfully" })
     }
 })
-router.delete('/PosMenuItem/:_id', async (req, res) => {
+router.delete('/PosMenuItem/:id', async (req, res) => {
     console.log(req.params)
     let data = await posmenuitem.deleteOne(req.params)
     // res.send(data)

@@ -21,7 +21,7 @@ router.post('/PosMenu', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenu/:_id', async (req, res) => {
+router.put('/PosMenu/:id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await posMenu.updateOne(
@@ -37,7 +37,7 @@ router.put('/PosMenu/:_id', async (req, res) => {
         res.send({ message: "posmenu data cannot be updated successfully" })
     }
 })
-router.delete('/PosMenu/:_id', async (req, res) => {
+router.delete('/PosMenu/:id', async (req, res) => {
     console.log(req.params)
     let data = await posMenu.deleteOne(req.params)
     // res.send(data)
