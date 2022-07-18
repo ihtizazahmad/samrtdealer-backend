@@ -20,7 +20,7 @@ router.post('/mu', async (req, res) => {
     })
 })
 
-router.put('/mu/:_id', async (req, res) => {
+router.put('/mu/:id', async (req, res) => {
     let data = await mu.updateOne(
         req.params,
         {
@@ -35,7 +35,7 @@ router.put('/mu/:_id', async (req, res) => {
     }
 })
 
-router.delete('/mu/:_id', async (req, res) => {
+router.delete('/mu/:id', async (req, res) => {
     console.log(req.params)
     let data = await mu.deleteOne(req.params)
     // res.send(data)

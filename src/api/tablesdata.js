@@ -25,7 +25,7 @@ router.post('/footer-table', async (req, res) => {
 
 })
 
-router.put('/footer-table/:_id', async (req, res) => {
+router.put('/footer-table/:id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.updateOne(
         req.params,
@@ -40,7 +40,7 @@ router.put('/footer-table/:_id', async (req, res) => {
         res.send({ message: "table data cannot be updated successfully" })
     }
 })
-router.delete('/footer-table/:_id', async (req, res) => {
+router.delete('/footer-table/:id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.deleteOne(req.params)
     // res.send(data)
