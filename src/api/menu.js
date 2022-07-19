@@ -22,7 +22,7 @@ router.post('/user/menus', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/user/menus:id', async (req, res) => {
+router.put('/user/menus:_id', async (req, res) => {
     let data = await menu.updateOne(
         req.params,
         {
@@ -37,7 +37,7 @@ router.put('/user/menus:id', async (req, res) => {
     }
 })
 
-router.delete('/menu/:id', async (req, res) => {
+router.delete('user/menu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await menu.deleteOne(req.params)
     // res.send(data)

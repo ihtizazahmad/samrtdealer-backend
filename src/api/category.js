@@ -21,7 +21,7 @@ router.post('/category', async (req, res) => {
     });
 
 })
-router.put('/category/:id', async (req, res) => {
+router.put('/category/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params)
     let data = await category.updateOne(
@@ -36,7 +36,7 @@ router.put('/category/:id', async (req, res) => {
     }
 })
 
-router.delete('/category/:id', async (req, res) => {
+router.delete('/category/:_id', async (req, res) => {
     console.log(req.params)
     let data = await category.deleteOne(req.params)
     if (data) {

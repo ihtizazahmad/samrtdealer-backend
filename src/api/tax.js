@@ -22,7 +22,7 @@ router.post('/tax', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/tax/:id', async (req, res) => {
+router.put('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.updateOne(
         req.params,
@@ -36,7 +36,7 @@ router.put('/tax/:id', async (req, res) => {
         res.send({ message: "tax data cannot be updated successfully" })
     }
 })
-router.delete('/tax/:id', async (req, res) => {
+router.delete('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.deleteOne(req.params)
     // res.send(data)

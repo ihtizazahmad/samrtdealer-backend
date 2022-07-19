@@ -21,7 +21,7 @@ router.post('/orderitem', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/orderitem/:id', async (req, res) => {
+router.put('/orderitem/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await orderitem.updateOne(
@@ -38,7 +38,7 @@ router.put('/orderitem/:id', async (req, res) => {
     }
 })
 
-router.delete('/orderitem/:id', async (req, res) => {
+router.delete('/orderitem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await orderitem.deleteOne(req.params)
     // res.send(data)

@@ -44,7 +44,7 @@ router.post('/payer', async (req, res) => {
 
 
 })
-router.put('/payer/:id', async (req, res) => {
+router.put('/payer/:_id', async (req, res) => {
     await payer.updateOne(
         req.params,
 
@@ -62,7 +62,7 @@ router.put('/payer/:id', async (req, res) => {
     // }
 
 })
-router.delete('/payer/:id', async (req, res) => {
+router.delete('/payer/:_id', async (req, res) => {
     console.log(req.params)
     let data = await payer.deleteOne(req.params)
     // res.send(data)

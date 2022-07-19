@@ -19,7 +19,7 @@ router.post('/employee', async (req, res) => {
     })
 }
 )
-router.put('/employee/:id', async(req, res) => {
+router.put('/employee/:_id', async(req, res) => {
     console.log(req.params);
     let data = await employee.updateOne(
         req.params,
@@ -34,7 +34,7 @@ router.put('/employee/:id', async(req, res) => {
     }
         
 })
-router.delete('/employee/:id', async (req, res) => {
+router.delete('/employee/:_id', async (req, res) => {
     console.log(req.params)
     let data = await employee.deleteOne(req.params)
     if (data) {

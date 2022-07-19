@@ -5,12 +5,12 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find(req.params).populate('category')
+    let data = await product.find().populate('categoryId')
     res.send(data);
 
 })
 router.get('/product/id', async (req, res) => {
-    let data = await product.find(req.params).populate('category')
+    let data = await product.find(req.params).populate('categoryId')
     res.send(data);
 
 })

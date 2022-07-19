@@ -21,7 +21,7 @@ router.post('/check', async (req, res) => {
     });
 
 })
-router.put('/check/:id', async (req, res) => {
+router.put('/check/:_id', async (req, res) => {
 
     let data = await check.updateOne(
         req.params,
@@ -36,7 +36,7 @@ router.put('/check/:id', async (req, res) => {
     }
 })
 
-router.delete('/check/:id', async (req, res) => { 
+router.delete('/check/:_id', async (req, res) => { 
     console.log(req.params)
     let data = await check.deleteOne(req.params)
     if (data) {

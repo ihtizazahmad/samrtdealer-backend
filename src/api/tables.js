@@ -25,7 +25,7 @@ router.post('/tables', async (req, res) => {
 
 })
 
-router.put('/tables/:id', async (req, res) => {
+router.put('/tables/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tables.updateOne(
         req.params,
@@ -40,7 +40,7 @@ router.put('/tables/:id', async (req, res) => {
         res.send({ message: "tables data cannot be updated successfully" })
     }
 })
-router.delete('/tables/:id', async (req, res) => {
+router.delete('/tables/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tables.deleteOne(req.params)
     // res.send(data)
