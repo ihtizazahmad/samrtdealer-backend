@@ -11,6 +11,7 @@ router.get('/order', async (req, res) => {
 
 router.post('/order', async (req, res) => {
     const { id, tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, tableNo, parentOrderNo, orderStatus, orderType } = req.body;
+    
     const data = await new order({ id, tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, tableNo, parentOrderNo, orderStatus, orderType });
     await data.save().then(result => {
         console.log(result, "Order data save to database")
@@ -21,14 +22,13 @@ router.post('/order', async (req, res) => {
     })
 })
 router.put('/order/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params)
     let data = await order.updateOne(
         req.params,
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
+    
     if (data) {
         res.send({ message: "order data updated successfully" });
     }
@@ -40,7 +40,6 @@ router.put('/order/:_id', async (req, res) => {
 router.delete('/order/:_id', async (req, res) => {
     console.log(req.params)
     let data = await order.deleteOne(req.params)
-    // res.send(data)
     if (data) {
         res.send({ message: "order data delete successfully" });
     }

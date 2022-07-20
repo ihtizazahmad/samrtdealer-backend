@@ -10,8 +10,10 @@ const orderItemSchema = new mongoose.Schema({
         type: String
     
     },
-
-needToPrintQty: {
+    productId:{
+        type:String
+    },
+    needToPrintQty: {
 
         type: Number
     },
@@ -52,16 +54,9 @@ needToPrintQty: {
     units: {
         type: Number
     },
-
-
-    category: {
+    productName:{
         type: String
     },
-    categoryId: {
-        type: String
-    },
-
-
     text: {
         type: String
     }
