@@ -9,7 +9,7 @@ router.get('/category', async (req, res) => {
     
     res.send(data);
 })
-router.get('/category/_id', async (req, res) => {
+router.get('/category/:_id', async (req, res) => {
     let data = await category.find(req.params).populate('displayManagerName').populate('displayManagerId')
     res.send(data);
 })

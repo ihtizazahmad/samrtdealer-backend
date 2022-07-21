@@ -30,9 +30,7 @@ router.put('/check/:_id', async (req, res) => {
      {new:true},
      
     )
-          // {
-        //     $set: req.body
-        // });
+    
     if (data) {
         res.send({ message: "check data updated successfully" });
     }
