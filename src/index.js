@@ -32,7 +32,6 @@ import './config/config.js';
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT;
 
 app.use(cors({
     origin:'http://localhost:18020',
@@ -57,6 +56,7 @@ app.use('*', (req, res) => {
 });
 
 
+const port = process.env.PORT || 3333;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
