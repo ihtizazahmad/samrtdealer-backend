@@ -1,12 +1,8 @@
 
 import mongoose from 'mongoose';
 
-// const Schema = mongoose.Schema;
-
 const posmenuitemSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
+
     level: {
         type: String
     },

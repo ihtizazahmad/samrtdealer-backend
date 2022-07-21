@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 const categorySchema = new mongoose.Schema({
    
-    id: {
-        type: String
-    },
     name: {
         type: String
     },
@@ -16,9 +13,10 @@ const categorySchema = new mongoose.Schema({
     categoryType: {
         type: String
     },
-    displayMangerName: {
-        type: String
-    },
+    displayManagerName: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'display'
+    }],
     order: {
         type: Number
     },
@@ -28,9 +26,10 @@ const categorySchema = new mongoose.Schema({
     active: {
         type: String
     },
-    displayManagerId: {
-        type: String
-    },
+    displayManagerId: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'display' 
+    }],
     parentId: {
         type: String
     },

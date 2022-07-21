@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
 const employeeSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
     userName: {
         type: String
     },
@@ -15,9 +12,10 @@ const employeeSchema = new mongoose.Schema({
     email: {
         type: String
     },
-    role: {
-        type: String,
-    },
+    role:[ {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "role"
+    }],
     password: {
         type: String
     },

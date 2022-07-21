@@ -12,8 +12,8 @@ router.get('/tax', async (req, res) => {
 })
 
 router.post('/tax', async (req, res) => {
-    const { id,name, taxValue } = req.body;
-    const data = await new tax({ id, name, taxValue});
+    const {name, taxValue } = req.body;
+    const data = await new tax({ name, taxValue});
     await data.save().then(result => {
         console.log(result, "Tax data save to database")
         res.send("Tax data saved to database");
@@ -22,7 +22,7 @@ router.post('/tax', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/tax/:id', async (req, res) => {
+router.put('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.updateOne(
         req.params,
@@ -36,7 +36,7 @@ router.put('/tax/:id', async (req, res) => {
         res.send({ message: "tax data cannot be updated successfully" })
     }
 })
-router.delete('/tax/:id', async (req, res) => {
+router.delete('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.deleteOne(req.params)
     // res.send(data)

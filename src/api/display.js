@@ -4,13 +4,13 @@ import display from '../models/display.js';
 const router = express.Router();
 
 router.get('/display', async (req, res) => {
-    let data = await display.find(req.data);
+    let data = await display.find(req.params).populate('order');
     res.send(data);
 })
 
 router.post('/display', async (req, res) => {
-    const { id, name, order, systemDisplay, displayKey } = req.body;
-    const data = await new display({ id, name, order, systemDisplay, displayKey });
+    const {  name, order, systemDisplay, displayKey } = req.body;
+    const data = await new display({  name, order, systemDisplay, displayKey });
     await data.save().then(result => {
         console.log(result, "Display data save to database")
         res.send("Display data saved to database");
@@ -21,12 +21,13 @@ router.post('/display', async (req, res) => {
     }
     )
 })
-router.put('/display/:id', async (req, res) => {
-    let data = await display.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+router.put('/display/:_id', async (req, res) => {
+    let data = await display.findByIdAndUpdate(
+       {_id:req.params._id},{
+        $push:{order:req.body.order}
+       },
+       {new:true}
+    )
     if (data) {
         res.send({ message: "display data updated successfully" });
     }
@@ -35,7 +36,7 @@ router.put('/display/:id', async (req, res) => {
     }
 }
 )
-router.delete('/display/:id', async (req, res) => {
+router.delete('/display/:_id', async (req, res) => {
     console.log(req.params)
     const displayId=req.params
     let data = await display.deleteOne(displayId)

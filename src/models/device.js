@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
 const deivceSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
     name: {
         type: String
     },

@@ -1,17 +1,12 @@
 import mongoose from 'mongoose';
 
 const paymentlistSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
     name: {
         type: String
     },
     paymentsGTypeId: {
         type: String
-    },
-
-    
+    }, 
     isActive: {
         type: Boolean
     },

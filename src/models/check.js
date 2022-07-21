@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 const checkSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
+  
     checkNo: {
         type: Number
     },
@@ -18,9 +16,10 @@ const checkSchema = new mongoose.Schema({
     amount: {
         type: Number
     },
-    table: {
-        type: String
-    },
+    table: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"tables" 
+    }],
     checkDate: {
         type: Date,
         default: Date.now

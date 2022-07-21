@@ -11,8 +11,8 @@ router.get('/PosMenu', async (req, res) => {
 })
 
 router.post('/PosMenu', async (req, res) => {
-    const { id, name, comments, firstColumnixed } = req.body;
-    const data = await new posMenu({ id, name,  comments, firstColumnixed });
+    const { name, comments, firstColumnixed } = req.body;
+    const data = await new posMenu({ name,  comments, firstColumnixed });
     await data.save().then(result => {
         console.log(result, "Posmenu data save to database")
         res.send("Posmenu data saved to database");
@@ -21,7 +21,7 @@ router.post('/PosMenu', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/PosMenu/:id', async (req, res) => {
+router.put('/PosMenu/:_id', async (req, res) => {
     // const data= await device();
     console.log(req.params.id)
     let data = await posMenu.updateOne(
@@ -37,7 +37,7 @@ router.put('/PosMenu/:id', async (req, res) => {
         res.send({ message: "posmenu data cannot be updated successfully" })
     }
 })
-router.delete('/PosMenu/:id', async (req, res) => {
+router.delete('/PosMenu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await posMenu.deleteOne(req.params)
     // res.send(data)

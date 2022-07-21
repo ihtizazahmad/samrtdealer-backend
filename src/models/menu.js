@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 const menuSchema = new mongoose.Schema({
-  
-    id: {
-        type: String
-    },
     header: {
         type: String
     },
@@ -28,9 +24,10 @@ const menuSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    order: {
-        type: Number
-    },
+    order: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"order"
+    }],
     translationKey: {
         type: String
     },

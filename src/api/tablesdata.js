@@ -12,8 +12,8 @@ router.get('/footer-table', async (req, res) => {
 
 })
 router.post('/footer-table', async (req, res) => {
-    const { Id, Operator, TableNo, TableName, Amount } = req.body;
-    let data = new tabledata({ Id, Operator, TableNo, TableName, Amount });
+    const {  Operator, TableNo, TableName, Amount } = req.body;
+    let data = new tabledata({  Operator, TableNo, TableName, Amount });
     await data.save().then(result => {
         console.log(result, "Table data save to database")
         res.send("Table saved to database");
@@ -25,14 +25,13 @@ router.post('/footer-table', async (req, res) => {
 
 })
 
-router.put('/footer-table/:id', async (req, res) => {
+router.put('/footer-table/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.updateOne(
         req.params,
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
     if (data) {
         res.send({ message: "table data updated successfully" });
     }
@@ -40,7 +39,7 @@ router.put('/footer-table/:id', async (req, res) => {
         res.send({ message: "table data cannot be updated successfully" })
     }
 })
-router.delete('/footer-table/:id', async (req, res) => {
+router.delete('/footer-table/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tabledata.deleteOne(req.params)
     // res.send(data)

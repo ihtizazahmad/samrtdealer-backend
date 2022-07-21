@@ -1,9 +1,6 @@
 import mongoose from 'mongoose';
 
 const muSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
     code: {
         type: String
     },

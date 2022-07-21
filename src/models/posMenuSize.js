@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 
 const posMenuSize=new mongoose.Schema({
-    id:{
-        type:String
-  
-},
     name:{
         type:String
        

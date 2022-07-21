@@ -5,14 +5,14 @@ import orderitem from '../models/orderitem.js'
 const router = express.Router()
 
 router.get('/orderitem', async (req, res) => {
-    let data = await orderitem.find(req.data);
+    let data = await orderitem.find(req.params).populate('order').populate('product').select('name');
     res.send(data);
 
 })
 
 router.post('/orderitem', async (req, res) => {
-    const { id, orderId, needToPrintQty, categoryId, category, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
-    const data = await new orderitem({ id, orderId, needToPrintQty, categoryId, category, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
+    const { orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
+    const data = await new orderitem({ orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.send("OrderItem data saved to database");
@@ -21,15 +21,16 @@ router.post('/orderitem', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/orderitem/:id', async (req, res) => {
-    // const data= await device();
+router.put('/orderitem/:_id', async (req, res) => {
+    
     console.log(req.params.id)
-    let data = await orderitem.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+    let data = await orderitem.findByIdAndUpdate(
+        {_id:req.params._id},{
+            $push:{orderId:req.body.orderId,productName:req.body.productName}
+        },
+        {new:true}
+        );
+    
     if (data) {
         res.send({ message: "orderitem data updated successfully" });
     }
@@ -38,7 +39,7 @@ router.put('/orderitem/:id', async (req, res) => {
     }
 })
 
-router.delete('/orderitem/:id', async (req, res) => {
+router.delete('/orderitem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await orderitem.deleteOne(req.params)
     // res.send(data)

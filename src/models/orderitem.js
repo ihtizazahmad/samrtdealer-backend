@@ -1,21 +1,19 @@
 import mongoose from 'mongoose';
 const orderItemSchema = new mongoose.Schema({
+    orderId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "order"
 
-   
-    id: {
-        type: String
-    },
-
-    orderId: {
-        type: String
-    
-    },
-
-needToPrintQty: {
+    }],
+    productId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product"
+    }],
+    needToPrintQty: {
 
         type: Number
     },
-        
+
     points: {
         type: Number
     },
@@ -34,7 +32,7 @@ needToPrintQty: {
 
     price: {
         type: Number
-},
+    },
 
 
     lineValueExclTax: {
@@ -52,16 +50,9 @@ needToPrintQty: {
     units: {
         type: Number
     },
-
-
-    category: {
+    productName: {
         type: String
     },
-    categoryId: {
-        type: String
-    },
-
-
     text: {
         type: String
     }

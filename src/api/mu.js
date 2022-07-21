@@ -9,8 +9,8 @@ router.get('/mu', async (req, res) => {
 })
 
 router.post('/mu', async (req, res) => {
-    const { id, name, code } = req.body;
-    let data = await new mu({ id, name, code })
+    const { name, code } = req.body;
+    let data = await new mu({ name, code })
     await data.save().then(result => {
         console.log(result, "Mu data save to database")
         res.send("Mu data saved to database");
@@ -20,7 +20,7 @@ router.post('/mu', async (req, res) => {
     })
 })
 
-router.put('/mu/:id', async (req, res) => {
+router.put('/mu/:_id', async (req, res) => {
     let data = await mu.updateOne(
         req.params,
         {
@@ -35,7 +35,7 @@ router.put('/mu/:id', async (req, res) => {
     }
 })
 
-router.delete('/mu/:id', async (req, res) => {
+router.delete('/mu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await mu.deleteOne(req.params)
     // res.send(data)

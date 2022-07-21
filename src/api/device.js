@@ -8,8 +8,8 @@ router.get('/device', async (req, res) => {
 })
 
 router.post('/device', async (req, res) => {
-    const { id, name } = req.body;
-    const data = await new device({ id, name });
+    const {  name } = req.body;
+    const data = await new device({  name });
     await data.save().then(result => {
         console.log(result, "Device data save to database")
         res.send("device data saved to database");
@@ -18,7 +18,7 @@ router.post('/device', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/device/:id', async (req, res) => {
+router.put('/device/:_id', async (req, res) => {
     console.log(req.params.id)
     let data = await device.updateOne(
         req.params.id,
@@ -32,7 +32,7 @@ router.put('/device/:id', async (req, res) => {
         res.send({ message: "device data cannot be updated successfully" })
     }
 })
-router.delete('/device/:id', async (req, res) => {
+router.delete('/device/:_id', async (req, res) => {
     console.log(req.params)
     let data = await device.deleteOne(req.params)
     if (data) {

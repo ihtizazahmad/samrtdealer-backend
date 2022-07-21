@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const tabledataSchema = new mongoose.Schema({
-    Id: {
-        type: Number,
-        required: true
-    },
     Operator: {
         type: String,
         required: true
