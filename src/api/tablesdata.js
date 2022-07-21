@@ -12,8 +12,8 @@ router.get('/footer-table', async (req, res) => {
 
 })
 router.post('/footer-table', async (req, res) => {
-    const { Id, Operator, TableNo, TableName, Amount } = req.body;
-    let data = new tabledata({ Id, Operator, TableNo, TableName, Amount });
+    const {  Operator, TableNo, TableName, Amount } = req.body;
+    let data = new tabledata({  Operator, TableNo, TableName, Amount });
     await data.save().then(result => {
         console.log(result, "Table data save to database")
         res.send("Table saved to database");
@@ -32,7 +32,6 @@ router.put('/footer-table/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
     if (data) {
         res.send({ message: "table data updated successfully" });
     }

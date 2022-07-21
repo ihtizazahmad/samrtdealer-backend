@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
 
-
-    id: {
-        type: String
-    },
-    category: {
-        type: String
-    },
+    categoryParents: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"category"
+    }],
     barCode: {
         type: String
     },
@@ -29,9 +26,10 @@ const productSchema = new mongoose.Schema({
     fullDescription: {
         type: String
     },
-    order: {
-        type: Number
-    },
+    order: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"order" 
+    }],
     active: {
         type: Boolean
     },

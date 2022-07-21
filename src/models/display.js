@@ -1,14 +1,12 @@
 import mongoose from 'mongoose';
 const displaySchema = new mongoose.Schema({
-    id: {
-        type : String,
-    },
     name: {
         type : String
     },
-    order: {
-        type : String
-    },
+    order: [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "order"
+    }],
     systemDisplay: {
         type : Boolean
     },

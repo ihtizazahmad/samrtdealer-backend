@@ -12,8 +12,8 @@ router.get('/tables', async (req, res) => {
 
 })
 router.post('/tables', async (req, res) => {
-    const { id, tableNo, name, description, hasLampixDevice } = req.body;
-    let data = new tables({ id, tableNo, name, description, hasLampixDevice });
+    const { tableNo, name, description, hasLampixDevice } = req.body;
+    let data = new tables({ tableNo, name, description, hasLampixDevice });
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
         res.send("Tables saved to database");

@@ -4,13 +4,13 @@ import check from '../models/check.js'
 const router = express.Router();
 
 router.get('/check', async (req, res) => {
-    let data = await check.find(req.data);
+    let data = await check.find(req.params).populate('table');
     res.send(data);
 })
 
 router.post('/check', async (req, res) => {
-    const { id, checkNo, operator, subTotal, tax, amount, table,   } = req.body;
-    let data = await new check({ id, checkNo, operator, subTotal, tax, amount, table });
+    const { checkNo, operator, subTotal, tax, amount, table,   } = req.body;
+    let data = await new check({  checkNo, operator, subTotal, tax, amount, table });
     await data.save().then(result => {
         console.log(result, "Check data save to database")
         res.send("Check data saved to database");
@@ -23,11 +23,16 @@ router.post('/check', async (req, res) => {
 })
 router.put('/check/:_id', async (req, res) => {
 
-    let data = await check.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+    let data = await check.findByIdAndUpdate(
+     { _id: req.params._id},{
+      $push:{table:req.body.table,}
+     },
+     {new:true},
+     
+    )
+          // {
+        //     $set: req.body
+        // });
     if (data) {
         res.send({ message: "check data updated successfully" });
     }

@@ -9,8 +9,8 @@ router.get('/paymenttype', async (req, res) => {
 })
 
 router.post('/paymenttype', async (req, res) => {
-    const { id, name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt } = req.body;
-    const data = await new paymentlist({ id, name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt });
+    const { name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt } = req.body;
+    const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt });
     await data.save().then(result => {
         console.log(result, "PaymentList data save to database")
         res.send("paymentList data saved to database");

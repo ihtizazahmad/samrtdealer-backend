@@ -14,8 +14,8 @@ router.get('/role', async (req, res) => {
 })
 
 router.post('/role', async (req, res) => {
-    const { id, name } = req.body;
-    const data = await new role({ id, name });
+    const {name } = req.body;
+    const data = await new role({name });
     await data.save().then(result => {
         console.log(result, "Role data save to database")
         res.send("Role data saved to database");
@@ -25,14 +25,12 @@ router.post('/role', async (req, res) => {
     })
 })
 router.put('/role/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params)
     let data = await role.updateOne(
         req.params,
         {
             $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+        })
     if (data) {
         res.send({ message: "role data updated successfully" });
     }

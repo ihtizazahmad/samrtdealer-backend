@@ -8,8 +8,8 @@ router.get('/device', async (req, res) => {
 })
 
 router.post('/device', async (req, res) => {
-    const { id, name } = req.body;
-    const data = await new device({ id, name });
+    const {  name } = req.body;
+    const data = await new device({  name });
     await data.save().then(result => {
         console.log(result, "Device data save to database")
         res.send("device data saved to database");

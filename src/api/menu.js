@@ -4,7 +4,15 @@ import menu from '../models/menu.js';
 const router = express.Router();
 
 router.get('/user/menus', async (req, res) => {
-    let data = await menu.find(req.data);
+    let data = await menu.find(req.params).populate('order')
+    if(!data){
+        res.send({message:"no data found"})
+    }
+    res.send(data);
+})
+
+router.get('/user/menus/_id', async (req, res) => {
+    let data = await menu.find(req.params).populate('order')
     if(!data){
         res.send({message:"no data found"})
     }
@@ -12,8 +20,8 @@ router.get('/user/menus', async (req, res) => {
 })
 
 router.post('/user/menus', async (req, res) => {
-    const { id, header, icon, links, titles, sublinks, target, external, description, translationKey, color } = req.body;
-    let data = await new menu({ id, header, icon, links, titles, sublinks, target, external, description, translationKey, color });
+    const { header, icon, links,order, titles, sublinks, target, external, description, translationKey, color } = req.body;
+    let data = await new menu({ header, order,icon, links, titles, sublinks, target, external, description, translationKey, color });
     await data.save().then(result => {
         console.log(result, "Menu data save to database")
         res.send("Menu data saved to database");
@@ -23,12 +31,12 @@ router.post('/user/menus', async (req, res) => {
     })
 })
 router.put('/user/menus:_id', async (req, res) => {
-    let data = await menu.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+    let data = await menu.findByIdAndUpdate(
+        {_id:req.params._id},{
+            $push:{order:req.body.order}
+        },
+        {new:true}
+        );
     if (data) {
         res.send({ message: "menu data updated successfully" });
     }

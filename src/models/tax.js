@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
 const taxSchema = new mongoose.Schema({
-    id: {
-        type: String,
-    },
     name: {
         type: String,
     },

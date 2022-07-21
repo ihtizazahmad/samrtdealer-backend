@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
 const tablesSchema = new mongoose.Schema({
-    id: {
-        type: String
-    },
     tableNo: {
         type: Number
     },

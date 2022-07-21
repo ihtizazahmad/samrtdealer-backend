@@ -5,19 +5,19 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find().populate('categoryId')
+    let data = await product.find(req.params).populate('categoryId').select('id').populate('order').select('orderNo').populate('categoryParents').select('parent')
     res.send(data);
 
 })
 router.get('/product/id', async (req, res) => {
-    let data = await product.find(req.params).populate('categoryId')
+    let data = await product.find(req.params).populate('categoryId').select('id').populate('order').select('orderNo').populate('categoryParents').select('parent')
     res.send(data);
 
 })
 
 router.post('/product', async (req, res) => {
-    const { id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
-    const productData = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
+    const { categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
+    const productData = await new product({  categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json(result);

@@ -11,8 +11,8 @@ router.get('/PosMenuSize', async (req, res) => {
 })
 
 router.post('/PosMenuSize', async (req, res) => {
-    const { id, row, column } = req.body;
-    const data = await new posMenuSize({ id, row, column });
+    const { row, column } = req.body;
+    const data = await new posMenuSize({ row, column });
     await data.save().then(result => {
         console.log(result, "PosMenuSize data save to database")
         res.send("PosMenuSize data saved to database");

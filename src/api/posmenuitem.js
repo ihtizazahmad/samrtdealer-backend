@@ -13,46 +13,11 @@ router.get('/PosMenuItem/:_id', async(req, res) => {
     res.send(data);
 })
 
-router.put('/PosMenuCategory/:_id', async (req, res) => {
-
-    console.log(req.params.id)
-    let data = await posmenuitem.findByIdAndUpdate(
-        { _id: req.params._id }, {
-        $push: { category: req.body.category },
-    }
-    // , { new: true }
-    );
-
-    if (data) {
-        res.send({message:"product and category data updated successfully"});
-    }
-    else {
-        res.send({message:"product data cannot be updated successfully"})
-    }
-})
-router.put('/PosMenuProduct/:_id', async (req, res) => {
-
-    console.log(req.params.id)
-    let data = await posmenuitem.findByIdAndUpdate(
-        { _id: req.params._id }, {
-        $push: { product: req.body.product },
-    }
-    // , { new: true }
-    );
-
-    if (data) {
-        res.send({message:"product and category data updated successfully"});
-    }
-    else {
-        res.send({message:"product data cannot be updated successfully"})
-    }
-})
-
 router.post('/PosMenuItem', async (req, res) => {
-    const { id,  level, column , category,product, row } = req.body;
+    const { level, column , category,product, row } = req.body;
     console.log(req.body)
 
-    const data = await new posmenuitem({ id, level, column, category,product, row })
+    const data = await new posmenuitem({level, column, category,product, row })
     await data.save().then(result => {
         console.log(result, "posmenuitem data save to database")
         res.send("Posmenuitem data saved to database");
@@ -62,21 +27,24 @@ router.post('/PosMenuItem', async (req, res) => {
     })
 })
 router.put('/PosMenuItem/:_id', async (req, res) => {
-    console.log(req.params.id)
-    let data = await posmenuitem.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+
+    console.log(req.params._id)
+    let data = await posmenuitem.findByIdAndUpdate(
+        { _id: req.params._id}, {
+        $push: { product: req.body.product, category: req.body.category },
+    }
+    , { new: true }
+    );
+
     if (data) {
-        res.send({ message: "posmenuitem data updated successfully" });
+        res.send({message:"product and category data updated successfully"});
     }
     else {
-        res.send({ message: "posmenuitem data cannot be updated successfully" })
+        res.send({message:"product data cannot be updated successfully"})
     }
 })
-router.delete('/PosMenuItem/_:id', async (req, res) => {
+
+router.delete('/PosMenuItem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await posmenuitem.deleteOne(req.params)
     // res.send(data)

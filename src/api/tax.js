@@ -12,8 +12,8 @@ router.get('/tax', async (req, res) => {
 })
 
 router.post('/tax', async (req, res) => {
-    const { id,name, taxValue } = req.body;
-    const data = await new tax({ id, name, taxValue});
+    const {name, taxValue } = req.body;
+    const data = await new tax({ name, taxValue});
     await data.save().then(result => {
         console.log(result, "Tax data save to database")
         res.send("Tax data saved to database");
