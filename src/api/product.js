@@ -10,45 +10,53 @@ router.get('/product', async (req, res) => {
 
 })
 router.get('/product/id', async (req, res) => {
-    let data = await product.find(req.params).populate('categoryId').populate('order').populate('categoryParents')
+    let data = await product.findOne(req.params).populate('categoryId').populate('order').populate('categoryParents')
     res.send(data);
 
 })
 
 router.post('/product', async (req, res) => {
-    const { categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
-    const productData = await new product({  categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
+    const {id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
+    const productData = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
-        res.json(result);
-        res.send('Product data save to database')
+          res.json({
+            id: result.id,
+            categoryName:result.categoryName,
+            categoryParents:result.categoryParents,
+            barCode:result.barCode,
+            name:result.name,
+            price:result.price,
+            inHouseTaxValue:result.inHouseTaxValue,
+            takeawayTaxValue:result.takeawayTaxValue,
+            shortDescription:result.shortDescription,
+            fullDescription:result.fullDescription,
+            order:result.order,
+            active:result.active,
+            categoryId:result.categoryId,
+            inHouseTaxId:result.inHouseTaxId,
+            takeawayTaxId:result.takeawayTaxId,
+            hasPicture:result.hasPicture,
+            extraData:result.extraData,
+            translations:result.translations,
+            productPictureId:result.productPictureId,
+            productId:result.productId,
+            productType:result.productType
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
     })
 })
-router.put('/productcategory/:id', async (req, res) => {
-
-    console.log(req.params.id)
-    let data = await product.findByIdAndUpdate(
-        { _id: req.params._id },
-         { $push: { category: req.body.categoryId } },
-          { new: true });
-    if (data) {
-        res.send({message:"product data updated successfully"});
-    }
-    else {
-        res.send({message:"product data cannot be updated successfully"})
-    }
-})
 router.put('/product/:id', async (req, res) => {
 
     console.log(req.params.id)
-    let data = await product.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+    let data = await product.findByIdAndUpdate(
+        {_id:req.params._id},{
+            $push:{categoryId:req.body.categoryId,order:req.body.order,categoryParents:req.body.categoryParents}
+        },
+        {new:true}
+    );
     if (data) {
         res.send({message:"product data updated successfully"});
     }

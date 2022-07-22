@@ -15,7 +15,20 @@ router.post('/order', async (req, res) => {
     const data = await new order({ tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, tableNo, parentOrderNo, orderStatus, orderType });
     await data.save().then(result => {
         console.log(result, "Order data save to database")
-        res.send("Order data saved to database");
+        res.json({
+            tableId: result.tableId,
+            orderNo: result.orderNo,
+            startDate: result.startDate,
+            orderDate: result.orderDate,
+            points: result.points,
+            orderValueExclTax: result.orderValueExclTax,
+            orderValueTax: result.orderValueTax,
+            orderValue: result.orderValue,
+            tableNo: result.tableNo,
+            parentOrderNo: result.parentOrderNo,
+            orderStatus: result.orderStatus,
+            orderType: result.orderType
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

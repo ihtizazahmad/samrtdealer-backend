@@ -5,33 +5,35 @@ const router = express.Router();
 
 
 router.get('/category', async (req, res) => {
-    let data = await category.find(req.params).populate('displayManagerId').populate('displayManagerName')
-    
+    let data = await category.find(req.data).populate('displayManagerId').populate('displayManagerName')
+
     res.send(data);
 })
 router.get('/category/:_id', async (req, res) => {
-    let data = await category.find(req.params).populate('displayManagerName').populate('displayManagerId')
+    let data = await category.findOne(req.params).populate('displayManagerName').populate('displayManagerId')
     res.send(data);
 })
 router.post('/category', async (req, res) => {
-    const {name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures } = req.body;
-    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures });
+    const { id, name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures } = req.body;
+    let data = await new category({ id, name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures });
     await data.save().then(result => {
         console.log("Category data saved to database");
-        res.json({name:req.body.name,
-            parent:req.body.parent,
-            extraData:req.body.extraData,
-            categoryType:req.body.categoryType,
-            displayManagerName:req.body.displayManagerName,
-            order:req.body.order,
-            hasPicture:req.body.hasPicture,
-            active:req.body.active,
-            displayManagerId:req.body.displayManagerId,
-            parentId:req.body.parentId,
-            lampixIcon:req.body.lampixIcon,
-            translation:req.body.translation,
-            product:req.body.product,
-            showPictures:req.body.showPictures
+        res.json({
+            id: result.id,
+            name: result.name,
+            parent: result.parent,
+            extraData: result.extraData,
+            categoryType: result.categoryType,
+            displayManagerName: result.displayManagerName,
+            order: result.order,
+            hasPicture: result.hasPicture,
+            active: result.active,
+            displayManagerId: result.displayManagerId,
+            parentId: result.parentId,
+            lampixIcon: result.lampixIcon,
+            translation: result.translation,
+            product: result.product,
+            showPictures: result.showPictures
         })
 
 
@@ -45,11 +47,11 @@ router.put('/category/:_id', async (req, res) => {
     console.log(req.params)
     let data = await category.findByIdAndUpdate(
         { _id: req.params._id }, {
-        $push: { displayManagerId: req.body.displayManagerId,displayManagerName:req.body.displayManagerName },
+        $push: { displayManagerId: req.body.displayManagerId, displayManagerName: req.body.displayManagerName },
     }
-    , { new: true }
+        , { new: true }
     );
-    
+
     if (data) {
         res.send({ message: "category data updated successfully" });
     } else {

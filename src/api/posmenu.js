@@ -15,7 +15,11 @@ router.post('/PosMenu', async (req, res) => {
     const data = await new posMenu({ name,  comments, firstColumnixed });
     await data.save().then(result => {
         console.log(result, "Posmenu data save to database")
-        res.send("Posmenu data saved to database");
+        res.json({
+            name: result.name,
+            comments: result.comments,
+            firstColumnixed: result.firstColumnixed
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

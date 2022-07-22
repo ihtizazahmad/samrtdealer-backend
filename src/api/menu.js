@@ -24,7 +24,19 @@ router.post('/user/menus', async (req, res) => {
     let data = await new menu({ header, order,icon, links, titles, sublinks, target, external, description, translationKey, color });
     await data.save().then(result => {
         console.log(result, "Menu data save to database")
-        res.send("Menu data saved to database");
+        res.json({
+            header: result.header,
+            order: result.order,
+            icon: result.icon,
+            links: result.links,
+            titles: result.titles,
+            sublinks: result.sublinks,
+            target: result.target,
+            external: result.external,
+            description: result.description,
+            translationKey: result.translationKey,
+            color: result.color
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

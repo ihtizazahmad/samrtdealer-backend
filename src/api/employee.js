@@ -12,7 +12,15 @@ router.post('/employee', async (req, res) => {
     const data = await new employee({ userName, firstName, lastName, email,password, confirmPassword, role, });
     await data.save().then(result => {
         console.log(result, "Employee data save to database")
-        res.send("Employee data saved to database");
+        res.json({
+            userName: result.userName,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            email: result.email,
+            password: result.password,
+            confirmPassword: result.confirmPassword,
+            role: result.role,
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

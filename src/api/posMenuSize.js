@@ -15,7 +15,11 @@ router.post('/PosMenuSize', async (req, res) => {
     const data = await new posMenuSize({ row, column });
     await data.save().then(result => {
         console.log(result, "PosMenuSize data save to database")
-        res.send("PosMenuSize data saved to database");
+        res.json({
+            row: result.row,
+            column: result.column
+        })
+        
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

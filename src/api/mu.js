@@ -13,7 +13,10 @@ router.post('/mu', async (req, res) => {
     let data = await new mu({ name, code })
     await data.save().then(result => {
         console.log(result, "Mu data save to database")
-        res.send("Mu data saved to database");
+        res.json({
+            name: result.name,
+            code: result.code
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

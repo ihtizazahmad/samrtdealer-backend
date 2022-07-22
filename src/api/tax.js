@@ -16,7 +16,10 @@ router.post('/tax', async (req, res) => {
     const data = await new tax({ name, taxValue});
     await data.save().then(result => {
         console.log(result, "Tax data save to database")
-        res.send("Tax data saved to database");
+        res.json({
+            name: result.name,
+            taxValue: result.taxValue
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
@@ -39,7 +42,6 @@ router.put('/tax/:_id', async (req, res) => {
 router.delete('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.deleteOne(req.params)
-    // res.send(data)
     if (data) {
         res.send({ message: "tax data delete successfully" });
     }

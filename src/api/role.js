@@ -18,7 +18,9 @@ router.post('/role', async (req, res) => {
     const data = await new role({name });
     await data.save().then(result => {
         console.log(result, "Role data save to database")
-        res.send("Role data saved to database");
+        res.json({
+            name: result.name
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
