@@ -3,7 +3,7 @@ import employee from '../models/employee.js';
 const router = express.Router();
 
 router.get('/employee', async (req, res) => {
-    let data = await employee.find(req.params).populate('role');
+    let data = await employee.find(req.data).populate('role');
     res.send(data);
 
 })
