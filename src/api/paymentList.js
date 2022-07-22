@@ -13,21 +13,27 @@ router.post('/paymenttype', async (req, res) => {
     const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt });
     await data.save().then(result => {
         console.log(result, "PaymentList data save to database")
-        res.send("paymentList data saved to database");
+        res.json({
+            name: result.name,
+            paymentsGTypeId: result.paymentsGTypeId,
+            isActive: result.isActive,
+            defaultPayment: result.defaultPayment,
+            showCaption: result.showCaption,
+            updatedAt: result.updatedAt
+        })
+        
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
     })
 })
 router.put('/paymenttype/:_id', async (req, res) => {
-    // const data= await device();
     console.log(req.params.id)
     let data = await paymentlist.updateOne(
         req.params,
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
     if (data) {
         res.send({ message: "paymentList data updated successfully" });
     }

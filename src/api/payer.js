@@ -19,13 +19,22 @@ router.get('/payer', async (req, res) => {
 
 router.post('/payer', async (req, res) => {
     const { FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
-    // if (!id || !FirstName || !LastName || !Email || !State || !Company || !ZIP || !Telephone || !Address || !City || !Membership || !CustomerId) {
-    //     return res.send("Please provide all the fields")
-    // }
     let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
     await data.save().then(result => {
-        res.status(200).send("payer Form saved to database");
         console.log(result, "Form save to database")
+        res.json({
+            FirstName: result.FirstName,
+            LastName: result.LastName,
+            Email: result.Email,
+            State: result.State,
+            Company: result.Company,
+            ZIP: result.ZIP,
+            Telephone: result.Telephone,
+            Address: result.Address,
+            City: result.City,
+            Membership: result.Membership,
+            CustomerId: result.CustomerId
+        })
     }).catch((err) => {
         res.status(400).send("unable to save to database");
         console.log(err)

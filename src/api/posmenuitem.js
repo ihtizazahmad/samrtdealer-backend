@@ -14,13 +14,20 @@ router.get('/PosMenuItem/:_id', async(req, res) => {
 })
 
 router.post('/PosMenuItem', async (req, res) => {
-    const { level, column , category,product, row } = req.body;
+    const {id, level, column , category,product, row } = req.body;
     console.log(req.body)
 
-    const data = await new posmenuitem({level, column, category,product, row })
+    const data = await new posmenuitem({id,level, column, category,product, row })
     await data.save().then(result => {
         console.log(result, "posmenuitem data save to database")
-        res.send("Posmenuitem data saved to database");
+        res.json({
+            id: result.id,
+            level: result.level,
+            column: result.column,
+            category: result.category,
+            product: result.product,
+            row: result.row
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

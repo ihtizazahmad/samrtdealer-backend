@@ -12,7 +12,6 @@ import check from './api/check.js'
 import device from './api/device.js'
 import display from './api/display.js'
 import employee from './api/employee.js'
-import language from './api/language.js'
 import menu from './api/menu.js'
 import mu from './api/mu.js'
 import order from './api/order.js'
@@ -24,7 +23,6 @@ import posMenuSizes from '././api/posMenuSize.js'
 import product from './api/product.js'
 import role from './api/role.js'
 import tax from './api/tax.js'
-import translate from './api/languagetranslation.js'
 import tables from './api/tables.js'
 
 import './config/config.js';
@@ -32,12 +30,12 @@ import './config/config.js';
 
 const app = express();
 dotenv.config();
-const port = process.env.PORT;
 
 app.use(cors({
-    origin:'http://localhost:18020',
+    origin:true,
     credentials: true,
-    optionsSucessStatus: 200,
+    defaultErrorHandler: false,
+    // optionsSucessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 app.use(express.json());
@@ -46,17 +44,18 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
 
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, language, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax, translate, tables,)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax,tables,)
 
 
 app.use('*', (req, res) => {
     return res.status(404).json({
         success: false,
-        message: 'API endpoint doesnt exist'
+        message: 'API endpoint doesnt exist please put the Routes in the correct path'
     })
 });
 
 
+const port = process.env.PORT || 3333;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });

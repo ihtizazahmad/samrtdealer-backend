@@ -16,8 +16,12 @@ router.post('/footer-table', async (req, res) => {
     let data = new tabledata({  Operator, TableNo, TableName, Amount });
     await data.save().then(result => {
         console.log(result, "Table data save to database")
-        res.send("Table saved to database");
-
+        res.json({
+            Operator: result.Operator,
+            TableNo: result.TableNo,
+            TableName: result.TableName,
+            Amount: result.Amount
+        })
     }).catch(err => {
         res.status(400).send("unable to save to database");
         console.log(err)

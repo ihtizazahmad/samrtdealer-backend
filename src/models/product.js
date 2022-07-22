@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
-
+     id:{
+        type:Number
+     },
     categoryParents: [{
         type:mongoose.Schema.Types.ObjectId,
         ref:"category"

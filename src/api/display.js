@@ -13,7 +13,12 @@ router.post('/display', async (req, res) => {
     const data = await new display({  name, order, systemDisplay, displayKey });
     await data.save().then(result => {
         console.log(result, "Display data save to database")
-        res.send("Display data saved to database");
+        res.json({
+            name: result.name,
+            order: result.order,
+            systemDisplay: result.systemDisplay,
+            displayKey: result.displayKey
+        })
     }
     ).catch(err => {
         res.status(400).send('unable to save database');

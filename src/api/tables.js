@@ -16,8 +16,12 @@ router.post('/tables', async (req, res) => {
     let data = new tables({ tableNo, name, description, hasLampixDevice });
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
-        res.send("Tables saved to database");
-
+         res.json({
+            tableNo: result.tableNo,
+            name: result.name,
+            description: result.description,
+            hasLampixDevice: result.hasLampixDevice
+        })
     }).catch(err => {
         res.status(400).send("unable to save to database");
         console.log(err)

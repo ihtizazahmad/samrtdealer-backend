@@ -5,7 +5,7 @@ import orderitem from '../models/orderitem.js'
 const router = express.Router()
 
 router.get('/orderitem', async (req, res) => {
-    let data = await orderitem.find(req.params).populate('order').populate('product').select('name');
+    let data = await orderitem.find(req.params).populate('order').populate('product')
     res.send(data);
 
 })
@@ -15,7 +15,22 @@ router.post('/orderitem', async (req, res) => {
     const data = await new orderitem({ orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
-        res.send("OrderItem data saved to database");
+        res.json({
+            orderId: result.orderId,
+            needToPrintQty: result.needToPrintQty,
+            productId: result.productId,
+            points: result.points,
+            taxValue: result.taxValue,
+            quantity: result.quantity,
+            priceExclTax: result.priceExclTax,
+            price: result.price,
+            lineValueExclTax: result.lineValueExclTax,
+            lineValueTax: result.lineValueTax,
+            lineValue: result.lineValue,
+            units: result.units,
+            productName: result.productName,
+            text: result.text
+        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
