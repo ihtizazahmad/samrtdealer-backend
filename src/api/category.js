@@ -5,12 +5,12 @@ const router = express.Router();
 
 
 router.get('/category', async (req, res) => {
-    let data = await category.find(req.data).populate('displayManagerId').populate('displayManagerName')
+    let data = await category.find(req.data).populate('displayManagerId','_id').populate('displayManagerName','name')
 
     res.send(data);
 })
 router.get('/category/:_id', async (req, res) => {
-    let data = await category.findOne(req.params).populate('displayManagerName').populate('displayManagerId')
+    let data = await category.findOne(req.params).populate('displayManagerName','name').populate('displayManagerId','_id')
     res.send(data);
 })
 router.post('/category', async (req, res) => {
