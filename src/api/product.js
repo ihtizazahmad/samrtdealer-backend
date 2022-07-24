@@ -5,12 +5,12 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find(req.params).populate('categoryId').populate('order').populate('categoryParents')
+    let data = await product.find(req.params).populate('categoryId','_id').populate('order').populate('categoryParents')
     res.send(data);
 
 })
-router.get('/product/id', async (req, res) => {
-    let data = await product.findOne(req.params).populate('categoryId').populate('order').populate('categoryParents')
+router.get('/product/:_id', async (req, res) => {
+    let data = await product.findOne(req.params).populate('categoryId','_id').populate('order').populate('categoryParents')
     res.send(data);
 
 })
@@ -48,12 +48,12 @@ router.post('/product', async (req, res) => {
         console.log(err)
     })
 })
-router.put('/product/:id', async (req, res) => {
+router.put('/product/:_id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
-        {_id:req.params._id},{
-            $push:{categoryId:req.body.categoryId,order:req.body.order,categoryParents:req.body.categoryParents}
+        {_id: req.params._id},{
+            $push:{categoryId: req.body.categoryId,order: req.body.order,categoryParents: req.body.categoryParents}
         },
         {new:true}
     );
@@ -64,7 +64,7 @@ router.put('/product/:id', async (req, res) => {
         res.send({message:"product data cannot be updated successfully"})
     }
 })
-router.delete('/product/:id', async (req, res) => {
+router.delete('/product/:_id', async (req, res) => {
     console.log(req.params)
     let data = await product.deleteOne(req.params)
     if (data) {

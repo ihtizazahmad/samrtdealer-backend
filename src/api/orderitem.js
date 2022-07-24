@@ -5,7 +5,12 @@ import orderitem from '../models/orderitem.js'
 const router = express.Router()
 
 router.get('/orderitem', async (req, res) => {
-    let data = await orderitem.find(req.params).populate('order').populate('product')
+    let data = await orderitem.find(req.params).populate('orderId','_id').populate('productId','_id')
+    res.send(data);
+
+})
+router.get('/orderitem/_id', async (req, res) => {
+    let data = await orderitem.findOne(req.params).populate('orderId','_id').populate('productId','_id')
     res.send(data);
 
 })

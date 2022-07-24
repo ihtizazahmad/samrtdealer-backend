@@ -36,7 +36,6 @@ router.put('/tables/:_id', async (req, res) => {
         {
             $set: req.body
         });
-    // res.status(data, 'data updated').send('data updated')
     if (data) {
         res.send({ message: "tables data updated successfully" });
     }
