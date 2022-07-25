@@ -52,9 +52,10 @@ router.put('/product/:_id', async (req, res) => {
 
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
-        {_id: req.params._id},{
-            $push:{categoryId: req.body.categoryId,order: req.body.order,categoryParents: req.body.categoryParents}
-        },
+           {_id: req.params._id},{
+                $set:req.body
+            },
+
         {new:true}
     );
     if (data) {

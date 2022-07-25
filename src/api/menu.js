@@ -44,8 +44,8 @@ router.post('/user/menus', async (req, res) => {
 })
 router.put('/user/menus:_id', async (req, res) => {
     let data = await menu.findByIdAndUpdate(
-        {_id:req.params._id},{
-            $push:{order:req.body.order}
+        {_id: req.params._id},{
+            $set:req.body
         },
         {new:true}
         );
@@ -60,7 +60,6 @@ router.put('/user/menus:_id', async (req, res) => {
 router.delete('user/menu/:_id', async (req, res) => {
     console.log(req.params)
     let data = await menu.deleteOne(req.params)
-    // res.send(data)
     if (data) {
         res.send({ message: "menu data delete successfully" });
     }

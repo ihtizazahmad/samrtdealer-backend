@@ -23,7 +23,7 @@ router.post('/device', async (req, res) => {
 router.put('/device/:_id', async (req, res) => {
     console.log(req.params.id)
     let data = await device.updateOne(
-        req.params.id,
+        {_id:req.body._id},
         {
             $set: req.body
         });

@@ -32,10 +32,10 @@ router.post('/tables', async (req, res) => {
 router.put('/tables/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tables.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+        {_id: req.params._id},{
+            $set:req.body
+        },{new:true}
+        );
     if (data) {
         res.send({ message: "tables data updated successfully" });
     }

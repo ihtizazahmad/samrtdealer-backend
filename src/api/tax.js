@@ -28,10 +28,10 @@ router.post('/tax', async (req, res) => {
 router.put('/tax/:_id', async (req, res) => {
     console.log(req.params)
     let data = await tax.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+        {_id: req.params._id},{
+            $set:req.body
+        },{new:true}
+        );
     if (data) {
         res.send({ message: "tax data updated successfully" });
     }

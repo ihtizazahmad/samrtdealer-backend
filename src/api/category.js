@@ -46,10 +46,10 @@ router.post('/category', async (req, res) => {
 router.put('/category/:_id', async (req, res) => {
     console.log(req.params)
     let data = await category.findByIdAndUpdate(
-        { _id: req.params._id }, {
-        $push: { displayManagerId: req.body.displayManagerId, displayManagerName: req.body.displayManagerName },
-    }
-        , { new: true }
+    {_id: req.params._id},{
+        $set:req.body
+    },
+     { new: true }
     );
 
     if (data) {

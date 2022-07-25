@@ -37,10 +37,10 @@ router.put('/PosMenuItem/:_id', async (req, res) => {
 
     console.log(req.params._id)
     let data = await posmenuitem.findByIdAndUpdate(
-        { _id: req.params._id}, {
-        $push: { product: req.body.product, category: req.body.category },
-    }
-    , { new: true }
+        {_id: req.params._id},{
+            $set:req.body
+        },
+    { new: true }
     );
 
     if (data) {

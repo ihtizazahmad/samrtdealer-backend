@@ -28,9 +28,9 @@ router.post('/display', async (req, res) => {
 })
 router.put('/display/:_id', async (req, res) => {
     let data = await display.findByIdAndUpdate(
-       {_id:req.params._id},{
-        $push:{order:req.body.order}
-       },
+        {_id: req.params._id},{
+            $set:req.body
+        },
        {new:true}
     )
     if (data) {
