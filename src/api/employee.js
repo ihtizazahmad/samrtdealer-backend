@@ -30,9 +30,9 @@ router.post('/employee', async (req, res) => {
 router.put('/employee/:_id', async(req, res) => {
     console.log(req.params);
     let data = await employee.updateOne(
-    {_id:req.params._id},{
-        $push:{role:req.body.role}
-    },
+        {_id: req.params._id},{
+            $set:req.body
+        },
     {new:true}
     )
     if (data) {

@@ -25,11 +25,10 @@ router.post('/mu', async (req, res) => {
 
 router.put('/mu/:_id', async (req, res) => {
     let data = await mu.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+        {_id: req.params._id},{
+            $set:req.body
+        },
+        );
     if (data) {
         res.send({ message: "mu data updated successfully" });
     }

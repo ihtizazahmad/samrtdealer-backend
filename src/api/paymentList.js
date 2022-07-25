@@ -30,10 +30,11 @@ router.post('/paymenttype', async (req, res) => {
 router.put('/paymenttype/:_id', async (req, res) => {
     console.log(req.params.id)
     let data = await paymentlist.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
+        {_id: req.params._id},{
+            $set:req.body
+        },
+        {new: true}
+        );
     if (data) {
         res.send({ message: "paymentList data updated successfully" });
     }

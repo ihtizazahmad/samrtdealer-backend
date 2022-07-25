@@ -45,8 +45,8 @@ router.put('/orderitem/:_id', async (req, res) => {
     
     console.log(req.params.id)
     let data = await orderitem.findByIdAndUpdate(
-        {_id:req.params._id},{
-            $push:{orderId:req.body.orderId,productName:req.body.productName}
+        {_id: req.params._id},{
+            $set:req.body
         },
         {new:true}
         );
@@ -62,7 +62,6 @@ router.put('/orderitem/:_id', async (req, res) => {
 router.delete('/orderitem/:_id', async (req, res) => {
     console.log(req.params)
     let data = await orderitem.deleteOne(req.params)
-    // res.send(data)
     if (data) {
         res.send({ message: "orderitem data delete successfully" });
     }

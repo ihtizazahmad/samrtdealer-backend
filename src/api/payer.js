@@ -55,20 +55,17 @@ router.post('/payer', async (req, res) => {
 })
 router.put('/payer/:_id', async (req, res) => {
     await payer.updateOne(
-        req.params,
-
-        { $set: req.body }
-    ).then((result) => {
-        res.status(200).json(result);
-    }).catch((err) => {
-        console.log(err);
-    });
-    // if (data) {
-    //     res.send({ message: "payer data updated successfully" });
-    // }
-    // else {
-    //     res.send({ message: "payer data cannot be updated successfully" })
-    // }
+        {_id: req.params._id},{
+            $set:req.body
+        },
+        {new:true}
+    )
+    if (data) {
+        res.send({ message: "payer data updated successfully" });
+    }
+    else {
+        res.send({ message: "payer data cannot be updated successfully" })
+    }
 
 })
 router.delete('/payer/:_id', async (req, res) => {

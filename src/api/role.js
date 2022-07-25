@@ -29,10 +29,10 @@ router.post('/role', async (req, res) => {
 router.put('/role/:_id', async (req, res) => {
     console.log(req.params)
     let data = await role.updateOne(
-        req.params,
-        {
-            $set: req.body
-        })
+        {_id: req.params._id},{
+            $set:req.body
+        },{new:true}
+        )
     if (data) {
         res.send({ message: "role data updated successfully" });
     }

@@ -37,8 +37,8 @@ router.post('/order', async (req, res) => {
 router.put('/order/:_id', async (req, res) => {
     console.log(req.params)
     let data = await order.findByIdAndUpdate(
-        {_id:req.params._id},{
-            $push:{tableId:req.body.tableId,tableNo:req.body.tableNo}
+        {_id: req.params._id},{
+            $set:req.body
         },
         {new:true}
        );

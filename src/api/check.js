@@ -24,9 +24,9 @@ router.post('/check', async (req, res) => {
 router.put('/check/:_id', async (req, res) => {
 
     let data = await check.findByIdAndUpdate(
-     { _id: req.params._id},{
-      $push:{table:req.body.table,}
-     },
+        {_id: req.params._id},{
+            $set:req.body
+        },
      {new:true}
      
     )

@@ -28,11 +28,10 @@ router.post('/PosMenuSize', async (req, res) => {
 router.put('/PosMenuSize/:_id', async (req, res) => {
     console.log(req.params)
     let data = await posMenuSize.updateOne(
-        req.params,
-        {
-            $set: req.body
-        });
-    // res.status(data, 'data updated').send('data updated')
+        {_id: req.params._id},{
+            $set:req.body
+        },{new:true}
+        );
     if (data) {
         res.send({ message: "posmenusize data updated successfully" });
     }
