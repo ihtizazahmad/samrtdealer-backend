@@ -4,7 +4,11 @@ import order from '../models/order.js';
 const router = express.Router();
 
 router.get('/order', async (req, res) => {
-    let data = await order.find(req.params).populate('tableId','_id').populate('tableNo','yableNo')
+    let filter={}
+    if(req.query.tableId){
+        filter={tableId:req.query.tableId.split(',')}
+    }
+    let data = await order.find(filter).populate('tableId','_id').populate('tableNo','tableNo')
     res.send(data);
 
 })

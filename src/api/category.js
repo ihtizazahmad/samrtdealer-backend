@@ -5,7 +5,11 @@ const router = express.Router();
 
 
 router.get('/category', async (req, res) => {
-    let data = await category.find(req.data).populate('displayManagerId','_id').populate('displayManagerName','name')
+    let filter={}
+    if(req.query.displayManagerId){
+        filter={displayManagerId:req.query.displayManagerId.split(',')}
+    }
+    let data = await category.find(filter).populate('displayManagerId','_id').populate('displayManagerName','name')
 
     res.send(data);
 })
