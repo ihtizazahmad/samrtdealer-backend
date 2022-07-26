@@ -5,13 +5,17 @@ const router = express.Router()
 
 
 router.get('/product', async (req, res) => {
-    let data = await product.find(req.params).populate('categoryId','_id').populate('order').populate('categoryParents')
-    res.send(data);
+    let filter={}
+    if(req.query.categoryId){
+        filter={categoryId:req.query.categoryId.split(',')}
+    }
+    let productData = await product.find(filter).populate('categoryId','_id').populate('order')
+    res.send(productData);
 
 })
 router.get('/product/:_id', async (req, res) => {
-    let data = await product.findOne(req.params).populate('categoryId','_id').populate('order').populate('categoryParents')
-    res.send(data);
+    let productData = await product.findOne(req.params).populate('categoryId','_id').populate('order')
+    res.send(productData);
 
 })
 
