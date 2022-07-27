@@ -4,7 +4,7 @@ import product from '../models/product.js'
 const router = express.Router()
 
 
-router.get('/product', async (req, res) => {
+export const getProduct= async (req, res) => {
     let filter={}
     if(req.query.categoryId){
         filter={categoryId:req.query.categoryId.split(',')}
@@ -12,20 +12,19 @@ router.get('/product', async (req, res) => {
     let productData = await product.find(filter).populate('categoryId','_id').populate('order')
     res.send(productData);
 
-})
-router.get('/product/:_id', async (req, res) => {
+}
+export const getProductById= async (req, res) => {
     let productData = await product.findOne(req.params).populate('categoryId','_id').populate('order')
     res.send(productData);
 
-})
+}
 
-router.post('/product', async (req, res) => {
-    const {id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
-    const productData = await new product({ id, categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
+export const postProduct= async (req, res) => {
+    const { categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId,inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
+    const productData = await new product({ categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
           res.json({
-            id: result.id,
             categoryName:result.categoryName,
             categoryParents:result.categoryParents,
             barCode:result.barCode,
@@ -51,8 +50,8 @@ router.post('/product', async (req, res) => {
         res.status(400).send('unable to save database');
         console.log(err)
     })
-})
-router.put('/product/:_id', async (req, res) => {
+}
+export const updateProduct= async (req, res) => {
 
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
@@ -68,8 +67,8 @@ router.put('/product/:_id', async (req, res) => {
     else {
         res.send({message:"product data cannot be updated successfully"})
     }
-})
-router.delete('/product/:_id', async (req, res) => {
+}
+export const deleteProduct= async (req, res) => {
     console.log(req.params)
     let data = await product.deleteOne(req.params)
     if (data) {
@@ -78,6 +77,4 @@ router.delete('/product/:_id', async (req, res) => {
     else {
         res.send({ message: "product data cannot delete successfully" })
     }
-})
-
-export default router;
+}

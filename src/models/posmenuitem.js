@@ -2,10 +2,7 @@
 import mongoose from 'mongoose';
 
 const posmenuitemSchema = new mongoose.Schema({
-    
-    id:{
-       type:Number
-    },
+   
     level: {
         type: String
     },
