@@ -1,23 +1,22 @@
-import express from 'express';
 import payer from '../models/payerdata.js';
-import userModel from '../models/User.js';
 
-const router = express.Router();
-
-
-router.get('/', (req, res) => {
-    res.send({ "Hi": 'this patron api' })
-
-})
-
-router.get('/payer', async (req, res) => {
+export const getPayer = async (req, res) => {
     let data = await payer.find(req.data);
     res.send(data);
+}
+// router.get('//:key', async (req, res) => {
+//     console.log(req.params.key)
+//     let data = await payer.find(
+//         {
+//             "$or": [
+//                 { "Email": { $regex: req.params.key } }
+//             ]
+//         }
+//     )
+//     res.send(data);
 
-});
-
-
-router.post('/payer', async (req, res) => {
+// })
+export const postPayer = async (req, res) => {
     const { FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
     let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });
     await data.save().then(result => {
@@ -40,25 +39,22 @@ router.post('/payer', async (req, res) => {
         console.log(err)
     })
     const resEmail = await payer.findOne({ Email });
-        if (resEmail) {
-            console.log("this mail is also regiter", resEmail)
-            return res.send("this user is already registered")
-        }
-
+    if (resEmail) {
+        console.log("this mail is also regiter", resEmail)
+        return res.send("this user is already registered")
+    }
     await data.save().then(result => {
         console.log(result)
         res.json({ message: 'user data has been registered successfully' });
 
     }).catch(err => console.log(err));
-
-
-})
-router.put('/payer/:_id', async (req, res) => {
-    await payer.updateOne(
-        {_id: req.params._id},{
-            $set:req.body
-        },
-        {new:true}
+}
+export const updatePayer = async (req, res) => {
+    await payer.findByIdAndUpdate(
+        { _id: req.params._id }, {
+        $set: req.body
+    },
+        { new: true }
     )
     if (data) {
         res.send({ message: "payer data updated successfully" });
@@ -66,33 +62,15 @@ router.put('/payer/:_id', async (req, res) => {
     else {
         res.send({ message: "payer data cannot be updated successfully" })
     }
-
-})
-router.delete('/payer/:_id', async (req, res) => {
+}
+export const deletePayer = async (req, res) => {
     console.log(req.params)
     let data = await payer.deleteOne(req.params)
-    // res.send(data)
+
     if (data) {
         res.send({ message: "payer data delete successfully" });
     }
     else {
         res.send({ message: "payer data cannot delete successfully" })
     }
-})
-
-router.get('/search/:key', async (req, res) => {
-    console.log(req.params.key)
-    let data = await payer.find(
-        {
-            "$or": [
-                { "Email": { $regex: req.params.key } }
-            ]
-        }
-    )
-    res.send(data);
-
-})
-
-
-
-export default router
+}

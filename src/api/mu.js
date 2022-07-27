@@ -1,14 +1,10 @@
-import express from 'express'
 import mu from '../models/mu.js'
 
-const router = express.Router()
-
-router.get('/mu', async (req, res) => {
+export const getMu = async (req, res) => {
     let data = await mu.find(req.data);
     res.send(data)
-})
-
-router.post('/mu', async (req, res) => {
+}
+export const postMu = async (req, res) => {
     const { name, code } = req.body;
     let data = await new mu({ name, code })
     await data.save().then(result => {
@@ -21,32 +17,30 @@ router.post('/mu', async (req, res) => {
         res.status(400).send('unable to save database');
         console.log(err)
     })
-})
-
-router.put('/mu/:_id', async (req, res) => {
-    let data = await mu.updateOne(
-        {_id: req.params._id},{
-            $set:req.body
-        },
-        );
+}
+export const updateMu = async (req, res) => {
+    let data = await mu.findByIdAndUpdate(
+        { _id: req.params._id }, {
+        $set: req.body
+    },
+    );
     if (data) {
         res.send({ message: "mu data updated successfully" });
     }
     else {
         res.send({ message: "mu data cannot be updated successfully" })
     }
-})
+}
 
-router.delete('/mu/:_id', async (req, res) => {
+export const deleteMu = async (req, res) => {
     console.log(req.params)
     let data = await mu.deleteOne(req.params)
-    // res.send(data)
+
     if (data) {
         res.send({ message: "mu data delete successfully" });
     }
     else {
         res.send({ message: "mu data cannot delete successfully" })
     }
-})
+}
 
-export default router;

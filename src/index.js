@@ -4,57 +4,54 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
-import Auth from './api/user.js';
-import payer from './api/payer.js';
-import tabledata from './api/tablesdata.js';
-import category from './api/category.js'
-import check from './api/check.js'
-import device from './api/device.js'
-import display from './api/display.js'
-import employee from './api/employee.js'
-import menu from './api/menu.js'
-import mu from './api/mu.js'
-import order from './api/order.js'
-import orderitem from './api/orderitem.js'
-import paymentlist from './api/paymentList.js'
-import posmenuitem from './api/posmenuitem.js'
-import posmenu from './api/posmenu.js'
-import posMenuSizes from '././api/posMenuSize.js'
-import product from './api/product.js'
-import role from './api/role.js'
-import tax from './api/tax.js'
-import tables from './api/tables.js'
-
+import Auth from './api-routes/user-route.js';
+import payer from './api-routes/payerdata-route.js';
+import tabledata from './api-routes/tabledata-route.js';
+import category from './api-routes/category-route.js'
+import check from './api-routes/check-route.js'
+import device from './api-routes/device-route.js'
+import display from './api-routes/display-route.js'
+import employee from './api-routes/employee-route.js'
+import menu from './api-routes/menu-route.js'
+import mu from './api-routes/mu-route.js'
+import order from './api-routes/order-route.js'
+import orderitem from './api-routes/orderitem-route.js'
+import paymentlist from './api-routes/paymentlist-route.js'
+import posmenuitem from './api-routes/posmenuitem-route.js'
+import posmenu from './api-routes/posmenu-route.js'
+import product from './api-routes/product-route.js'
+import role from './api-routes/role-route.js'
+import tax from './api-routes/tax-route.js'
+import tables from './api-routes/table-route.js'
 import './config/config.js';
-
 
 const app = express();
 dotenv.config();
-
+//middelwares
 app.use(cors({
-    origin:true,
+    origin: true,
     credentials: true,
     defaultErrorHandler: false,
-    // optionsSucessStatus: 200,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
+
 app.use(express.json());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
-
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posMenuSizes, product, role, tax,tables,)
+//Routes
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, tables,)
 
 
 app.use('*', (req, res) => {
     return res.status(404).json({
         success: false,
-        message: 'API endpoint doesnt exist please put the Routes in the correct path'
+        message: 'API endpoint doesnt exist please put Api routes..'
     })
 });
 
-
+//Port
 const port = process.env.PORT || 3333;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
