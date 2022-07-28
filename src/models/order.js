@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
-    tableId: {
+    tableId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:"tables"
-    },
+    }],
     orderDate: {
         type: Date
     },
@@ -25,9 +25,10 @@ const orderSchema = new mongoose.Schema({
     orderValue: {
         type: Number
     },
-    tableNo: {
-        type: Number
-    },
+    tableNo: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"tables"
+    }],
     parentOrderNo: {
         type: Number
     },

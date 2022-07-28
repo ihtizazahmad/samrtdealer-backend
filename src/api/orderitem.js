@@ -1,12 +1,24 @@
 
 import orderitem from '../models/orderitem.js'
 
-export const getOrderItem = async (req, res) => {
-    let data = await orderitem.find(req.params).populate('orderId', '_id').populate('productId', '_id')
+export const getOrderItemByOrderId = async (req, res) => {
+    let filter = {}
+    if (req.query.orderId) {
+        filter = { orderId: req.query.orderId.split(',') }
+    }
+    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name')
     res.send(data);
-
+}
+export const getOrderItemByProductId = async (req, res) => {
+    let filter = {}
+    if (req.query.productId) {
+        filter = { orderId: req.query.productId.split(',') }
+    }
+    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name')
+    res.send(data);
 }
 export const getOrderItemById = async (req, res) => {
+
     let data = await orderitem.findOne(req.params).populate('orderId', '_id').populate('productId', '_id')
     res.send(data);
 }
@@ -46,7 +58,6 @@ export const updateOrderItem = async (req, res) => {
     },
         { new: true }
     );
-
     if (data) {
         res.send({ message: "orderitem data updated successfully" });
     }
