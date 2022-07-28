@@ -9,8 +9,13 @@ export const getCategories = async (req, res) => {
 
     res.send(data);
 }
+
 export const getCategoriesById = async (req, res) => {
-    let data = await category.findOne(req.params).populate('displayManagerName', 'name').populate('displayManagerId', '_id')
+    let filter = {}
+    if (req.query.displayManagerId) {
+        filter = { displayManagerId: req.query.displayManagerId.split(',') }
+    }
+    let data = await category.findOne(filter).populate('displayManagerName', 'name').populate('displayManagerId', '_id')
     res.send(data);
 }
 export const postCategories = async (req, res) => {

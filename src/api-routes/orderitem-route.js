@@ -1,14 +1,17 @@
 import express  from "express";
 const routes=express.Router();
 
-import {getOrderItem,
+import {
     getOrderItemById,
     postOrderItem,
     updateOrderItem,
-    deleteOrderItem
+    deleteOrderItem,
+    getOrderItemByOrderId,
+    getOrderItemByProductId
 } from "../api/orderitem.js"
 
-routes.get('/orderitem', getOrderItem )
+routes.get('/orderitem', getOrderItemByOrderId )
+routes.get('/orderitem', getOrderItemByProductId)
 routes.get('/orderitem/:_id', getOrderItemById )
 
 routes.post('/orderitem', postOrderItem )
