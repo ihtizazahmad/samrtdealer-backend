@@ -1,5 +1,4 @@
-
-import posMenuSize from '../models/posMenuSize.js'
+import posMenuSize from '../models/posmenusize.js'
 
 export const getPosMenuSize = async (req, res) => {
     let data = await posMenuSize.find(req.data);
@@ -8,8 +7,8 @@ export const getPosMenuSize = async (req, res) => {
 }
 
 export const postPosMenuSize = async (req, res) => {
-    const { row, column } = req.body;
-    const data = await new posMenuSize({ row, column });
+    const {name, row, column } = req.body;
+    const data = await new posMenuSize({name, row, column });
     await data.save().then(result => {
         console.log(result, "PosMenuSize data save to database")
         res.json({

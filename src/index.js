@@ -18,6 +18,7 @@ import order from './api-routes/order-route.js'
 import orderitem from './api-routes/orderitem-route.js'
 import paymentlist from './api-routes/paymentlist-route.js'
 import posmenuitem from './api-routes/posmenuitem-route.js'
+import posmenusize from './api-routes/posmenusize-routes.js'
 import posmenu from './api-routes/posmenu-route.js'
 import product from './api-routes/product-route.js'
 import role from './api-routes/role-route.js'
@@ -41,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, product, role, tax, tables,)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,)
 
 
 app.use('*', (req, res) => {
