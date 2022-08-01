@@ -24,6 +24,7 @@ import product from './api-routes/product-route.js'
 import role from './api-routes/role-route.js'
 import tax from './api-routes/tax-route.js'
 import tables from './api-routes/table-route.js'
+import parentcategory from './api-routes/parentcategory-route.js';
 import './config/config.js';
 
 const app = express();
@@ -42,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,)
+app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory)
 
 
 app.use('*', (req, res) => {
