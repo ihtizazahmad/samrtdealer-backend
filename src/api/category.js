@@ -2,20 +2,17 @@ import category from '../models/category.js'
 
 export const getCategories = async (req, res) => {
     let filter = {}
-    if (req.query.displayManagerId) {
-        filter = { displayManagerId: req.query.displayManagerId.split(',') }
+    if (req.query.parentId) {
+        filter = { parentId: req.query.parentId.split(',') }
     }
-    let data = await category.find(filter).populate('displayManagerId', '_id').populate('displayManagerName', 'name')
+    let data = await category.find(filter).populate('parentId','_id').populate('displayManagerId', '_id').populate('displayManagerName', 'name')
 
     res.send(data);
 }
 
 export const getCategoriesById = async (req, res) => {
-    let filter = {}
-    if (req.query.displayManagerId) {
-        filter = { displayManagerId: req.query.displayManagerId.split(',') }
-    }
-    let data = await category.findOne(filter).populate('displayManagerName', 'name').populate('displayManagerId', '_id')
+  
+    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerName', 'name').populate('displayManagerId', '_id')
     res.send(data);
 }
 export const postCategories = async (req, res) => {
