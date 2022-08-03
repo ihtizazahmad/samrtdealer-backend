@@ -4,18 +4,7 @@ export const getPayer = async (req, res) => {
     let data = await payer.find(req.data);
     res.send(data);
 }
-// router.get('//:key', async (req, res) => {
-//     console.log(req.params.key)
-//     let data = await payer.find(
-//         {
-//             "$or": [
-//                 { "Email": { $regex: req.params.key } }
-//             ]
-//         }
-//     )
-//     res.send(data);
 
-// })
 export const postPayer = async (req, res) => {
     const { FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId } = req.body;
     let data = new payer({ FirstName, LastName, Email, State, Company, ZIP, Telephone, Address, City, Membership, CustomerId });

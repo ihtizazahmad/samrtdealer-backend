@@ -10,6 +10,7 @@ export const getParentCategories = async (req, res) => {
 export const getParentCategoriesById = async (req, res) => {
    
     let data = await parentcategory.findOne(req.params);
+    res.send(data)
 }
 export const postParentCategories = async (req, res) => {
     const { name } = req.body;
