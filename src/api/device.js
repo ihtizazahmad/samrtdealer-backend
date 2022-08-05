@@ -1,9 +1,14 @@
 import device from '../models/device.js';
 
-export const getDevice = async (req, res) => {
+export const getDevices = async (req, res) => {
     let data = await device.find(req.data);
     res.send(data);
 }
+export const getDevice = async (req, res) => {
+    let data = await device.findOne(req.params);
+    res.send(data);
+}
+
 export const postDevice = async (req, res) => {
     const { name } = req.body;
     const data = await new device({ name });

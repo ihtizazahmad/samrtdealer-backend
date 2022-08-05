@@ -1,7 +1,11 @@
 import display from '../models/display.js';
 
-export const getDisplay = async (req, res) => {
+export const getDisplays = async (req, res) => {
     let data = await display.find(req.params).populate('order');
+    res.send(data);
+}
+export const getDisplay = async (req, res) => {
+    let data = await display.findOne(req.params).populate('order')
     res.send(data);
 }
 export const postDisplay = async (req, res) => {
