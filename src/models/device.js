@@ -5,7 +5,7 @@ const deivceSchema = new mongoose.Schema({
     },
     createdDate: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 })
 const device = mongoose.model("device", deivceSchema);

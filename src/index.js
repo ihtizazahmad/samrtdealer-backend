@@ -5,7 +5,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import Auth from './api-routes/user-route.js';
-import payer from './api-routes/payerdata-route.js';
 import tabledata from './api-routes/tabledata-route.js';
 import category from './api-routes/category-route.js'
 import check from './api-routes/check-route.js'
@@ -25,6 +24,7 @@ import role from './api-routes/role-route.js'
 import tax from './api-routes/tax-route.js'
 import tables from './api-routes/table-route.js'
 import parentcategory from './api-routes/parentcategory-route.js';
+import customer from './api-routes/customer-route.js'
 import './config/config.js';
 
 const app = express();
@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-app.use('/api/v1', Auth, payer, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory)
+app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory,customer)
 
 
 app.use('*', (req, res) => {

@@ -4,10 +4,12 @@ const routes=express.Router();
 import {getTables,
     postTables,
     updateTables,
-    deleteTables
+    deleteTables,
+    getTableById
 } from "../api/tables.js"
 
 routes.get('/Tables', getTables )
+routes.get('/Tables/:_id', getTableById )
 
 routes.post('/Tables', postTables )
 routes.put('/Tables/:_id', updateTables )
