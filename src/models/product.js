@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
    
-    categoryParents: [{
+    categoryName: [{
         type:mongoose.Schema.Types.ObjectId,
         ref:"category"
+    }],
+    categoryParents: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"parentcategory"
     }],
     barCode: {
         type: String
@@ -15,10 +19,12 @@ const productSchema = new mongoose.Schema({
         type: Number
     },
     inHouseTaxValue: {
-        type: Number
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'tax'
     },
     takeawayTaxValue: {
-        type: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'tax'
     },
     shortDescription: {
         type: String
@@ -26,10 +32,9 @@ const productSchema = new mongoose.Schema({
     fullDescription: {
         type: String
     },
-    order: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"order" 
-    }],
+    order: {
+        type:Number
+    },
     active: {
         type: Boolean
     },
@@ -39,19 +44,15 @@ const productSchema = new mongoose.Schema({
     ref:'category'
    }],
     inHouseTaxId: {
-        type: Number   
+        type: mongoose.Schema.Types.ObjectId,
+         ref:'tax'
     },
-    takeawayTaxId: {
-        type: Number
+    takeawayTaxId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'tax'
     },
     hasPicture: {
         type: Boolean
-    },
-    extraData: {
-        type: String
-    },
-    translations: {
-        type: String
     },
     productPictureId: {
         type: String

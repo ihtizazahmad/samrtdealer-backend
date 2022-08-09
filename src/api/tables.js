@@ -1,10 +1,14 @@
 import tables from '../models/tables.js';
 
 export const getTables= async (req, res) => {
-    console.log("this is get api of table")
     const data = await tables.find(req.data);
     res.send(data);
 }
+export const getTableById= async (req, res) => {
+    const data = await tables.findOne(req.data);
+    res.send(data);
+}
+
 export const postTables= async (req, res) => {
     const { tableNo, name, description, hasLampixDevice } = req.body;
     let data = new tables({ tableNo, name, description, hasLampixDevice });

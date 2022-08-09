@@ -9,19 +9,19 @@ export const getProduct= async (req, res) => {
     if(req.query.categoryId){
         filter={categoryId:req.query.categoryId.split(',')}
     }
-    let productData = await product.find(filter).populate('categoryId','_id').populate('order')
+    let productData = await product.find(filter).populate('categoryId','_id').populate('categoryName','name').populate('categoryParents','name').populate('inHouseTaxId','_id').populate('takeawayTaxId','_id').populate('inHouseTaxValue','taxValue').populate('takeawayTaxValue','taxValue')
     res.send(productData);
 
 }
 export const getProductById= async (req, res) => {
-    let productData = await product.findOne(req.params).populate('categoryId','_id').populate('order')
+    let productData = await product.findOne(req.params).populate('categoryId','_id').populate('order').populate('categoryName','name').populate('categoryParents','name').populate('inHouseTaxId','_id').populate('takeawayTaxId','_id').populate('inHouseTaxValue','taxValue').populate('takeawayTaxValue','taxValue')
     res.send(productData);
 
 }
 
 export const postProduct= async (req, res) => {
-    const { categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId,inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType } = req.body;
-    const productData = await new product({ categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture, extraData, translations, productPictureId, productId,productType });
+    const { categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId,inHouseTaxId, takeawayTaxId, hasPicture,  productPictureId, productId,productType } = req.body;
+    const productData = await new product({ categoryName,categoryParents, barCode, name, price, inHouseTaxValue, takeawayTaxValue, shortDescription, fullDescription, order, active, categoryId, inHouseTaxId, takeawayTaxId, hasPicture,  productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
           res.json({

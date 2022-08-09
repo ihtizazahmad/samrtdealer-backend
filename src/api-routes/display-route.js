@@ -1,13 +1,15 @@
 import express  from "express";
 const routes=express.Router();
 
-import {getDisplay,
+import {getDisplays,
+    getDisplay,
     postDisplay,
     updateDisplay,
     deleteDisplay
 } from "../api/display.js"
 
-routes.get('/display', getDisplay )
+routes.get('/display', getDisplays )
+routes.get('/display/:_id', getDisplay )
 
 routes.post('/display', postDisplay )
 routes.put('/display/:_id', updateDisplay )

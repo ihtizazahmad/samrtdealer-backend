@@ -1,13 +1,18 @@
 import paymentlist from '../models/paymentList.js';
 
-export const getPayment = async (req, res) => {
+export const getPayments = async (req, res) => {
     let data = await paymentlist.find(req.data);
     res.send(data);
 
 }
+export const getPayment = async (req, res) => {
+    let data = await paymentlist.findOne(req.params);
+    res.send(data);
+
+}
 export const postPayment = async (req, res) => {
-    const { name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt } = req.body;
-    const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption, updatedAt });
+    const { name, paymentsGTypeId, isActive, defaultPayment, showCaption } = req.body;
+    const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption});
     await data.save().then(result => {
         console.log(result, "PaymentList data save to database")
         res.json({
