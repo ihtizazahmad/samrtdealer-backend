@@ -1,15 +1,15 @@
 import express  from "express";
-import { paginatedResults } from "../middlewares/pagination.js";
-import tax from "../models/tax.js";
 const routes=express.Router();
 
 import {getTax,
+    getTaxById,
     postTax,
     updateTax,
     deleteTax
 } from "../api/tax.js"
 
-routes.get('/Tax',paginatedResults(tax), getTax )
+routes.get('/Tax', getTax )
+routes.get('/Tax/:_id', getTaxById )
 
 routes.post('/Tax', postTax )
 routes.put('/Tax/:_id', updateTax )

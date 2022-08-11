@@ -1,7 +1,11 @@
 
 import tax from '../models/tax.js'
 export const getTax = async (req, res) => {
-    let data = await tax.find(req.data);
+    let data = await tax.find(req.params);
+    res.send(data);
+}
+export const getTaxById = async (req, res) => {
+    let data = await tax.findOne(req.params);
     res.send(data);
 }
 

@@ -1,7 +1,16 @@
 import employee from '../models/employee.js';
 
 export const getEmployee = async (req, res) => {
-    let data = await employee.find(req.data).populate('role');
+    const filter={}
+    if(req.query.role){
+        filter={role:req.query.role.split(',')}
+    }
+    let data = await employee.find(filter).populate('role','name');
+    res.send(data);
+
+}
+export const getEmployeeById = async (req, res) => {
+    let data = await employee.findOne(req.params).populate('role','name');
     res.send(data);
 
 }
