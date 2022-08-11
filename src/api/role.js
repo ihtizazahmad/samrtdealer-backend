@@ -6,7 +6,6 @@ import role from '../models/role.js'
 export const getRole = async (req, res) => {
     let data = await role.find(req.data);
     res.send(data);
-
 }
 export const postRole = async (req, res) => {
     const { name } = req.body;

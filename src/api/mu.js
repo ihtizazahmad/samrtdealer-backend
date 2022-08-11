@@ -1,7 +1,11 @@
 import mu from '../models/mu.js'
 
 export const getMu = async (req, res) => {
-    let data = await mu.find(req.data);
+    let data = await mu.find(req.params);
+    res.send(data)
+}
+export const getMuById = async (req, res) => {
+    let data = await mu.find(req.params);
     res.send(data)
 }
 export const postMu = async (req, res) => {
@@ -22,7 +26,7 @@ export const updateMu = async (req, res) => {
     let data = await mu.findByIdAndUpdate(
         { _id: req.params._id }, {
         $set: req.body
-    },
+    },{new:true}
     );
     if (data) {
         res.send({ message: "mu data updated successfully" });

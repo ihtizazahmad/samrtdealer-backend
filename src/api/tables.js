@@ -1,11 +1,11 @@
 import tables from '../models/tables.js';
 
 export const getTables= async (req, res) => {
-    const data = await tables.find(req.data);
+    const data = await tables.find(req.params);
     res.send(data);
 }
 export const getTableById= async (req, res) => {
-    const data = await tables.findOne(req.data);
+    const data = await tables.findOne(req.params);
     res.send(data);
 }
 
