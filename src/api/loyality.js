@@ -1,5 +1,5 @@
 
-import loyalty from "../models/loyality";
+import loyalty from "../models/loyality.js";
 
 export const getLoyalty= async (req, res) => {
     let loyaltyData = await loyalty.find(req.params)
