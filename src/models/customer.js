@@ -37,43 +37,13 @@ const customerSchema = new mongoose.Schema({
     },
     Email: {
         type: String
-    },
-    CardNo: {
-        type: Number
-    },
-    Type: {
-       type:String
-    },
-    StartDate: {
-        type: Date,
-        default: Date.now()
-    },
-    ExpiresIn: {
-        type: Date
-    },
-    Communication: {
-        mail:{
-            type:Boolean
-        },
-        Email:{
-            type:Boolean
-    }
-},
-    BirthDate: {
-        type: Date
-    },
-    Gender: {
-        type: String
-    },
-    History: [{
-        type: String
-    }],
-    Notes: [{
-        type: String
-    }],
-
+    }  ,
+    Membership:{
+        type:String
+    } 
 
 })
  
 const customer=mongoose.model('customer',customerSchema);
 export default customer;
+

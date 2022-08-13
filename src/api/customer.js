@@ -23,8 +23,8 @@ export const searchCustomer= async (req, res) => {
 }
 
 export const postCustomer= async (req, res) => {
-    const { CustomerId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,CardNo,Type,StartDate,ExpiresIn,Communication,BirthDate,Gender,History,Notes } = req.body;
-    const customerData = await new customer({ CustomerId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,CardNo,Type,StartDate,ExpiresIn,Communication,BirthDate,Gender,History,Notes});
+    const { CustomerId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,Membership } = req.body;
+    const customerData = await new customer({ CustomerId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,Membership});
     await customerData.save().then(result => {
         console.log(result, "Customer data save to database")
           res.json({
@@ -39,15 +39,7 @@ export const postCustomer= async (req, res) => {
             City:result.City,
             State:result.State,
             CompanyName:result.CompanyName,
-            CardNo:result.CardNo,
-            Type:result.Type,
-            StartDate:result.StartDate,
-            ExpiresIn:result.ExpiresIn,
-            Communication:result.Communication,
-            BirthDate:result.BirthDate,
-            Gender:result.Gender,
-            History:result.History,
-            Notes:result.Notes
+            Membership:result.Membership
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
