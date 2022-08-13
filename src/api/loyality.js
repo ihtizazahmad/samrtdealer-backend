@@ -2,7 +2,7 @@
 import loyalty from "../models/loyality";
 
 export const getLoyalty= async (req, res) => {
-    let customerData = await loyalty.find(req.params)
+    let loyaltyData = await loyalty.find(req.params)
     res.send(customerData);
 
 }
@@ -10,7 +10,7 @@ export const getLoyalty= async (req, res) => {
 
 export const postLoyalty= async (req, res) => {
     const { CardNo,Type,StartDate,ExpiresIn,Communication,BirthDate,Gender,History,Notes } = req.body;
-    const customerData = await new loyalty({ CardNo,Type,StartDate,ExpiresIn,Communication,BirthDate,Gender,History,Notes});
+    const loyaltyData = await new loyalty({ CardNo,Type,StartDate,ExpiresIn,Communication,BirthDate,Gender,History,Notes});
     await customerData.save().then(result => {
         console.log(result, "Customer data save to database")
           res.json({
