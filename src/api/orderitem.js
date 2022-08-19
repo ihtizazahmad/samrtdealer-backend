@@ -3,18 +3,24 @@ import orderitem from '../models/orderitem.js'
 
 export const getOrderItemByOrderId = async (req, res) => {
     let filter = {}
-    if (req.query.orderId) {
-        filter = { orderId: req.query.orderId.split(',') }
+    if (req.query.orderId && req.query.productId) {
+        filter = [
+        { orderId: req.query.orderId.split(',') },
+        { productId: req.query.productId.split(',')}
+    ]
     }
-    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name')
+    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name').populate('productQuantity').populate('productPrice','price')
     res.send(data);
 }
 export const getOrderItemByProductId = async (req, res) => {
     let filter = {}
-    if (req.query.productId) {
-        filter = { orderId: req.query.productId.split(',') }
+    if (req.query.orderId && req.query.productId) {
+        filter = [
+        { orderId: req.query.orderId.split(',') },
+        { productId: req.query.productId.split(',')}
+    ]
     }
-    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name')
+    let data = await orderitem.find(filter).populate('orderId', '_id').populate('productId', '_id').populate('productName', 'name').populate('productQuantity').populate('productPrice','price')
     res.send(data);
 }
 export const getOrderItemById = async (req, res) => {
@@ -24,19 +30,19 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
-    const data = await new orderitem({ orderId, needToPrintQty, productId, points, taxValue, quantity, priceExclTax, price, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
+    const { orderId,  productId, points, taxValue, productQuantity, priceExclTax, productPrice, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
+    const data = await new orderitem({ orderId, productId, points, taxValue, productQuantity, priceExclTax, productPrice, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
             orderId: result.orderId,
-            needToPrintQty: result.needToPrintQty,
+            // needToPrintQty: result.needToPrintQty,
             productId: result.productId,
             points: result.points,
             taxValue: result.taxValue,
-            quantity: result.quantity,
+            productQuantity: result.productQuantity,
             priceExclTax: result.priceExclTax,
-            price: result.price,
+            productPrice: result.productPrice,
             lineValueExclTax: result.lineValueExclTax,
             lineValueTax: result.lineValueTax,
             lineValue: result.lineValue,

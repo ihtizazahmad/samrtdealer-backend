@@ -10,9 +10,10 @@ const orderItemSchema = new mongoose.Schema({
     taxValue: {
         type: Number
     },
-    quantity: {
-        type: Number
-    },
+    productQuantity: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product"
+    }],
     orderId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "order"
@@ -26,9 +27,10 @@ const orderItemSchema = new mongoose.Schema({
         type: Number
     },
 
-    price: {
-        type: Number
-    },
+    productPrice:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product"
+    }],
     lineValueExclTax: {
         type: Number
     },
