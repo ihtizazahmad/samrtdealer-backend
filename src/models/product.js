@@ -1,14 +1,26 @@
 import mongoose from 'mongoose';
 const productSchema = new mongoose.Schema({
-   
+
+    lavel: {
+        type: Number
+    },
+    rows: {
+        type: Number
+    },
+    cols: {
+        type: Number
+    },
     categoryName: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"category"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category"
     }],
     categoryParents: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"parentcategory"
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "parentcategory"
     }],
+    quantity:{
+        type:Number
+    },
     barCode: {
         type: String
     },
@@ -18,14 +30,6 @@ const productSchema = new mongoose.Schema({
     price: {
         type: Number
     },
-    inHouseTaxValue: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'tax'
-    },
-    takeawayTaxValue: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'tax'
-    },
     shortDescription: {
         type: String
     },
@@ -33,24 +37,16 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     order: {
-        type:Number
+        type: Number
     },
     active: {
         type: Boolean
     },
     categoryId:
-   [{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:'category'
-   }],
-    inHouseTaxId: {
-        type: mongoose.Schema.Types.ObjectId,
-         ref:'tax'
-    },
-    takeawayTaxId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'tax'
-    },
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'category'
+        }],
     hasPicture: {
         type: Boolean
     },
@@ -59,6 +55,23 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String
+    },
+    disobj:{
+        discount:{
+            type:Number
+        },
+        reason:{
+            type:String
+        },
+        oldAmount:{
+            type:Number
+        },
+        newAmount:{
+            type:Number
+        },
+        discountTypePr:{
+            type:Boolean
+        }
     }
 
 })
