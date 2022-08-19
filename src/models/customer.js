@@ -38,11 +38,14 @@ const customerSchema = new mongoose.Schema({
     Email: {
         type: String
     },
+    Membership: {
+        type: String
+    },
     CardNo: {
         type: Number
     },
     Type: {
-       type:String
+        type: String
     },
     StartDate: {
         type: Date,
@@ -52,13 +55,13 @@ const customerSchema = new mongoose.Schema({
         type: Date
     },
     Communication: {
-        mail:{
-            type:Boolean
+        mail: {
+            type: Boolean
         },
-        Email:{
-            type:Boolean
-    }
-},
+        Email: {
+            type: Boolean
+        }
+    },
     BirthDate: {
         type: Date
     },
@@ -70,10 +73,9 @@ const customerSchema = new mongoose.Schema({
     }],
     Notes: [{
         type: String
-    }],
-
-
+    }]
 })
- 
-const customer=mongoose.model('customer',customerSchema);
+
+const customer = mongoose.model('customer', customerSchema);
 export default customer;
+
