@@ -30,22 +30,22 @@ export const postProduct= async (req, res) => {
             barCode:result.barCode,
             name:result.name,
             price:result.price,
-            inHouseTaxValue:result.inHouseTaxValue,
-            takeawayTaxValue:result.takeawayTaxValue,
-            shortDescription:result.shortDescription,
-            fullDescription:result.fullDescription,
+            // inHouseTaxValue:result.inHouseTaxValue,
+            // takeawayTaxValue:result.takeawayTaxValue,
+            // shortDescription:result.shortDescription,
+            // fullDescription:result.fullDescription,
             order:result.order,
             active:result.active,
             categoryId:result.categoryId,
-            inHouseTaxId:result.inHouseTaxId,
-            takeawayTaxId:result.takeawayTaxId,
+            // inHouseTaxId:result.inHouseTaxId,
+            // takeawayTaxId:result.takeawayTaxId,
             hasPicture:result.hasPicture,
-            extraData:result.extraData,
-            translations:result.translations,
+            // extraData:result.extraData,
+            // translations:result.translations,
             productPictureId:result.productPictureId,
             productId:result.productId,
             productType:result.productType,
-            disobj:result.disobj
+          disobj:result.disobj  
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
