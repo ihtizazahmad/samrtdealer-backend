@@ -63,6 +63,7 @@ const productSchema = new mongoose.Schema({
         reason:{
             type:String
         },
+        
         oldAmount:{
             type:Number
         },
