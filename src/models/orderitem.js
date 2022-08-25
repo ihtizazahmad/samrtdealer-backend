@@ -8,13 +8,38 @@ const orderItemSchema = new mongoose.Schema({
     },
     orderId: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "order"
+        ref: "order",
+
+    }],
+    productWithQty: [{
+        productId: {
+            type: String,//stringt
+        },
+        qty: {
+            type: Number // number field
+        },
+        discount: {
+            type: Number
+        },
+        reason: {
+            type: String
+        },
+
+        oldAmount: {
+            type: Number
+        },
+        newAmount: {
+            type: Number
+        },
+        discountTypePr: {
+            type: Boolean
+        }
+
     }],
     product: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "product"
+        ref: "product",
     }],
-
     priceExclTax: {
         type: Number
     },

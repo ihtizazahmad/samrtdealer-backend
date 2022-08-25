@@ -5,9 +5,9 @@ export const getOrderItemByOrderId = async (req, res) => {
     let filter = {}
     if (req.query.orderId && req.query.product) {
         filter = [
-        { orderId: req.query.orderId.split(',') },
-        { productId: req.query.product.split(',')}
-    ]
+            { orderId: req.query.orderId.split(',') },
+            { productId: req.query.product.split(',') }
+        ]
     }
     let data = await orderitem.find(filter).populate('orderId', '_id').populate('product')
     res.send(data);
@@ -16,9 +16,9 @@ export const getOrderItemByProductId = async (req, res) => {
     let filter = {}
     if (req.query.orderId && req.query.product) {
         filter = [
-        { orderId: req.query.orderId.split(',') },
-        { productId: req.query.product.split(',')}
-    ]
+            { orderId: req.query.orderId.split(',') },
+            { productId: req.query.product.split(',') }
+        ]
     }
     let data = await orderitem.find(filter).populate('orderId', '_id').populate('product')
     res.send(data);
@@ -30,8 +30,8 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId,  product, points, taxValue, productQuantity, priceExclTax, productPrice, lineValueExclTax, lineValueTax, lineValue, units, productName, text } = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productQuantity, priceExclTax, productPrice, lineValueExclTax, lineValueTax, lineValue, units, productName, text });
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text} = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text});
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
@@ -40,14 +40,13 @@ export const postOrderItem = async (req, res) => {
             product: result.product,
             points: result.points,
             taxValue: result.taxValue,
-            productQuantity: result.productQuantity,
+            productWithQty: result.productWithQty,
             priceExclTax: result.priceExclTax,
             productPrice: result.productPrice,
             lineValueExclTax: result.lineValueExclTax,
             lineValueTax: result.lineValueTax,
             lineValue: result.lineValue,
             units: result.units,
-            productName: result.productName,
             text: result.text
         })
     }).catch(err => {

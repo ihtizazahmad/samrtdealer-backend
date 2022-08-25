@@ -17,8 +17,8 @@ export const getProductById= async (req, res) => {
 }
 
 export const postProduct= async (req, res) => {
-    const {lavel,rows,cols, categoryName,categoryParents,quantity ,barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture,  productPictureId, productId,productType ,disobj} = req.body;
-    const productData = await new product({lavel,rows,cols, categoryName,categoryParents,quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture,  productPictureId, productId,productType,disobj });
+    const {lavel,rows,cols, categoryName,categoryParents,quantity ,barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture,  productPictureId, productId,productType } = req.body;
+    const productData = await new product({lavel,rows,cols, categoryName,categoryParents,quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture,  productPictureId, productId,productType });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
           res.json({
@@ -30,22 +30,22 @@ export const postProduct= async (req, res) => {
             barCode:result.barCode,
             name:result.name,
             price:result.price,
-            inHouseTaxValue:result.inHouseTaxValue,
-            takeawayTaxValue:result.takeawayTaxValue,
-            shortDescription:result.shortDescription,
-            fullDescription:result.fullDescription,
+            quantity:result.quantity,
+            // inHouseTaxValue:result.inHouseTaxValue,
+            // takeawayTaxValue:result.takeawayTaxValue,
+            // shortDescription:result.shortDescription,
+            // fullDescription:result.fullDescription,
             order:result.order,
             active:result.active,
             categoryId:result.categoryId,
-            inHouseTaxId:result.inHouseTaxId,
-            takeawayTaxId:result.takeawayTaxId,
+            // inHouseTaxId:result.inHouseTaxId,
+            // takeawayTaxId:result.takeawayTaxId,
             hasPicture:result.hasPicture,
-            extraData:result.extraData,
-            translations:result.translations,
+            // extraData:result.extraData,
+            // translations:result.translations,
             productPictureId:result.productPictureId,
             productId:result.productId,
             productType:result.productType,
-            disobj:result.disobj
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
