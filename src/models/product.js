@@ -55,25 +55,8 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String
-    },
-    disobj:{
-        discount:{
-            type:Number
-        },
-        reason:{
-            type:String
-        },
-        
-        oldAmount:{
-            type:Number
-        },
-        newAmount:{
-            type:Number
-        },
-        discountTypePr:{
-            type:Boolean
-        }
     }
+    
 
 })
 const product = mongoose.model('product', productSchema)
