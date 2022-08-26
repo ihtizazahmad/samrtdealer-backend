@@ -16,16 +16,11 @@ export const register = async (req, res) => {
     return res.send({ message: "this user is already registered" })
   }
   const newUser = new User({ userName, email, password });
-  const savedUser = await newUser.save()
-    .catch((err) => {
-      console.log("Error: ", err);
-      return res.send({ error: "Cannot register user at the moment!" });
-    });
-
+  const savedUser = await newUser.save();
   if (savedUser) {
     res.send({ message: "Thanks for registering" });
   } else {
-    res.send({ error: "Cannot register user at the moment!" });
+    res.status(400).send({ error: "Cannot register user at the moment!" });
   }
 
 }
@@ -33,10 +28,10 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    return res.send({ message: "User not found" });
+    return res.status(400).send({ message: "User not found" });
   }
   if (user.password !== password) {
-    return res.send({ message: "Wrong password" });
+    return res.status(400).send({ message: "Wrong password" });
   }
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
   res.send({ message: "user login successfully", token });
