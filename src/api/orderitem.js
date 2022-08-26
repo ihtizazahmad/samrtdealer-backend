@@ -30,13 +30,12 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text} = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text});
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text } = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
             orderId: result.orderId,
-            // needToPrintQty: result.needToPrintQty,
             product: result.product,
             points: result.points,
             taxValue: result.taxValue,
