@@ -25,8 +25,8 @@ import tax from './api-routes/tax-route.js'
 import tables from './api-routes/table-route.js'
 import parentcategory from './api-routes/parentcategory-route.js';
 import customer from './api-routes/customer-route.js'
-import  Checkout  from './api-routes/checkout-route.js';
 import './config/config.js';
+import Checkout from './api-routes/checkout-route.js';
 
 const app = express();
 dotenv.config();
@@ -44,8 +44,9 @@ app.use(cors({
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory,customer,Checkout)
-
+app.use('/api/v1', Auth, tabledata, category, check, device, display, employee,
+    menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu, posmenusize, product,
+    role, tax, tables, parentcategory, customer, Checkout);
 
 app.use('*', (req, res) => {
     return res.status(404).json({
