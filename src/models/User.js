@@ -1,17 +1,18 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
+import Joi from 'joi';
 const Schema = mongoose.Schema
 
 
 const UserSchema = new Schema({
-  userName:{
+  name:{
     type: String,
+
   },
   email: {
     type: String,
     required: true,
-    lowercase: true,
-    unique: true,
+    lowercase:true,
+    unique:true
   },
   password: {
     type: String,
@@ -42,6 +43,15 @@ const UserSchema = new Schema({
 //     throw error
 //   }
 // }
+export const validate = (user) => {
+  const schema = Joi.object({
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+  });
+  return schema.validate(user);
+};
 
-const User = mongoose.model('user', UserSchema)
-export default  User;
+export  const User = mongoose.model('user', UserSchema)
+
+export default User;
