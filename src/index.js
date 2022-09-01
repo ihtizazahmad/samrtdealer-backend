@@ -30,6 +30,7 @@ import  Checkout  from './api-routes/checkout-route.js';
 
 
 import './config/config.js';
+import Checkout from './api-routes/checkout-route.js';
 
 const app = express();
 dotenv.config();
