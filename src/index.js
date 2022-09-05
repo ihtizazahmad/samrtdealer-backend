@@ -28,9 +28,8 @@ import customer from './api-routes/customer-route.js'
 import passwordreset from './api/reset-password.js'
 import  Checkout  from './api-routes/checkout-route.js';
 
-
 import './config/config.js';
-import Checkout from './api-routes/checkout-route.js';
+
 
 const app = express();
 dotenv.config();
@@ -48,7 +47,8 @@ app.use(cors({
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-app.use("/api/v1/password-reset",passwordreset)
+
+app.use('/api/v1/password-reset',passwordreset)
 app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory,customer,Checkout)
 
 
