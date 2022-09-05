@@ -41,6 +41,8 @@ const customerSchema = new mongoose.Schema({
     Membership: {
         type: String
     },
+    CustomerLoyalty:{
+        
     CardNo: {
         type: Number
     },
@@ -74,6 +76,7 @@ const customerSchema = new mongoose.Schema({
     Notes: [{
         type: String
     }]
+}
 })
 
 const customer = mongoose.model('customer', customerSchema);

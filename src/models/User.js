@@ -1,12 +1,10 @@
 import mongoose from 'mongoose'
 import Joi from 'joi';
+
 const Schema = mongoose.Schema
-
-
 const UserSchema = new Schema({
   name:{
     type: String,
-
   },
   email: {
     type: String,
@@ -18,6 +16,9 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  role:{
+   type:String,
+  }
 })
 
 // UserSchema.pre('save', async function (next) {

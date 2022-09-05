@@ -8,14 +8,14 @@ export const getUser = async (req, res) => {
 
 export const register = async (req, res) => {
 
-  const { name, email, password } =req.body;
+  const { name, email, password ,role} =req.body;
  
   const userRegister = await User.findOne({email});
   
     if (userRegister) {
       return res.send({ message: "this user is already registered" })
     }
-    const newUser = new User({ name,email, password });
+    const newUser = new User({ name,email, password,role });
     const savedUser = await newUser.save();
   if (savedUser) {
     res.send({ message: "Thanks for registering" });

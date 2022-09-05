@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const roleSchema = new mongoose.Schema({
    
     name: {
-        type:String
+       type:String
     }
 })
 const role = mongoose.model('role', roleSchema)
