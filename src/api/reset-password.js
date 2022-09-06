@@ -4,7 +4,7 @@ import sendMail from '../middlewares/send-email.js';
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 import express from "express"
-const router=express.Router()
+const router = express.Router()
 //reset password throght email
 router.post("/", async (req, res) => {
     try {
@@ -20,15 +20,15 @@ router.post("/", async (req, res) => {
         if (!token) {
             token = await new Token({
                 userId: user._id,
-                token : jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+                token: jwt.sign({ id: user._id }, process.env.JWT_SECRET)
             }).save();
             // res.send({ message: "user login successfully", token });
         }
 
-        const link = `${process.env.BASE_URL}/password-reset/${user._id}/${token.token}`;
+        const link = `${process.env.BASE_URL}/reset-password/${user._id}/${token.token}`;
         await sendMail(user.email, "Password reset", link);
-        return  res.json(link)
-    //    res.send("password reset link sent to your email account");
+        return res.json({ message: `password-reset link send to your gmail account ` })
+
     } catch (error) {
         res.send("An error occured");
         console.log(error);
@@ -42,19 +42,21 @@ router.post("/:userId/:token", async (req, res) => {
         if (error) return res.status(400).send(error.details[0].message);
 
         const user = await User.findById(req.params.userId);
-        if (!user) return res.status(400).send("invalid link or expired");
+        if (!user) return res.status(400).send("invalid userId or expired");
 
         const token = await Token.findOne({
             userId: user._id,
             token: req.params.token,
         });
-        if (!token) return res.status(400).send("Invalid link or expired");
+        if (!token) return res.status(400).send("Invalid Token or expired");
 
         user.password = req.body.password;
         await user.save();
         await token.delete();
 
-        res.send("password reset sucessfully.");
+        res.json({
+            message: 'Password Reset Successfully'
+        });
     } catch (error) {
         res.send("An error occured");
         console.log(error);

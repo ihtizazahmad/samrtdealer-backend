@@ -67,6 +67,16 @@ const customerSchema = new mongoose.Schema({
     BirthDate: {
         type: Date
     },
+    Points:{
+      type:Number
+    },
+    Visits:{
+        type:Number
+    },
+    LastVisit:{
+         type:Date,
+         default:Date
+    },
     Gender: {
         type: String
     },
