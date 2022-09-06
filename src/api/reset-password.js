@@ -42,13 +42,13 @@ router.post("/:userId/:token", async (req, res) => {
         if (error) return res.status(400).send(error.details[0].message);
 
         const user = await User.findById(req.params.userId);
-        if (!user) return res.status(400).send("invalid userId or expired");
+        if (!user) return res.status(400).json({message:"invalid userId or expired"});
 
         const token = await Token.findOne({
             userId: user._id,
             token: req.params.token,
         });
-        if (!token) return res.status(400).send("Invalid Token or expired");
+        if (!token) return res.status(400).json({message:"Invalid Token or expired"});
 
         user.password = req.body.password;
         await user.save();
