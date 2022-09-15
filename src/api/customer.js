@@ -7,6 +7,8 @@ export const getCustomer= async (req, res) => {
 
 }
 export const searchCustomer= async (req, res) => {
+    
+   
     let customerData = await customer.find({
         "$or":[
         {FirstName:{$regex:req.params.key}},
