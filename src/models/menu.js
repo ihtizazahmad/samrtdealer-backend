@@ -1,18 +1,12 @@
 import mongoose from 'mongoose';
 const menuSchema = new mongoose.Schema({
-   
-    links: {
-        type: String
+
+    treeData: {
+        type: Array
     },
-    sublinks: [{
-        type:String
-    }],
-    color: {
-        type: String
-    },
-    userId:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+    userId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }]
 
 })
