@@ -61,7 +61,12 @@ const orderItemSchema = new mongoose.Schema({
     },
     text: {
         type: String
-    }
+    } ,
+     userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
 })
 const orderitem = mongoose.model('orderitem', orderItemSchema);
 export default orderitem;

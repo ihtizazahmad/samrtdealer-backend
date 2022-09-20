@@ -33,7 +33,7 @@ export const login = async (req, res) => {
   if (user.password !== password) {
     return res.status(400).send({ message: "Wrong password" });
   }
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   res.send({ message: "user login successfully",token });
 }
 

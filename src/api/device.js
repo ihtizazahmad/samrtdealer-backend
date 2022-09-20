@@ -10,12 +10,13 @@ export const getDevice = async (req, res) => {
 }
 
 export const postDevice = async (req, res) => {
-    const { name } = req.body;
-    const data = await new device({ name });
+    const { name,userId } = req.body;
+    const data = await new device({ name,userId });
     await data.save().then(result => {
         console.log(result, "Device data save to database")
         res.json({
-            name: result.name
+            name: result.name,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

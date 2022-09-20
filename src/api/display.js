@@ -9,15 +9,16 @@ export const getDisplay = async (req, res) => {
     res.send(data);
 }
 export const postDisplay = async (req, res) => {
-    const { name, order, systemDisplay, displayKey } = req.body;
-    const data = await new display({ name, order, systemDisplay, displayKey });
+    const { name, order, systemDisplay, displayKey ,userId} = req.body;
+    const data = await new display({ name, order, systemDisplay, displayKey,userId });
     await data.save().then(result => {
         console.log(result, "Display data save to database")
         res.json({
             name: result.name,
             order: result.order,
             systemDisplay: result.systemDisplay,
-            displayKey: result.displayKey
+            displayKey: result.displayKey,
+            userId:result.userId
         })
     }
     ).catch(err => {

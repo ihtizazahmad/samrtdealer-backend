@@ -11,8 +11,8 @@ export const getPayment = async (req, res) => {
 
 }
 export const postPayment = async (req, res) => {
-    const { name, paymentsGTypeId, isActive, defaultPayment, showCaption } = req.body;
-    const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption});
+    const { name, paymentsGTypeId, isActive, defaultPayment, showCaption ,userId} = req.body;
+    const data = await new paymentlist({ name, paymentsGTypeId, isActive, defaultPayment, showCaption,userId});
     await data.save().then(result => {
         console.log(result, "PaymentList data save to database")
         res.json({
@@ -21,7 +21,8 @@ export const postPayment = async (req, res) => {
             isActive: result.isActive,
             defaultPayment: result.defaultPayment,
             showCaption: result.showCaption,
-            updatedAt: result.updatedAt
+            updatedAt: result.updatedAt,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

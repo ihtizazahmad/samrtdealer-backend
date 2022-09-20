@@ -30,8 +30,8 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text } = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text });
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId} = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
@@ -46,7 +46,8 @@ export const postOrderItem = async (req, res) => {
             lineValueTax: result.lineValueTax,
             lineValue: result.lineValue,
             units: result.units,
-            text: result.text
+            text: result.text,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

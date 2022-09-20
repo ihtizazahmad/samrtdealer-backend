@@ -3,6 +3,11 @@ const deivceSchema = new mongoose.Schema({
     name: {
         type: String
     },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
     createdDate: {
         type: Date,
         default: Date.now()

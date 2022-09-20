@@ -16,8 +16,8 @@ export const getCategoriesById = async (req, res) => {
     res.send(data);
 }
 export const postCategories = async (req, res) => {
-    const { name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures } = req.body;
-    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures });
+    const { name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId } = req.body;
+    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId });
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
@@ -35,7 +35,8 @@ export const postCategories = async (req, res) => {
             lampixIcon: result.lampixIcon,
             translation: result.translation,
             product: result.product,
-            showPictures: result.showPictures
+            showPictures: result.showPictures,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");

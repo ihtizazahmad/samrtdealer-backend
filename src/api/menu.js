@@ -7,12 +7,11 @@ import menu from '../models/menu.js';
         filter = { userId: req.query.userId.split(',') }
     }
     let usermenuData = await menu.find(filter).populate('userId','_id')
-    res.send(usermenuData);
-
+    res.send(usermenuData)
 }
 
 export const getMenuById = async (req, res) => {
-    let data = await menu.find(req.params).populate('userId','_id')
+    let data = await menu.findOne(req.params).populate('userId','_id')
     if(!data){
         res.send({message:"no data found"})
     }

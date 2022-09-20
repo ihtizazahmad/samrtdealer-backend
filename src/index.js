@@ -16,9 +16,6 @@ import mu from './api-routes/mu-route.js'
 import order from './api-routes/order-route.js'
 import orderitem from './api-routes/orderitem-route.js'
 import paymentlist from './api-routes/paymentlist-route.js'
-import posmenuitem from './api-routes/posmenuitem-route.js'
-import posmenusize from './api-routes/posmenusize-routes.js'
-import posmenu from './api-routes/posmenu-route.js'
 import product from './api-routes/product-route.js'
 import role from './api-routes/role-route.js'
 import tax from './api-routes/tax-route.js'
@@ -48,7 +45,7 @@ app.use(morgan("dev"));
 //Routes
 
 app.use('/api/v1/reset-password',passwordreset)
-app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, posmenuitem, posmenu,posmenusize, product, role, tax, tables,parentcategory,customer,Checkout)
+app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout)
 
 
 app.use('*', (req, res) => {

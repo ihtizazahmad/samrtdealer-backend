@@ -16,6 +16,11 @@ const checkSchema = new mongoose.Schema({
     amount: {
         type: Number
     },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
     table: [{
         type:mongoose.Schema.Types.ObjectId,
         ref:"tables" 
