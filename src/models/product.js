@@ -55,12 +55,7 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String
-    },
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'user'
-    },
+    }
 
 })
 const product = mongoose.model('product', productSchema)

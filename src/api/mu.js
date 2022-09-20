@@ -1,7 +1,11 @@
 import mu from '../models/mu.js'
 
 export const getMu = async (req, res) => {
-    let data = await mu.find(req.params);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await mu.find(filter);
     res.send(data)
 }
 export const getMuById = async (req, res) => {

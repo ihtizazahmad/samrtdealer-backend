@@ -1,7 +1,11 @@
 import device from '../models/device.js';
 
 export const getDevices = async (req, res) => {
-    let data = await device.find(req.data);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await device.find(filter);
     res.send(data);
 }
 export const getDevice = async (req, res) => {

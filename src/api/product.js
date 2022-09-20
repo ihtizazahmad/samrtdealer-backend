@@ -17,8 +17,8 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId } = req.body;
-    const productData = await new product({ lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType ,userId});
+    const { lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType} = req.body;
+    const productData = await new product({ lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json({
@@ -44,7 +44,6 @@ export const postProduct = async (req, res) => {
             productPictureId: result.productPictureId,
             productId: result.productId,
             productType: result.productType,
-            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

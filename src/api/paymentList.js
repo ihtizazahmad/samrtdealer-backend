@@ -1,7 +1,11 @@
 import paymentlist from '../models/paymentList.js';
 
 export const getPayments = async (req, res) => {
-    let data = await paymentlist.find(req.data);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await paymentlist.find(filter);
     res.send(data);
 
 }

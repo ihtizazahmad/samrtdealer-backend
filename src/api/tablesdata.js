@@ -1,8 +1,11 @@
 import tabledata from '../models/tabledata.js';
 
 export const getFtTable = async (req, res) => {
-    console.log("this is get api of table")
-    const data = await tabledata.find(req.data);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    const data = await tabledata.find(filter);
     res.send(data);
 
 }

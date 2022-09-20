@@ -1,7 +1,11 @@
 import tables from '../models/tables.js';
 
 export const getTables= async (req, res) => {
-    const data = await tables.find(req.params);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    const data = await tables.find(filter);
     res.send(data);
 }
 export const getTableById= async (req, res) => {
