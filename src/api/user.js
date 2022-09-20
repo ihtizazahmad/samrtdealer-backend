@@ -34,7 +34,9 @@ export const login = async (req, res) => {
     return res.status(400).send({ message: "Wrong password" });
   }
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-  res.send({ message: "user login successfully",token });
+  const userId={_id:user._id};
+  res.send({ message: "user login successfully",token,userId });
+
 }
 
 export const deleteUser=async(req,res)=>{
