@@ -1,7 +1,11 @@
 import check from '../models/check.js'
 
 export const getCheck = async (req, res) => {
-    let data = await check.find(req.data).populate('table');
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await check.find(filter).populate('table').populate('userId','_id');
     res.send(data);
 }
 export const postCheck = async (req, res) => {

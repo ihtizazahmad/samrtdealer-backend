@@ -1,7 +1,11 @@
 import employee from '../models/employee.js';
 
 export const getEmployee = async (req, res) => {
-    let data = await employee.find(req.params)
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await employee.find(filter)
     res.send(data);
 
 }

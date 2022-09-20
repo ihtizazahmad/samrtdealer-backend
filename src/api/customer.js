@@ -2,7 +2,11 @@
 import customer from '../models/customer.js'
 
 export const getCustomer= async (req, res) => {
-    let customerData = await customer.find(req.params)
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let customerData = await customer.find(filter)
     res.send(customerData);
 
 }

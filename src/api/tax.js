@@ -1,7 +1,11 @@
 
 import tax from '../models/tax.js'
 export const getTax = async (req, res) => {
-    let data = await tax.find(req.params);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await tax.find(filter);
     res.send(data);
 }
 export const getTaxById = async (req, res) => {

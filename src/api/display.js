@@ -1,7 +1,11 @@
 import display from '../models/display.js';
 
 export const getDisplays = async (req, res) => {
-    let data = await display.find(req.params);
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
+    }
+    let data = await display.find(filter);
     res.send(data);
 }
 export const getDisplay = async (req, res) => {

@@ -1,26 +1,17 @@
 
 import orderitem from '../models/orderitem.js'
 
-export const getOrderItemByOrderId = async (req, res) => {
-    let filter = {}
-    if (req.query.orderId && req.query.product) {
-        filter = [
-            { orderId: req.query.orderId.split(',') },
-            { productId: req.query.product.split(',') }
-        ]
+export const getOrderItemByUserId = async (req, res) => {
+    let filter={}
+    if(req.query.userId){
+     filter={userId:req.query.userId.split(',')}
     }
-    let data = await orderitem.find(filter).populate('orderId', '_id').populate('product')
+    let data = await orderitem.find(filter).populate('product')
     res.send(data);
 }
 export const getOrderItemByProductId = async (req, res) => {
-    let filter = {}
-    if (req.query.orderId && req.query.product) {
-        filter = [
-            { orderId: req.query.orderId.split(',') },
-            { productId: req.query.product.split(',') }
-        ]
-    }
-    let data = await orderitem.find(filter).populate('orderId', '_id').populate('product')
+
+    let data = await orderitem.find(req.params).populate('product')
     res.send(data);
 }
 export const getOrderItemById = async (req, res) => {

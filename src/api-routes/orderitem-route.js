@@ -6,11 +6,11 @@ import {
     postOrderItem,
     updateOrderItem,
     deleteOrderItem,
-    getOrderItemByOrderId,
+    getOrderItemByUserId,
     getOrderItemByProductId
 } from "../api/orderitem.js"
 
-routes.get('/orderitem', getOrderItemByOrderId )
+routes.get('/orderitem', getOrderItemByUserId )
 routes.get('/orderitem', getOrderItemByProductId)
 routes.get('/orderitem/:_id', getOrderItemById )
 

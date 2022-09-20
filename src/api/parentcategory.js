@@ -1,8 +1,11 @@
 import parentcategory from '../models/parentcategory.js'
 
 export const getParentCategories = async (req, res) => {
-   
-    let data = await parentcategory.find(req.params)
+       let filter={}
+       if(req.query.userId){
+        filter={userId:req.query.userId.split(',')}
+       }
+    let data = await parentcategory.find(filter).populate('userId','_id')
 
     res.send(data);
 }
