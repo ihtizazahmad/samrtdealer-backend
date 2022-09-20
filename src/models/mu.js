@@ -6,7 +6,12 @@ const muSchema = new mongoose.Schema({
     },
     name: {
         type: String
-    }
+    },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
 })
 const mu = mongoose.model("mu", muSchema);
 export default mu;

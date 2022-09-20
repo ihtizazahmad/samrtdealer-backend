@@ -11,11 +11,16 @@ const employeeSchema = new mongoose.Schema({
     },
     email: {
         type: String
+    },  
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
     },
-    role:[ {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "role"
-    }],
+    role: {
+        type: String,
+        default: 'employee',
+      },
     password: {
         type: String
     },

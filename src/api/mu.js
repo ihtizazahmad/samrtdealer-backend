@@ -9,13 +9,14 @@ export const getMuById = async (req, res) => {
     res.send(data)
 }
 export const postMu = async (req, res) => {
-    const { name, code } = req.body;
-    let data = await new mu({ name, code })
+    const { name, code,userId} = req.body;
+    let data = await new mu({ name, code,userId })
     await data.save().then(result => {
         console.log(result, "Mu data save to database")
         res.json({
             name: result.name,
-            code: result.code
+            code: result.code,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

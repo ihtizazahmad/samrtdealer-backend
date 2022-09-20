@@ -5,11 +5,19 @@ export const getCheck = async (req, res) => {
     res.send(data);
 }
 export const postCheck = async (req, res) => {
-    const { checkNo, operator, subTotal, tax, amount, table, } = req.body;
-    let data = await new check({ checkNo, operator, subTotal, tax, amount, table });
+    const { checkNo, operator, subTotal, tax, amount, table, userId } = req.body;
+    let data = await new check({ checkNo, operator, subTotal, tax, amount, table, userId });
     await data.save().then(result => {
         console.log(result, "Check data save to database")
-        res.json({ checkNo: result.checkNo, operator: result.operator, subTotal: result.subTotal, tax: result.tax, amount: result.amount, table: result.table });
+        res.json({
+            checkNo: result.checkNo,
+            operator: result.operator,
+            subTotal: result.subTotal,
+            tax: result.tax,
+            amount: result.amount,
+            table: result.table,
+            userId:result.userId
+        });
     }).catch(err => {
         res.status(400).send("unable to save to database");
         console.log(err)

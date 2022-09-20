@@ -13,12 +13,13 @@ export const getParentCategoriesById = async (req, res) => {
     res.send(data)
 }
 export const postParentCategories = async (req, res) => {
-    const { name } = req.body;
-    let data = await new parentcategory({ name });
+    const { name,userId } = req.body;
+    let data = await new parentcategory({ name,userId });
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
             name: result.name,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");

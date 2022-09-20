@@ -10,8 +10,8 @@ export const getTaxById = async (req, res) => {
 }
 
 export const postTax = async (req, res) => {
-    const { name, taxValue } = req.body;
-    const data = await new tax({ name, taxValue });
+    const { name, taxValue,userId } = req.body;
+    const data = await new tax({ name, taxValue,userId });
     await data.save().then(result => {
         console.log(result, "Tax data save to database")
         res.json({

@@ -20,6 +20,11 @@ const paymentlistSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
     updatedAt: {
         type: Date
 

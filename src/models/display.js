@@ -11,6 +11,11 @@ const displaySchema = new mongoose.Schema({
     },
     displayKey: {
         type : String
+    } ,
+     userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
     }
 })
 const display = mongoose.model("display", displaySchema);

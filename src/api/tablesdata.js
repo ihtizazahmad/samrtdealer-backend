@@ -7,15 +7,16 @@ export const getFtTable = async (req, res) => {
 
 }
 export const postFtTable = async (req, res) => {
-    const { Operator, TableNo, TableName, Amount } = req.body;
-    let data = new tabledata({ Operator, TableNo, TableName, Amount });
+    const { Operator, TableNo, TableName, Amount,userId } = req.body;
+    let data = new tabledata({ Operator, TableNo, TableName, Amount,userId });
     await data.save().then(result => {
         console.log(result, "Table data save to database")
         res.json({
             Operator: result.Operator,
             TableNo: result.TableNo,
             TableName: result.TableName,
-            Amount: result.Amount
+            Amount: result.Amount,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");

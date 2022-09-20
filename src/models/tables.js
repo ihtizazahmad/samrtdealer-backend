@@ -12,6 +12,11 @@ const tablesSchema = new mongoose.Schema({
     hasLampixDevice: {
         type: Boolean
     },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
     createdAt: {
         type: Date,
         default: Date.now

@@ -5,6 +5,11 @@ const taxSchema = new mongoose.Schema({
     },
     taxValue: {
         type: String,
+    },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
     }
 })
 const tax = mongoose.model('tax', taxSchema)

@@ -1,22 +1,18 @@
 import employee from '../models/employee.js';
 
 export const getEmployee = async (req, res) => {
-    const filter={}
-    if(req.query.role){
-        filter={role:req.query.role.split(',')}
-    }
-    let data = await employee.find(filter).populate('role','name');
+    let data = await employee.find(req.params)
     res.send(data);
 
 }
 export const getEmployeeById = async (req, res) => {
-    let data = await employee.findOne(req.params).populate('role','name');
+    let data = await employee.findOne(req.params)
     res.send(data);
 
 }
 export const postEmployee = async (req, res) => {
-    const { userName, firstName, lastName, email, password, confirmPassword, role, } = req.body;
-    const data = await new employee({ userName, firstName, lastName, email, password, confirmPassword, role, });
+    const { userName, firstName, lastName, email, password, confirmPassword, userId ,role} = req.body;
+    const data = await new employee({ userName, firstName, lastName, email, password, confirmPassword,userId,role});
     await data.save().then(result => {
         console.log(result, "Employee data save to database")
         res.json({
@@ -26,7 +22,8 @@ export const postEmployee = async (req, res) => {
             email: result.email,
             password: result.password,
             confirmPassword: result.confirmPassword,
-            role: result.role,
+            userId:result.userId,
+            role:result.role
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
