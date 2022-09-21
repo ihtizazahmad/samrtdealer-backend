@@ -1,5 +1,6 @@
 import employee from '../models/employee.js';
 
+
 export const getEmployee = async (req, res) => {
     let filter={}
     if(req.query.userId){
@@ -15,8 +16,8 @@ export const getEmployeeById = async (req, res) => {
 
 }
 export const postEmployee = async (req, res) => {
-    const { userName, firstName, lastName, email, password, confirmPassword, userId ,role} = req.body;
-    const data = await new employee({ userName, firstName, lastName, email, password, confirmPassword,userId,role});
+    const { userName, firstName, lastName, email, password, confirmPassword, userId } = req.body;
+    const data = await new employee({ userName, firstName, lastName, email, password, confirmPassword,userId});
     await data.save().then(result => {
         console.log(result, "Employee data save to database")
         res.json({
@@ -34,7 +35,21 @@ export const postEmployee = async (req, res) => {
         console.log(err)
     })
 }
+export const employeeLogin=async(req,res)=>{
+    const {userName,email,password,confirmPassword}=req.body
+     const employe= await employee.findOne({email,userName});
+     if (!employe) {
+        return res.status(400).send({ message: "employee not found" });
+      }
+      if (employe.password !== password) {
+        return res.status(400).send({ message: "wrong password" });
+      }
+      if(employe.password!==confirmPassword){
+        return res.status(400).send({ message: "password did'nt match" });
+      }
+     res.send({ message: "Employee Login Successfully"});
 
+}
 export const updateEmployee = async (req, res) => {
     console.log(req.params);
     let data = await employee.findByIdAndUpdate(

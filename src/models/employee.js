@@ -17,10 +17,6 @@ const employeeSchema = new mongoose.Schema({
         required:true,
         ref:'user'
     },
-    role: {
-        type: String,
-        default: 'employee',
-      },
     password: {
         type: String
     },
