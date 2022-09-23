@@ -10,13 +10,16 @@ export const getOrderItemByUserId = async (req, res) => {
     res.send(data);
 }
 export const getOrderItemByProductId = async (req, res) => {
-
-    let data = await orderitem.find(req.params).populate('product')
+    let filter={}
+    if(req.query.product){
+     filter={product:req.query.product.split(',')}
+    }
+    let data = await orderitem.find(filter).populate('product')
     res.send(data);
 }
 export const getOrderItemById = async (req, res) => {
 
-    let data = await orderitem.findOne(req.params).populate('orderId', '_id').populate('product')
+    let data = await orderitem.findOne(req.params).populate('product')
     res.send(data);
 }
 
