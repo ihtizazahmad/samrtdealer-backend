@@ -10,7 +10,7 @@ import {
     getOrderItemByProductId
 } from "../api/orderitem.js"
 
-routes.get('/orderitem', getOrderItemByUserId )
+routes.get('/orderitems', getOrderItemByUserId )
 routes.get('/orderitem', getOrderItemByProductId)
 routes.get('/orderitem/:_id', getOrderItemById )
 

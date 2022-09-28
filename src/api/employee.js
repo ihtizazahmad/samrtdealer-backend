@@ -39,7 +39,7 @@ export const employeeLogin=async(req,res)=>{
     const {userName,email,password,confirmPassword}=req.body
      const employe= await employee.findOne({email,userName});
      if (!employe) {
-        return res.status(400).send({ message: "employee not found" });
+        return res.status(400).send({ message: "employee does'nt Exists" });
       }
       if (employe.password !== password) {
         return res.status(400).send({ message: "wrong password" });
