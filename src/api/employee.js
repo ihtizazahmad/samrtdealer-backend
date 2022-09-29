@@ -28,7 +28,6 @@ export const postEmployee = async (req, res) => {
             password: result.password,
             confirmPassword: result.confirmPassword,
             userId:result.userId,
-            role:result.role
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

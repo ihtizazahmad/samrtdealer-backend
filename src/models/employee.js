@@ -22,10 +22,6 @@ const employeeSchema = new mongoose.Schema({
     },
     confirmPassword: {
         type: String
-    },
-    createdDate: {
-        type: Date,
-        default: Date.now
     }
 })
 const employee = mongoose.model("employee", employeeSchema);

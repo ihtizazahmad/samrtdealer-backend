@@ -26,7 +26,8 @@ router.post("/", async (req, res) => {
         }
 
         const link = `${process.env.BASE_URL}/reset-password/${user._id}/${token.token}`;
-        await sendMail(user.email, "Password reset", link);
+        await sendMail(user.email, "Password Reset Link", `<h2>click on given link to reset ur password.</h2>
+        ${link} `);
         return res.json({ message: `password-reset link send to your gmail account ` })
 
     } catch (error) {
