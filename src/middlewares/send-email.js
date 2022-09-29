@@ -10,7 +10,7 @@ import nodemailer from 'nodemailer'
 //     refresh_token: REFRESH_TOKEN
 
 // })
-const sendMail=async(email,subject,text)=>{
+const sendMail=async(email,subject,html)=>{
     
     console.log('email 1: ', email);
     try {
@@ -19,8 +19,8 @@ const sendMail=async(email,subject,text)=>{
             service: 'gmail',
             auth: {
                 // type: 'OAuth2',
-                user: "saadk6401@gmail.com",
-                pass:"pophphfzpbkefndp"
+                user: "workspatron@gmail.com",
+                pass:"mhoumpxfstzptawc"
                 // clientId: CLIENT_ID,
                 // clientSecret: CLIENT_SECRET,
                 // refreshToken: REFRESH_TOKEN,
@@ -31,7 +31,7 @@ const sendMail=async(email,subject,text)=>{
             // from: 'SAADK6401 <saadk6401@gmail.com>',
             to:email,
             subject: subject,
-            text: text
+            html:html
         })
         console.log("Send Eamil Success");
     } catch (error) {
