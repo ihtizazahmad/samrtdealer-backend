@@ -6,7 +6,11 @@ export const getProduct = async (req, res) => {
     if (req.query.categoryId) {
         filter = { categoryId: req.query.categoryId.split(',') }
     }
-    let productData = await product.find(filter).populate('categoryId', '_id').populate('categoryName', 'name').populate('categoryParents', 'name')
+    let filter2={}
+    if (req.query.userId) {
+        filter = { userId: req.query.userId.split(',') }
+    }
+    let productData = await product.find(filter,filter2).populate('categoryId', '_id').populate('categoryName', 'name').populate('categoryParents', 'name').populate('userId','_id')
     res.send(productData);
 
 }
@@ -17,8 +21,8 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType} = req.body;
-    const productData = await new product({ lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType});
+    const { lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
+    const productData = await new product({ lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json({
@@ -44,6 +48,7 @@ export const postProduct = async (req, res) => {
             productPictureId: result.productPictureId,
             productId: result.productId,
             productType: result.productType,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

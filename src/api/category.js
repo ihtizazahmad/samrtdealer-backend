@@ -5,7 +5,12 @@ export const getCategories = async (req, res) => {
     if (req.query.parentId) {
         filter = { parentId: req.query.parentId.split(',') }
     }
-    let data = await category.find(filter).populate('parentId','_id').populate('displayManagerId', '_id').populate('displayManagerName', 'name')
+    let filter2={}
+    if (req.query.userId) {
+        filter = { userId: req.query.userId.split(',') }
+    }
+
+    let data = await category.find(filter,filter2).populate('parentId','_id').populate('displayManagerId', '_id').populate('displayManagerName', 'name').populate('userId','_id')
 
     res.send(data);
 }
@@ -16,8 +21,8 @@ export const getCategoriesById = async (req, res) => {
     res.send(data);
 }
 export const postCategories = async (req, res) => {
-    const { name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures} = req.body;
-    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures});
+    const { name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId} = req.body;
+    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId});
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
@@ -36,6 +41,7 @@ export const postCategories = async (req, res) => {
             translation: result.translation,
             product: result.product,
             showPictures: result.showPictures,
+            userId:result.userId
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");
