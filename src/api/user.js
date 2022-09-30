@@ -15,8 +15,8 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "User with this email already exists." })
     }
     const token = jwt.sign({ name, email, password }, process.env.JWT_SECRET,{expiresIn:'20min'})
-    const link = `${process.env.BASE_URL}/activate-account/\nToken=\n${token}`;
-    await sendMail(email, "Account Activation Link",`<h2>please copy the token first,then click on given link to activate ur account.</h2>
+    const link = `${process.env.BASE_URL}/activate-account/${token}`;
+    await sendMail(email, "Account Activation Link",`<h2>please click on given link to activate ur account.</h2>
     ${link} `)
     return res.status(200).json({ message: "Account Verification Link Send To Ur Account" })
 
