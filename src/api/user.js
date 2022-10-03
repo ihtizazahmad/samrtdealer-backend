@@ -27,7 +27,8 @@ export const register = async (req, res) => {
 }
 
 export const activateAccount = (req, res) => {
-  const { token } = req.body;
+  const { token } = req.params;
+  console.log("token:",token);
   try {
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET,async function (err, decodedToken) {
