@@ -24,6 +24,7 @@ import parentcategory from './api-routes/parentcategory-route.js';
 import customer from './api-routes/customer-route.js'
 import passwordreset from './api/reset-password.js'
 import  Checkout  from './api-routes/checkout-route.js';
+import userRegisterWithEmailVerification from './api/emailVerification.js'
 import './config/config.js';
 
 
@@ -44,6 +45,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 //Routes
 
+app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 app.use('/api/v1/reset-password',passwordreset)
 app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout)
 
