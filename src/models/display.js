@@ -3,9 +3,10 @@ const displaySchema = new mongoose.Schema({
     name: {
         type : String
     },
-    order: {
-        type : Number  
-    },
+    order:[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref:'order'  
+    }],
     systemDisplay: {
         type : Boolean
     },

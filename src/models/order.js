@@ -7,6 +7,10 @@ const orderSchema = new mongoose.Schema({
     orderDate: {
         type: Date
     },
+    orderItems:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'orderitem'
+    }],
     startDate: {
         type: Date
     },
@@ -34,9 +38,11 @@ const orderSchema = new mongoose.Schema({
     },
     orderStatus: {
         type: String, 
+        enum:['new','proccessing','done']
     },
     orderType: {
-        type: String, 
+        type: String,
+        enum:['standard','notification'] 
     }
 
 

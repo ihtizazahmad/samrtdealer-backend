@@ -35,17 +35,17 @@ export const postEmployee = async (req, res) => {
     })
 }
 export const employeeLogin=async(req,res)=>{
-    const {userName,email,password,confirmPassword}=req.body
-     const employe= await employee.findOne({email,userName});
+    const {password}=req.body
+     const employe= await employee.findOne({password});
      if (!employe) {
         return res.status(400).send({ message: "employee does'nt Exists" });
       }
       if (employe.password !== password) {
         return res.status(400).send({ message: "wrong password" });
       }
-      if(employe.password!==confirmPassword){
-        return res.status(400).send({ message: "password did'nt match" });
-      }
+    //   if(employe.password!==confirmPassword){
+    //     return res.status(400).send({ message: "password did'nt match" });
+    //   }
      res.send({ message: "Employee Login Successfully"});
 
 }
