@@ -3,21 +3,34 @@ const tablesSchema = new mongoose.Schema({
     tableNo: {
         type: Number
     },
-    name: {
+    tableName: {
         type: String
     },
     description: {
         type: String
     },
     hasLampixDevice: {
-        type: Boolean
+        type: Boolean,
+        default:'false'
+    },
+    operator: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref:'model_Type'
+    },
+    model_Type:{
+        type:String,
+        enum:['user','employee']
     },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user'
     },
-    createdAt: {
+    Amount: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'orderitem'
+    },
+    RecordDate: {
         type: Date,
         default: Date.now
     }

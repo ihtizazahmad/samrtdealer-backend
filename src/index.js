@@ -5,7 +5,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import Auth from './api-routes/user-route.js';
-import tabledata from './api-routes/tabledata-route.js';
 import category from './api-routes/category-route.js'
 import check from './api-routes/check-route.js'
 import device from './api-routes/device-route.js'
@@ -44,10 +43,12 @@ app.use(cors({
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
-
+//uset Email Verification Endpoints
 app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
+//user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
-app.use('/api/v1', Auth, tabledata, category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout)
+//All APi's Endponits
+app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout)
 
 
 app.use('*', (req, res) => {

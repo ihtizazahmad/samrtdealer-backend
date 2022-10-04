@@ -61,6 +61,9 @@ const customerSchema = new mongoose.Schema({
     ExpiresIn: {
         type: Date
     },
+    creditLimits:{
+        type:Number
+    },
     Communication: {
         mail: {
             type: Boolean

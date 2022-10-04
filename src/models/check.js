@@ -5,7 +5,12 @@ const checkSchema = new mongoose.Schema({
         type: Number
     },
     operator: {
-        type: String
+        type: [mongoose.Schema.Types.ObjectId],
+        ref:'model_Type'
+    },
+    model_Type:{
+        type:String,
+        enum:['user','employee']
     },
     subTotal: {
         type: Number
@@ -19,7 +24,7 @@ const checkSchema = new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:'user'
+        ref:'user',
     },
     table: [{
         type:mongoose.Schema.Types.ObjectId,
