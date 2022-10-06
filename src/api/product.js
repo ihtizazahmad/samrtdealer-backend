@@ -10,26 +10,25 @@ export const getProduct = async (req, res) => {
     if (req.query.userId) {
         filter = { userId: req.query.userId.split(',') }
     }
-    let productData = await product.find(filter,filter2).populate('categoryId', '_id').populate('categoryName', 'name').populate('categoryParents', 'name').populate('userId','_id')
+    let productData = await product.find(filter,filter2).populate('categoryId', 'name').populate('categoryParents', 'name').populate('userId','_id').populate('order')
     res.send(productData);
 
 }
 export const getProductById = async (req, res) => {
-    let productData = await product.findOne(req.params).populate('categoryId', '_id').populate('order').populate('categoryName', 'name').populate('categoryParents', 'name')
+    let productData = await product.findOne(req.params).populate('categoryId', 'name').populate('order').populate('categoryParents', 'name')
     res.send(productData);
 
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
-    const productData = await new product({ lavel, rows, cols, categoryName, categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId});
+    const { lavel, rows, cols,  categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
+    const productData = await new product({ lavel, rows, cols,  categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json({
             lavel: result.lavel,
             cols: result.cols,
             rows: result.rows,
-            categoryName: result.categoryName,
             categoryParents: result.categoryParents,
             barCode: result.barCode,
             name: result.name,

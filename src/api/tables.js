@@ -5,7 +5,7 @@ export const getTables= async (req, res) => {
     if(req.query.userId){
      filter={userId:req.query.userId.split(',')}
     }
-    const data = await tables.find(filter).populate('operator').populate('Amount')
+    const data = await tables.find(filter).populate('operator','name').populate('Amount')
     res.send(data);
 }
 export const getTableById= async (req, res) => {
@@ -14,8 +14,8 @@ export const getTableById= async (req, res) => {
 }
 
 export const postTables= async (req, res) => {
-    const { tableNo, tableName,operator,description, hasLampixDevice ,userId,Amount} = req.body;
-    let data = new tables({ tableNo, tableName,operator ,description, hasLampixDevice ,userId,Amount});
+    const { tableNo,Amount,operator, tableName,description, hasLampixDevice ,userId} = req.body;
+    let data = new tables({ tableNo,Amount,operator, tableName,description, hasLampixDevice ,userId});
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
          res.json({
@@ -46,6 +46,27 @@ export const updateTables= async (req, res) => {
         res.send({ message: "tables data cannot be updated successfully" })
     }
 }
+//Search and update
+export const SearchUpdateTables= async(req, res) => {
+    const { tableNo, tableName } = req.query
+        console.log(tableNo,tableName)
+        let data =await tables.findOneAndUpdate(
+            {
+                "$or": [
+                    { tableNo: { $eq: Number(tableNo) } },
+                    { tableName: { $regex: String(tableName) } },
+                ]
+            },{
+            $set:req.body
+        },{new:true})
+        if (data) {
+            res.json({data, message: "posTable data update successfully" });
+        }
+        else {
+            res.send({ message: "posTables data cannot update successfully" })
+        }
+        
+    }
 export const deleteTables= async (req, res) => {
     console.log(req.params)
     let data = await tables.deleteOne(req.params)

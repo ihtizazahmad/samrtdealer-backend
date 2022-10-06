@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 
 
 export const getUser = async (req, res) => {
-  const user = await User.find(req.params)
+  let filter={}
+  if(req.query.role){
+    filter ={role:req.query.role.split(',')}
+  }
+  const user = await User.find(filter).populate('role')
   res.send(user)
 }
 

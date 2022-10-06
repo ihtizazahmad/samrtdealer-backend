@@ -13,17 +13,14 @@ const categorySchema = new mongoose.Schema({
     categoryType: {
         type: String
     },
-    displayManagerName: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'display'
-    }],
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user'
     },
     order: {
-        type: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'order'
     },
     hasPicture: {
         type: Boolean
@@ -31,10 +28,10 @@ const categorySchema = new mongoose.Schema({
     active: {
         type: String
     },
-    displayManagerId: [{
+    displayManagerId: {
         type:mongoose.Schema.Types.ObjectId,
         ref:'display' 
-    }],
+    },
     parentId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref:'parentcategory'

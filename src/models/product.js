@@ -10,10 +10,6 @@ const productSchema = new mongoose.Schema({
     cols: {
         type: Number
     },
-    categoryName: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "category"
-    }],
     categoryParents: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "parentcategory"
@@ -42,7 +38,8 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     order: {
-        type: Number
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'order'
     },
     active: {
         type: Boolean

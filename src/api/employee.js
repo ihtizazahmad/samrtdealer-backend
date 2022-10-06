@@ -6,7 +6,10 @@ export const getEmployee = async (req, res) => {
     if(req.query.userId){
      filter={userId:req.query.userId.split(',')}
     }
-    let data = await employee.find(filter)
+    if(req.query.role){
+     filter={role:req.query.role.split(',')}
+    }
+    let data = await employee.find(filter).populate('role')
     res.send(data);
 
 }
@@ -16,8 +19,8 @@ export const getEmployeeById = async (req, res) => {
 
 }
 export const postEmployee = async (req, res) => {
-    const { userName, firstName, lastName, email, password, confirmPassword, userId } = req.body;
-    const data = await new employee({ userName, firstName, lastName, email, password, confirmPassword,userId});
+    const { userName, firstName, lastName, email, password,  userId,role } = req.body;
+    const data = await new employee({ userName, firstName, lastName, email, password, userId,role});
     await data.save().then(result => {
         console.log(result, "Employee data save to database")
         res.json({
@@ -26,8 +29,8 @@ export const postEmployee = async (req, res) => {
             lastName: result.lastName,
             email: result.email,
             password: result.password,
-            confirmPassword: result.confirmPassword,
             userId:result.userId,
+            role:result.role
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
@@ -43,9 +46,6 @@ export const employeeLogin=async(req,res)=>{
       if (employe.password !== password) {
         return res.status(400).send({ message: "wrong password" });
       }
-    //   if(employe.password!==confirmPassword){
-    //     return res.status(400).send({ message: "password did'nt match" });
-    //   }
      res.send({ message: "Employee Login Successfully"});
 
 }

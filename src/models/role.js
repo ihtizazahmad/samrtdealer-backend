@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 const roleSchema = new mongoose.Schema({
    
     name: {
-       type:String
+       type:String,
+       enum:['admin','employee']
     }
 })
 const role = mongoose.model('role', roleSchema)
