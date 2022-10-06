@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const tablesSchema = new mongoose.Schema({
     tableNo: {
         type: Number
@@ -14,19 +15,15 @@ const tablesSchema = new mongoose.Schema({
         default:'false'
     },
     operator: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref:'model_Type'
-    },
-    model_Type:{
-        type:String,
-        enum:['user','employee']
-    },
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'role'
+      },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user'
     },
-    Amount: {
+    Amount:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'orderitem'
     },

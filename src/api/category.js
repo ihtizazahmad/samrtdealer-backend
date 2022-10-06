@@ -10,19 +10,19 @@ export const getCategories = async (req, res) => {
         filter = { userId: req.query.userId.split(',') }
     }
 
-    let data = await category.find(filter,filter2).populate('parentId','_id').populate('displayManagerId', '_id').populate('displayManagerName', 'name').populate('userId','_id')
+    let data = await category.find(filter,filter2).populate('parentId','_id').populate('displayManagerId', 'name').populate('userId','_id').populate('order')
 
     res.send(data);
 }
 
 export const getCategoriesById = async (req, res) => {
   
-    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerName', 'name').populate('displayManagerId', '_id')
+    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerId', 'name').populate('order')
     res.send(data);
 }
 export const postCategories = async (req, res) => {
-    const { name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId} = req.body;
-    let data = await new category({ name, parent, extraData, categoryType, displayManagerName, order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId});
+    const { name, parent, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId} = req.body;
+    let data = await new category({ name, parent, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId});
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
@@ -31,7 +31,6 @@ export const postCategories = async (req, res) => {
             parent: result.parent,
             extraData: result.extraData,
             categoryType: result.categoryType,
-            displayManagerName: result.displayManagerName,
             order: result.order,
             hasPicture: result.hasPicture,
             active: result.active,

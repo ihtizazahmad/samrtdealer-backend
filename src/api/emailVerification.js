@@ -4,13 +4,13 @@ import sendMail from '../middlewares/send-email.js';
 import express from 'express';
 const router=express.Router()
 router.post('/', async (req, res) => {
-    const { name, email, password } = req.body
+    const { name, email, password,role } = req.body
     try {
       const user = await User.findOne({ email })
       if (user) {
         return res.status(400).json({ message: "User with this email already exists." })
       }
-      const token = jwt.sign({ name, email, password }, process.env.JWT_SECRET,{expiresIn:'20min'})
+      const token = jwt.sign({ name, email, password ,role}, process.env.JWT_SECRET,{expiresIn:'20min'})
       const link = `${process.env.BASE_URL}/activate-account/${token}`;
       await sendMail(email, "Account Activation Link",`<h2>please click on given link to activate ur account.</h2>
       ${link} `)
@@ -31,12 +31,12 @@ router.post('/', async (req, res) => {
           if (err) {
             return res.status(400).json({ message: "token is invalid or expired" })
           }
-          const { name, email, password } = decodedToken
+          const { name, email, password,role } = decodedToken
           const userRegister = await User.findOne({ email });
           if (userRegister) {
             return res.send({ message: "this user is already registered" })
           }
-          const newUser = new User({ name, email, password });
+          const newUser = new User({ name, email, password ,role});
           const savedUser = await newUser.save();
           if (savedUser) {
             res.send({ message: "Account Verified:Thanks For Registering" });

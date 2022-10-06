@@ -24,6 +24,7 @@ import customer from './api-routes/customer-route.js'
 import passwordreset from './api/reset-password.js'
 import  Checkout  from './api-routes/checkout-route.js';
 import userRegisterWithEmailVerification from './api/emailVerification.js'
+import postTables from './api/posTable.js';
 import './config/config.js';
 
 
@@ -43,6 +44,7 @@ app.use(cors({
 app.use(helmet());
 app.use(morgan("dev"));
 //Routes
+app.use('/api/v1/postable',postTables)
 //uset Email Verification Endpoints
 app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints

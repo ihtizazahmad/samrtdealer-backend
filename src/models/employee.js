@@ -18,10 +18,11 @@ const employeeSchema = new mongoose.Schema({
         ref:'user'
     },
     password: {
-        type: String
+        type: Number
     },
-    confirmPassword: {
-        type: String
+    role:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'role'
     }
 })
 const employee = mongoose.model("employee", employeeSchema);
