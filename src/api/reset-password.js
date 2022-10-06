@@ -22,7 +22,6 @@ router.post("/", async (req, res) => {
                 userId: user._id,
                 token: jwt.sign({ id: user._id }, process.env.JWT_SECRET)
             }).save();
-            // res.send({ message: "user login successfully", token });
         }
 
         const link = `${process.env.BASE_URL}/reset-password/${user._id}/${token.token}`;
