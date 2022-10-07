@@ -29,10 +29,6 @@ const orderSchema = new mongoose.Schema({
     orderValue: {
         type: Number
     },
-    tableNo: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"tables"
-    }],
     parentOrderNo: {
         type: Number
     },

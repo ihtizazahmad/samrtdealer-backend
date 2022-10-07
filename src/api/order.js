@@ -5,15 +5,15 @@ export const getOrder = async (req, res) => {
     if (req.query.tableId) {
         filter = { tableId: req.query.tableId.split(',') }
     }
-    let data = await order.find(filter).populate('orderItems').populate('tableId', '_id').populate('tableNo', 'tableNo')
+    let data = await order.find(filter).populate('orderItems').populate('tableId','tableNo')
     res.send(data);
 
 }
 
 export const postOrder = async (req, res) => {
-    const { tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderItems,orderValueTax, orderValue, tableNo, parentOrderNo, orderStatus, orderType } = req.body;
+    const { tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderItems,orderValueTax, orderValue, parentOrderNo, orderStatus, orderType } = req.body;
 
-    const data = await new order({ tableId, orderNo, startDate, orderDate, points, orderItems,orderValueExclTax, orderValueTax, orderValue, tableNo, parentOrderNo, orderStatus, orderType });
+    const data = await new order({ tableId, orderNo, startDate, orderDate, points, orderItems,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType });
     await data.save().then(result => {
         console.log(result, "Order data save to database")
         res.json({
@@ -25,7 +25,6 @@ export const postOrder = async (req, res) => {
             orderValueExclTax: result.orderValueExclTax,
             orderValueTax: result.orderValueTax,
             orderValue: result.orderValue,
-            tableNo: result.tableNo,
             parentOrderNo: result.parentOrderNo,
             orderStatus: result.orderStatus,
             orderType: result.orderType,
