@@ -5,20 +5,21 @@ export const getOrder = async (req, res) => {
     if (req.query.tableId) {
         filter = { tableId: req.query.tableId.split(',') }
     }
-    let data = await order.find(filter).populate('orderItems').populate('tableId','tableNo')
+    let data = await order.find(filter)
     res.send(data);
 
 }
 
 export const postOrder = async (req, res) => {
-    const { tableId, orderNo, startDate, orderDate, points, orderValueExclTax, orderItems,orderValueTax, orderValue, parentOrderNo, orderStatus, orderType } = req.body;
+    const { tableNo,tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold } = req.body;
 
-    const data = await new order({ tableId, orderNo, startDate, orderDate, points, orderItems,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType });
+    const data = await new order({ tableNo,tableName, currentOrderId, startDate, orderDate, points,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold });
     await data.save().then(result => {
         console.log(result, "Order data save to database")
         res.json({
-            tableId: result.tableId,
-            orderNo: result.orderNo,
+            tableNo: result.tableNo,
+            tableName: result.tableName,
+            currentOrderId: result._id,
             startDate: result.startDate,
             orderDate: result.orderDate,
             points: result.points,
@@ -28,7 +29,9 @@ export const postOrder = async (req, res) => {
             parentOrderNo: result.parentOrderNo,
             orderStatus: result.orderStatus,
             orderType: result.orderType,
-            orderItems:result.orderItems
+            // orderItems:result.orderItems,
+            isHold:result.isHold,
+
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

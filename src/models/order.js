@@ -1,21 +1,25 @@
 import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
-    tableId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"tables"
-    }],
+    tableNo: {
+        type:Number
+    },
+    tableName:{
+        type:String
+    },
     orderDate: {
-        type: Date
+        type: Date,
+        default:Date.now
     },
-    orderItems:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'orderitem'
-    }],
     startDate: {
-        type: Date
+        type: Date,
+        default:Date.now
     },
-    orderNo: {
-        type: Number
+    currentOrderId: {
+        type: String
+    },
+    isHold:{
+       type:Boolean,
+       default:false
     },
     points: {
         type: Number
@@ -45,3 +49,44 @@ const orderSchema = new mongoose.Schema({
 })
 const order = mongoose.model('order', orderSchema);
 export default order;
+// @Attribute({ serializedName: 'id' })
+// id: string;
+
+// @Attribute({ serializedName: 'tableId', required: true })
+// tableId: string;
+
+// @Attribute({ serializedName: 'orderDate' })
+// orderDate: Date;
+
+// @Attribute({ serializedName: 'startDate' })
+// startDate: Date;
+
+// @Attribute({ serializedName: 'orderNo' })
+// orderNo: number;
+
+// @Attribute({ serializedName: 'points' })
+// points: number;
+
+// @Attribute({ serializedName: 'orderValueExclTax' })
+// orderValueExclTax: number;
+
+// @Attribute({ serializedName: 'orderValueTax' })
+// orderValueTax: number;
+
+// @Attribute({ serializedName: 'orderValue' })
+// orderValue: number;
+
+// @Attribute({ serializedName: 'tableNo' })
+// tableNo: number;
+
+// @Attribute({ serializedName: 'parentOrderNo' })
+// parentOrderNo: number;
+
+// @Attribute({ serializedName: 'orderStatus' })
+// orderStatus: OrderStatus
+
+// @Attribute({ serializedName: 'orderType' })
+// orderType: OrderType
+
+
+// }
