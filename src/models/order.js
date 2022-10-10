@@ -1,23 +1,25 @@
 import mongoose from 'mongoose';
 const orderSchema = new mongoose.Schema({
-    tableId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"tables"
-    }],
+    tableNo: {
+        type:Number
+    },
+    tableName:{
+        type:String
+    },
     orderDate: {
         type: Date,
         default:Date.now
     },
-    orderItems:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'orderitem'
-    }],
     startDate: {
         type: Date,
         default:Date.now
     },
-    orderNo: {
-        type: Number
+    currentOrderId: {
+        type: String
+    },
+    isHold:{
+       type:Boolean,
+       default:false
     },
     points: {
         type: Number

@@ -1,17 +1,11 @@
 import mongoose from "mongoose";
 const productModifierSchema=new mongoose.Schema({
-    unitOfMeasurements:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'mu'
-    },
-    shots:{
-        type:Number
-    },
-    cups:{
+    CupSize:{
         type:String,
-        enum:['half','medium','full']
+        enum:['small','16 oz','20 oz']
     },
-
+    
+    
 })
 const productModifierModel=mongoose.model("productModifier",productModifierSchema)
 export default productModifierModel;
