@@ -43,6 +43,14 @@ const orderSchema = new mongoose.Schema({
     orderType: {
         type: String,
         enum:['standard','notification'] 
+    },
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'user'
+    },
+    operator:{
+        type:String
     }
 
 
