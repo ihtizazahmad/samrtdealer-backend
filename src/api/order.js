@@ -2,8 +2,8 @@ import order from '../models/order.js';
 
 export const getOrder = async (req, res) => {
     let filter = {}
-    if (req.query.tableId) {
-        filter = { tableId: req.query.tableId.split(',') }
+    if (req.query.userId) {
+        filter = { userId: req.query.userId.split(',') }
     }
     let data = await order.find(filter)
     res.send(data);
@@ -11,9 +11,9 @@ export const getOrder = async (req, res) => {
 }
 
 export const postOrder = async (req, res) => {
-    const { tableNo,tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold } = req.body;
+    const { tableNo,tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold,userId } = req.body;
 
-    const data = await new order({ tableNo,tableName, currentOrderId, startDate, orderDate, points,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold });
+    const data = await new order({ tableNo,tableName, currentOrderId, startDate, orderDate, points,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold ,userId});
     await data.save().then(result => {
         console.log(result, "Order data save to database")
         res.json({
@@ -29,6 +29,7 @@ export const postOrder = async (req, res) => {
             parentOrderNo: result.parentOrderNo,
             orderStatus: result.orderStatus,
             orderType: result.orderType,
+            userId:result.userId,
             // orderItems:result.orderItems,
             isHold:result.isHold,
 
