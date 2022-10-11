@@ -11,9 +11,9 @@ export const getOrder = async (req, res) => {
 }
 
 export const postOrder = async (req, res) => {
-    const { tableNo,tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold,userId } = req.body;
+    const { tableNo,tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold,userId,operator } = req.body;
 
-    const data = await new order({ tableNo,tableName, currentOrderId, startDate, orderDate, points,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold ,userId});
+    const data = await new order({ tableNo,tableName, currentOrderId, startDate, orderDate, points,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType,isHold ,userId,operator});
     await data.save().then(result => {
         console.log(result, "Order data save to database")
         res.json({
@@ -31,6 +31,7 @@ export const postOrder = async (req, res) => {
             orderType: result.orderType,
             userId:result.userId,
             // orderItems:result.orderItems,
+            operator:result.operator,
             isHold:result.isHold,
 
         })
