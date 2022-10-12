@@ -7,11 +7,9 @@ import {
     updateOrderItem,
     deleteOrderItem,
     getOrderItemByUserId,
-    getOrderItemByProductId
 } from "../api/orderitem.js"
 
-routes.get('/orderitems', getOrderItemByUserId )
-routes.get('/orderitem', getOrderItemByProductId)
+routes.get('/orderitem', getOrderItemByUserId )
 routes.get('/orderitem/:_id', getOrderItemById )
 
 routes.post('/orderitem', postOrderItem )
