@@ -4,9 +4,6 @@ const categorySchema = new mongoose.Schema({
     name: {
         type: String
     },
-    parent: {
-        type: String
-    },
     extraData: {
         type: String
     },
