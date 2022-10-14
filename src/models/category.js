@@ -16,8 +16,7 @@ const categorySchema = new mongoose.Schema({
         ref:'user'
     },
     order: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'order'
+        type: Number
     },
     hasPicture: {
         type: Boolean

@@ -7,14 +7,14 @@ export const getCategories = async (req, res) => {
     } else if (req.query.userId) {
         filter = { userId: req.query.userId.split(',') }
     }
-    let data = await category.find(filter).populate('parentId','_id').populate('displayManagerId', 'name').populate('userId','_id').populate('order')
+    let data = await category.find(filter).populate('parentId','_id').populate('displayManagerId', 'name').populate('userId','_id')
 
     res.send(data);
 }
 
 export const getCategoriesById = async (req, res) => {
   
-    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerId', 'name').populate('order')
+    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerId', 'name')
     res.send(data);
 }
 export const postCategories = async (req, res) => {
