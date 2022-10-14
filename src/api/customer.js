@@ -11,17 +11,20 @@ export const getCustomer= async (req, res) => {
 
 }
 export const searchCustomer= async (req, res) => {
-    
+    const {key}=req.params
    
     let customerData = await customer.find({
         "$or":[
-        {FirstName:{$regex:req.params.key}},
-        {LastName:{$regex:req.params.key}},
-        {Email:{$regex:req.params.key}},
-        {Phone:{$regex:req.params.key}},
-        {Address1:{$regex:req.params.key}},
-        {City:{$regex:req.params.key}},
-        {State:{$regex:req.params.key}},
+        {FirstName:{$regex:String(key)}},
+        {LastName:{$regex:String(key)}},
+        {Email:{$regex:String(key)}},
+        {Phone:{$eq:Number(key)}},
+        {Address1:{$regex:String(key)}},
+        {City:{$regex:String(key)}},
+        {State:{$regex:String(key)}},
+        {PostalCode:{$regex:Number(key)}},
+        {CompanyName:{$regex:String(key)}},
+        {CustomerId:{$regex:Number(key)}},
         ]
     })
     res.send(customerData);

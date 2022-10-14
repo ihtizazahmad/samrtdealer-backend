@@ -4,31 +4,27 @@ export const getCategories = async (req, res) => {
     let filter = {}
     if (req.query.parentId) {
         filter = { parentId: req.query.parentId.split(',') }
-    }
-    let filter2={}
-    if (req.query.userId) {
+    } else if (req.query.userId) {
         filter = { userId: req.query.userId.split(',') }
     }
-
-    let data = await category.find(filter,filter2).populate('parentId','_id').populate('displayManagerId', 'name').populate('userId','_id').populate('order')
+    let data = await category.find(filter).populate('parentId','_id').populate('displayManagerId', 'name').populate('userId','_id')
 
     res.send(data);
 }
 
 export const getCategoriesById = async (req, res) => {
   
-    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerId', 'name').populate('order')
+    let data = await category.findOne(req.params).populate('parentId','_id').populate('displayManagerId', 'name')
     res.send(data);
 }
 export const postCategories = async (req, res) => {
-    const { name, parent, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId} = req.body;
-    let data = await new category({ name, parent, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId});
+    const { name, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId} = req.body;
+    let data = await new category({ name, extraData, categoryType,  order, hasPicture, active, displayManagerId, parentId, lampixIcon, translation, product, showPictures,userId});
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
             id: result.id,
             name: result.name,
-            parent: result.parent,
             extraData: result.extraData,
             categoryType: result.categoryType,
             order: result.order,

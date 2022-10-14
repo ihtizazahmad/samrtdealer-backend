@@ -6,6 +6,9 @@ const orderSchema = new mongoose.Schema({
     tableName:{
         type:String
     },
+    discount:{
+        type:Number
+    },
     orderDate: {
         type: Date,
         default:Date.now

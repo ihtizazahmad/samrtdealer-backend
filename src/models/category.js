@@ -4,9 +4,6 @@ const categorySchema = new mongoose.Schema({
     name: {
         type: String
     },
-    parent: {
-        type: String
-    },
     extraData: {
         type: String
     },
@@ -19,8 +16,7 @@ const categorySchema = new mongoose.Schema({
         ref:'user'
     },
     order: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'order'
+        type: Number
     },
     hasPicture: {
         type: Boolean
