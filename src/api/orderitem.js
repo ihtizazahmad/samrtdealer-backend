@@ -9,6 +9,7 @@ export const getOrderItemByUserId = async (req, res) => {
         filter={orderId:req.query.orderId.split(',')}
     }
     let data = await orderitem.find(filter).populate('product')
+
     res.send(data);
 }
 

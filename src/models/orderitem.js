@@ -6,11 +6,11 @@ const orderItemSchema = new mongoose.Schema({
     taxValue: {
         type: Number
     },
-    orderId: [{
+    orderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "order",
 
-    }],
+    },
     productWithQty: [{
         productId: {
             type: String,//stringt
