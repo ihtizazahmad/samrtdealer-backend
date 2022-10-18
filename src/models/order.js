@@ -6,6 +6,9 @@ const orderSchema = new mongoose.Schema({
     tableName:{
         type:String
     },
+    distype:{
+        type:Boolean,
+    },
     discount:{
         type:Number
     },
