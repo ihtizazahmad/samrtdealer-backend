@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 const imageSchema=new mongoose.Schema({
-    image:{
-        type:String
+    picture:{
+        type:String,
+        default:"default.png"
     }
 })
 const image=new mongoose.model('image',imageSchema)
