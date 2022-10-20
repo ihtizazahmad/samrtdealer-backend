@@ -26,13 +26,18 @@ import  Checkout  from './api-routes/checkout-route.js';
 import userRegisterWithEmailVerification from './api/emailVerification.js'
 import modifier from './api-routes/prdouct-modifier-route.js'
 import './config/config.js';
-
-
+import path from 'path'
+import { fileURLToPath } from 'url';
 const app = express();
 dotenv.config();
+//path
+const __filename=fileURLToPath(import.meta.url)
+const __dirname=path.dirname(__filename)
 //middelwares
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json())
 app.use(cors({
     origin: true,
@@ -45,6 +50,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 //Routes
 //uset Email Verification Endpoints
+// app.use(imageupload)
 app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
