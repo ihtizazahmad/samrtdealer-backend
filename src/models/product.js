@@ -49,8 +49,9 @@ const productSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'category'
         }],
-    hasPicture: {
-        type: Boolean
+   Product_pic: {
+        type: String,
+        default:""
     },
     productPictureId: {
         type: String

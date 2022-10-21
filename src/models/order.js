@@ -57,6 +57,9 @@ const orderSchema = new mongoose.Schema({
     },
     operator:{
         type:String
+    },
+    customer:{
+        type:String
     }
 
 
