@@ -67,6 +67,10 @@ const orderItemSchema = new mongoose.Schema({
         required:true,
         ref:'user'
     },
+    displayManager:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'display'
+    }
 })
 const orderitem = mongoose.model('orderitem', orderItemSchema);
 export default orderitem;

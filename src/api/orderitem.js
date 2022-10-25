@@ -7,6 +7,8 @@ export const getOrderItemByUserId = async (req, res) => {
      filter={userId:req.query.userId.split(',')}
     }else if(req.query.orderId){
         filter={orderId:req.query.orderId.split(',')}
+    }else if(req.query.displayManager){
+        filter={displayManager:req.query.displayManager.split(',')}
     }
     let data = await orderitem.find(filter).populate('product')
 
@@ -20,8 +22,8 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId} = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId });
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId,displayManager} = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId,displayManager });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
@@ -37,7 +39,8 @@ export const postOrderItem = async (req, res) => {
             lineValue: result.lineValue,
             units: result.units,
             text: result.text,
-            userId:result.userId
+            userId:result.userId,
+            displayManager:result.displayManager
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
