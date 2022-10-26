@@ -8,7 +8,7 @@ import {
     deleteCustomer
 } from '../api/customer.js'
 route.get('/customer',getCustomer)
-route.get('/customer/:key',searchCustomer)
+route.get('/customer/:FirstName?/:LastName?/:Email?/:Phone?/:City?/:State?/:PostalCode?/:CustomerId',searchCustomer)
 route.post('/customer',postCustomer)
 route.put('/customer/:_id',updateCustomer)
 route.delete('/customer/:_id',deleteCustomer)
