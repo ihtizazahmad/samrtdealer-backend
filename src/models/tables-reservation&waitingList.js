@@ -9,7 +9,7 @@ const tableReservationAndWaitingListSchema=new mongoose.Schema({
     Email:{
         type:String,
     },
-    Telefon:{
+    Phone:{
         type:Number
     },
     Note:{
@@ -38,7 +38,11 @@ const tableReservationAndWaitingListSchema=new mongoose.Schema({
     }    ,
     btnStatus:{
         type:String,
-        enum:["Reservations","Waitinglist"]
+        enum:["Reservations","Waitinglist","Tables"]
+    },
+    table:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'tables'
     }
 },
 {timestamps:true});

@@ -52,11 +52,12 @@ const customerSchema = new mongoose.Schema({
         type: Number
     },
     Type: {
-        type: String
+        type: String,
+        enum:["client","employee"]
     },
     StartDate: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
     ExpiresIn: {
         type: Date
@@ -84,6 +85,9 @@ const customerSchema = new mongoose.Schema({
     LastVisit:{
          type:Date,
          default:Date
+    },
+    Purchases:{
+      type:Number
     },
     Gender: {
         type: String
