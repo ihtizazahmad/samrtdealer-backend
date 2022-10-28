@@ -10,7 +10,7 @@ export const getProduct = async (req, res) => {
     if (req.query.userId) {
         filter = { userId: req.query.userId.split(',') }
     }
-    let productData = await product.find(filter,filter2).populate('categoryId', 'name').populate('categoryParents', 'name').populate('userId','_id').populate('order')
+    let productData = await product.find(filter,filter2).populate('categoryId').populate('categoryParents', 'name').populate('userId','_id').populate('order')
     res.send(productData);
 
 }
