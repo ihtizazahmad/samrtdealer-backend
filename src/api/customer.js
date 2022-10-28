@@ -32,7 +32,7 @@ export const searchCustomer= async (req, res) => {
 }
 
 export const postCustomer= async (req, res) => {
-    const { CustomerId,userId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,Membership, CustomerLoyalty } = req.body;
+    const { CustomerId,userId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,Membership, CustomerLoyalty} = req.body;
     const customerData = await new customer({ CustomerId,userId,FirstName,LastName,Phone,Address1,Address2,Address3,postalCode,City,State,CompanyName,Membership, CustomerLoyalty});
     await customerData.save().then(result => {
         console.log(result, "Customer data save to database")
