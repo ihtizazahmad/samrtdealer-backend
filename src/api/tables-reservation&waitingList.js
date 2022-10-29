@@ -1,8 +1,8 @@
-import tableSelect from "../models/tables-reservation&waitingList";
+import tableSelect from "../models/tables-reservation&waitingList.js";
 
 export const getReservedTables=async(req,res)=>{
     let filter={}
-    if(req.query.btnStatus == 'Reservations'){
+    if(req.query.btnStatus){
         filter={btnStatus:req.query.btnStatus.split(',')}
     }
     const reservation=await tableSelect.find(filter);
@@ -10,7 +10,7 @@ export const getReservedTables=async(req,res)=>{
 }
 export const getWaitingTables=async(req,res)=>{
     let filter={}
-    if(req.query.btnStatus == 'Waitinglist'){
+    if(req.query.btnStatus){
         filter={btnStatus:req.query.btnStatus.split(',')}
     }
     const waitingList=await tableSelect.find(filter);
@@ -49,7 +49,6 @@ export const updateReservationAndWaitingList = async (req, res) => {
         { _id: req.params._id }, {
         $set: req.body
     },
-
         { new: true }
     );
     if (data) {
