@@ -6,6 +6,9 @@ const orderSchema = new mongoose.Schema({
     tableName:{
         type:String
     },
+    orderNo:{
+        type:Number
+    },
     distype:{
         type:Boolean,
     },
@@ -58,8 +61,9 @@ const orderSchema = new mongoose.Schema({
     operator:{
         type:String
     },
-    customer:{
-        type:String
+    customerId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'customer'
     }
 
 
