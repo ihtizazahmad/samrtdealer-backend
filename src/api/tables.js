@@ -5,7 +5,7 @@ export const getTables= async (req, res) => {
     if(req.query.userId){
      filter={userId:req.query.userId.split(',')}
     }
-    const data = await tables.find(filter).populate('operator','name').populate('Amount')
+    const data = await tables.find(filter)
     res.send(data);
 }
 export const getTableById= async (req, res) => {
@@ -14,8 +14,8 @@ export const getTableById= async (req, res) => {
 }
 
 export const postTables= async (req, res) => {
-    const { tableNo,Amount,operator, tableName,description, hasLampixDevice ,userId} = req.body;
-    let data = new tables({ tableNo,Amount,operator, tableName,description, hasLampixDevice ,userId});
+    const { tableNo, tableName,description, hasLampixDevice ,userId} = req.body;
+    let data = new tables({ tableNo, tableName,description, hasLampixDevice ,userId});
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
          res.json({
@@ -24,8 +24,6 @@ export const postTables= async (req, res) => {
             description: result.description,
             hasLampixDevice: result.hasLampixDevice,
             userId:result.userId,
-            operator:result.operator,
-            Amount:result.Amount
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");

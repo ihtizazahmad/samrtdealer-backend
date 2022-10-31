@@ -67,9 +67,9 @@ const orderItemSchema = new mongoose.Schema({
         required:true,
         ref:'user'
     },
-    displayManager:{
+    customerId:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'display'
+        ref:'customer'
     }
 })
 const orderitem = mongoose.model('orderitem', orderItemSchema);
