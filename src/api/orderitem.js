@@ -8,20 +8,20 @@ export const getOrderItemByUserId = async (req, res) => {
     }else if(req.query.orderId){
         filter={orderId:req.query.orderId.split(',')}
     }
-    let data = await orderitem.find(filter).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}})
+    let data = await orderitem.find(filter).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}}).populate('customerId')
 
     res.send(data);
 }
 
 export const getOrderItemById = async (req, res) => {
 
-    let data = await orderitem.findOne(req.params).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}})
+    let data = await orderitem.findOne(req.params).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}}).populate('customerId')
     res.send(data);
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId} = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId });
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId,customerId} = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId ,customerId});
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
@@ -38,6 +38,7 @@ export const postOrderItem = async (req, res) => {
             units: result.units,
             text: result.text,
             userId:result.userId,
+            customerId:result.customerId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

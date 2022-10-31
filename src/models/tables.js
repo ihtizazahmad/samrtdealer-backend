@@ -14,18 +14,10 @@ const tablesSchema = new mongoose.Schema({
         type: Boolean,
         default:'false'
     },
-    operator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'role'
-      },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user'
-    },
-    Amount:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'orderitem'
     },
     RecordDate: {
         type: Date,
