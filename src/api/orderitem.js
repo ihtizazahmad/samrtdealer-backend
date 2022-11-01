@@ -2,26 +2,25 @@
 import orderitem from '../models/orderitem.js'
 
 export const getOrderItemByUserId = async (req, res) => {
-    let filter={}
-    if(req.query.userId){
-     filter={userId:req.query.userId.split(',')}
-    }else if(req.query.orderId){
-        filter={orderId:req.query.orderId.split(',')}
-    }
-    let data = await orderitem.find(filter).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}}).populate('customerId')
+    let filter = {}
+    if (req.query.userId)
+        filter = { userId: req.query.userId.split(',') }
+    else if (req.query.orderId)
+        filter = { orderId: req.query.orderId.split(',') }
+    let data = await orderitem.find(filter).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } })
 
     res.send(data);
 }
 
 export const getOrderItemById = async (req, res) => {
 
-    let data = await orderitem.findOne(req.params).populate({path:"product",populate:{path:"categoryId",model:"category",populate:{path:"displayManagerId",model:"display"}}}).populate('customerId')
+    let data = await orderitem.findOne(req.params).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } })
     res.send(data);
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text ,userId,customerId} = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,userId ,customerId});
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId } = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId });
     await data.save().then(result => {
         console.log(result, "OrderItem data save to database")
         res.json({
@@ -37,8 +36,8 @@ export const postOrderItem = async (req, res) => {
             lineValue: result.lineValue,
             units: result.units,
             text: result.text,
-            userId:result.userId,
-            customerId:result.customerId
+            userId: result.userId,
+            customerId: result.customerId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
@@ -54,23 +53,19 @@ export const updateOrderItem = async (req, res) => {
     },
         { new: true }
     );
-    if (data) {
+    if (data) 
         res.send({ message: "orderitem data updated successfully" });
-    }
-    else {
+    else 
         res.send({ message: "orderitem data cannot be updated successfully" })
-    }
 }
 
 export const deleteOrderItem = async (req, res) => {
     console.log(req.params)
     let data = await orderitem.deleteOne(req.params)
-    if (data) {
+    if (data) 
         res.send({ message: "orderitem data delete successfully" });
-    }
-    else {
+    else 
         res.send({ message: "orderitem data cannot delete successfully" })
-    }
 }
 
 
