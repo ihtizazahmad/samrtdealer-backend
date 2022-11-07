@@ -1,6 +1,7 @@
 import order from '../models/order.js';
 import orderitem from '../models/orderitem.js';
-
+import customer from '../models/customer.js'
+import sendMail from '../middlewares/send-email.js          '
 export const getOrder = async (req, res) => {
     let filter = {}
     if (req.query.userId)
@@ -17,7 +18,11 @@ export const postOrder = async (req, res) => {
     const { tableNo, tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount, distype, customerId } = req.body;
 
     const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate, points, orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount, distype, customerId });
-    await data.save().then(result => {
+    await data.save().then(async(result) => {
+    await customer.findById(customerId).then(async response=>{
+            const mail=await sendMail(response.Email, "Thanks Message", `<h2>Thanks for Visiting Out Store</h2>`)
+            console.log("thanks email send to customer successfully",mail)
+        })
         console.log(result, "Order data save to database")
         res.json({
             tableNo: result.tableNo,
@@ -38,7 +43,7 @@ export const postOrder = async (req, res) => {
             isHold: result.isHold,
             distype: result.distype,
             customerId: result.customerId
-        })
+        }) 
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

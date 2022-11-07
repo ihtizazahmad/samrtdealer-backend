@@ -38,7 +38,7 @@ const tableReservationAndWaitingListSchema=new mongoose.Schema({
     }    ,
     btnStatus:{
         type:String,
-        enum:["Reservations","Waitinglist"]
+        enum:["Reservations","Waitinglist","Tables"]
     },
     table:{
         type:mongoose.Schema.Types.ObjectId,
