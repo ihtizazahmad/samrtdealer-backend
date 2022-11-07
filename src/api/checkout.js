@@ -3,7 +3,8 @@ let stripe = Stripe('sk_test_51LcO4YJixNRK9OoBoWFMj2gmIyvXH0jjhcmKQhP4d6ITgIWohl
 export const Checkout = async (req, res) => {
   try {
     const customer = await stripe.customers.create({
-      email: "saad@gmail.com",
+      email: req.body.token.email,
+      // email: "saad@gmail.com",
       source: req.body.token.id
     }).then((customer) => {
       return stripe.charges.create({
