@@ -5,7 +5,7 @@ export const getCheck = async (req, res) => {
     if(req.query.userId)
      filter={userId:req.query.userId.split(',')}
     
-    let data = await check.find(filter).populate('tables','tableNo').populate('userId','_id').populate('order','orderStatus')
+    let data = await check.find(filter).populate('table','tableNo').populate('userId','_id').populate('order','orderStatus')
     res.send(data);
 }
 export const postCheck = async (req, res) => {
