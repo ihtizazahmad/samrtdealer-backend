@@ -16,7 +16,7 @@ const checkSchema = new mongoose.Schema({
     amount: {
         type: Number
     },
-    orderStatus:{
+    order:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'order'
     },
