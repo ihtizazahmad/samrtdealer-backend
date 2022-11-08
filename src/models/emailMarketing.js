@@ -7,6 +7,9 @@ const emailMarketingSchema = new mongoose.Schema({
     subject: {
         type: String
     },
+    message: {
+        type: String
+    },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
