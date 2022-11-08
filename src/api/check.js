@@ -2,15 +2,15 @@ import check from '../models/check.js'
 
 export const getCheck = async (req, res) => {
     let filter={}
-    if(req.query.userId){
+    if(req.query.userId)
      filter={userId:req.query.userId.split(',')}
-    }
-    let data = await check.find(filter).populate('table').populate('userId','_id');
+    
+    let data = await check.find(filter).populate('tables','tableNo').populate('userId','_id').populate('order','orderStatus')
     res.send(data);
 }
 export const postCheck = async (req, res) => {
-    const { checkNo, operator, subTotal, tax, amount, table, userId } = req.body;
-    let data = await new check({ checkNo, operator, subTotal, tax, amount, table, userId });
+    const { checkNo, operator, subTotal, tax, amount, table, userId,orderStatus } = req.body;
+    let data = await new check({ checkNo, operator, subTotal, tax, amount, table, userId ,orderStatus});
     await data.save().then(result => {
         console.log(result, "Check data save to database")
         res.json({
@@ -20,7 +20,8 @@ export const postCheck = async (req, res) => {
             tax: result.tax,
             amount: result.amount,
             table: result.table,
-            userId:result.userId
+            userId:result.userId,
+            orderStatus:result.orderStatus
         });
     }).catch(err => {
         res.status(400).send("unable to save to database");

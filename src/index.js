@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import Auth from './api-routes/user-route.js';
 import category from './api-routes/category-route.js'
+import emailMarketing  from './api-routes/emailMarketing-route.js';
 import check from './api-routes/check-route.js'
 import device from './api-routes/device-route.js'
 import display from './api-routes/display-route.js'
@@ -56,7 +57,7 @@ app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
 //All APi's Endponits
-app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation)
+app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation,emailMarketing)
 
 
 app.use('*', (req, res) => {
