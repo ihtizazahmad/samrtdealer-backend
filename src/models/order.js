@@ -30,9 +30,6 @@ const orderSchema = new mongoose.Schema({
        type:Boolean,
        default:false
     },
-    points: {
-        type: Number
-    },
     orderValueExclTax: {
         type: Number
     },

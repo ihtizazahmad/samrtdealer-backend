@@ -5,12 +5,7 @@ const checkSchema = new mongoose.Schema({
         type: Number
     },
     operator: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref:'model_Type'
-    },
-    model_Type:{
-        type:String,
-        enum:['user','employee']
+        type: String
     },
     subTotal: {
         type: Number
@@ -21,15 +16,19 @@ const checkSchema = new mongoose.Schema({
     amount: {
         type: Number
     },
+    orderStatus:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'order'
+    },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user',
     },
-    table: [{
+    table: {
         type:mongoose.Schema.Types.ObjectId,
         ref:"tables" 
-    }],
+    },
     checkDate: {
         type: Date,
         default: Date.now
