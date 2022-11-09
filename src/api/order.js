@@ -15,13 +15,17 @@ export const getOrder = async (req, res) => {
 }
 
 export const postOrder = async (req, res) => {
-    const { tableNo, tableName, currentOrderId, startDate, orderDate,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount, distype, customerId } = req.body;
+    const { tableNo, tableName, currentOrderId, startDate, orderDate,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty, distype, customerId } = req.body;
 
-    const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount, distype, customerId });
+    const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty, distype, customerId });
     await data.save().then(async (result) => {
         const customerData = await customer.findById(customerId)
-        console.log("custumer data :", customerData.CustomerLoyalty.Points)
+        console.log("custumer points :", customerData.CustomerLoyalty.Points)
         await customer.findByIdAndUpdate(customerId, { $set: { "CustomerLoyalty.Points": customerData.CustomerLoyalty.Points + 5 } })
+        if (req.body.loyalty > 0){
+            console.log("loyalty points :",req.body.loyalty)
+            await customer.findByIdAndUpdate(customerId,{ $set: { "CustomerLoyalty.Points": customerData.CustomerLoyalty.Points - 100 } })
+        }
         await sendMail(customerData.Email, "Thanks Message", `<h2>Thanks for Visiting Out Store</h2>`)
         console.log("thanks email send to customer successfully")
         console.log(result, "Order data save to database")
@@ -43,7 +47,8 @@ export const postOrder = async (req, res) => {
             operator: result.operator,
             isHold: result.isHold,
             distype: result.distype,
-            customerId: result.customerId
+            customerId: result.customerId,
+            loyalty:result.loyalty
         })
     }).catch(err => {
         res.status(400).send('unable to save database');

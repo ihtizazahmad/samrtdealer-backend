@@ -15,6 +15,9 @@ const orderSchema = new mongoose.Schema({
     discount:{
         type:Number
     },
+    loyalty:{
+        type:Number
+    },
     orderDate: {
         type: Date,
         default:Date.now
