@@ -21,8 +21,8 @@ const employeeSchema = new mongoose.Schema({
         type: Number
     },
     role:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'role'
+        type:String,
+        default:'employee'
     }
 })
 const employee = mongoose.model("employee", employeeSchema);
