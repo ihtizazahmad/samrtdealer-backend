@@ -17,9 +17,8 @@ const UserSchema = new Schema({
     required: true,
   },
   role: {
-    type: String,
-    default:'Admin',
-    enum:['superAdmin']
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'role'
   }
 })
 
