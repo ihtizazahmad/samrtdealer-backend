@@ -13,7 +13,7 @@ export const getUser = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email }) || await superUser.findOne({email})
+  const user = await User.findOne({ email }) || await superUser.findOne({ email })
   if (!user) {
     return res.status(400).send({ message: "User not found" });
   }
