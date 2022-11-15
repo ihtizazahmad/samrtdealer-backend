@@ -17,8 +17,26 @@ const UserSchema = new Schema({
     required: true,
   },
   role: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref:'role'
+    type: String,
+  }
+
+})
+const superUserSchema = new Schema({
+  name:{
+    type: String,
+  },
+  email: {
+    type: String,
+    required: true,
+    lowercase:true,
+    unique:true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
   }
 })
 
@@ -55,5 +73,6 @@ export const validate = (user) => {
 };
 
 export  const User = mongoose.model('user', UserSchema)
+export const superUser=mongoose.model('superUser',superUserSchema)
 
-export default User;
+export default {User,superUser};
