@@ -7,13 +7,13 @@ export const getUser = async (req, res) => {
   if(req.query.role){
     filter ={role:req.query.role.split(',')}
   }
-  const user = await User.find(filter).populate('role')
+  const user = await User.find(filter)
   res.send(user)
 }
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email }) || await superUser.findOne({ email })
+  const user = await User.findOne({ email }) || await superUser.findOne({email})
   if (!user) {
     return res.status(400).send({ message: "User not found" });
   }
