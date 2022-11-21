@@ -1,19 +1,44 @@
+# We have 2 stage Test and Deploy
 stages:
+  - test
   - deploy
-Deploy:
-  stage: deploy
-  before_script:
-  - 'command -v ssh-agent &gt;/dev/null || ( apk add --update openssh )'
-  - eval $(ssh-agent -s)
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  - ssh-keyscan $EC2_IPADDRESS &gt;&gt; ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
+
+# Config cache
+cache:
+  paths:
+    - node_modules/
+
+# Test job
+test:
+  # Docker image
+  image: node:latest
+  # Attach Test job to Test stage
+  stage: test
+  # Config to use GitLab Shared Runner with Executor Docker
+  tags:
+    - docker
   script:
-    - mkdir .public
-    - cp -r * .public
-    - mv .public public
-    - zip -r public.zip public
-    - scp -o StrictHostKeyChecking=no public.zip ubuntu@35.92.11.154:/var/www/html
-    - ssh -o StrictHostKeyChecking=no ubuntu@35.92.11.154 "cd /var/www/html; touch foo.txt; unzip public.zip"
+    - npm install
+    - npm run test
+  # Defines the names of branches and tags the job runs for
+  only:
+    - main
+
+# Deploy job
+deploy:
+  type: deploy
+  # Attach Deploy job to Deploy stage
+  stage: deploy
+  # Config to use our Runner with Executor Shell
+  tags:
+    - my-shell-runner
+  script:
+    # Only copy changed files to project folder
+    - cp -r -u * $PROJECT_DIR
+    - cd $PROJECT_DIR
+    - npm install
+    # Restart NodeJS service
+    - forever stop index.js || true
+    - forever start index.js
+  only:
+    - main
