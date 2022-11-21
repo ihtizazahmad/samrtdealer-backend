@@ -38,7 +38,7 @@ deploy:
     - cd $PROJECT_DIR
     - npm install
     # Restart NodeJS service
-    - forever stop index.js || true
-    - forever start index.js
+    - forever stop src/index.js || true
+    - forever start src/index.js
   only:
     - main
