@@ -26,7 +26,7 @@ test:
 
 # Deploy job
 deploy:
-  type: deploy
+
   # Attach Deploy job to Deploy stage
   stage: deploy
   # Config to use our Runner with Executor Shell
