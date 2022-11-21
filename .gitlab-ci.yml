@@ -22,7 +22,7 @@ test:
     - npm run test
   # Defines the names of branches and tags the job runs for
   only:
-    - develop
+    - main
 
 # Deploy job
 deploy:
@@ -41,4 +41,4 @@ deploy:
     - forever stop index.js || true
     - forever start index.js
   only:
-    - develop
+    - main
