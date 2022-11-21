@@ -13,16 +13,16 @@ test:
   # Docker image
   image: node:latest
   # Attach Test job to Test stage
-  stage: test
+  stage: docker
   # Config to use GitLab Shared Runner with Executor Docker
   tags:
-    - docker
+    - test
   script:
     - npm install
     - npm run test
   # Defines the names of branches and tags the job runs for
   only:
-    - main
+    - div-saad
 
 # Deploy job
 deploy:
