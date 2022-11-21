@@ -13,7 +13,7 @@ test:
   # Docker image
   image: node:latest
   # Attach Test job to Test stage
-  stage: docker
+  stage: test
   # Config to use GitLab Shared Runner with Executor Docker
   tags:
     - test
