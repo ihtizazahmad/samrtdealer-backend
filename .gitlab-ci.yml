@@ -16,7 +16,7 @@ test:
   stage: test
   # Config to use GitLab Shared Runner with Executor Docker
   tags:
-    - test
+    - my-shell-runner
   script:
     - npm install
     - npm run test
@@ -26,7 +26,6 @@ test:
 
 # Deploy job
 deploy:
-
   # Attach Deploy job to Deploy stage
   stage: deploy
   # Config to use our Runner with Executor Shell
