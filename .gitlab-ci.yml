@@ -16,7 +16,7 @@ test:
   stage: test
   # Config to use GitLab Shared Runner with Executor Docker
   tags:
-    - test
+    - my-shell-runner
   script:
     - npm install
     - npm run test

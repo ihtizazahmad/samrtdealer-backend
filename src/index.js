@@ -31,8 +31,8 @@ import tableReservation from './api-routes/reservation&waitingList-route.js'
 import './config/config.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
-import fs from "fs"
-const file=fs.readFileSync('./036C0DBFDB2A157703FBA75521E0278D.txt')
+// import fs from "fs"
+// const file=fs.readFileSync('./036C0DBFDB2A157703FBA75521E0278D.txt')
 const app = express();
 dotenv.config();
 //path
@@ -62,10 +62,6 @@ app.use('/api/v1/reset-password',passwordreset)
 //All APi's Endponits
 app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation,emailMarketing,smsMarketing)
 
-app.get('/.well-known/pki-validation/036C0DBFDB2A157703FBA75521E0278D.txt',(req,res)=>{
-//  res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
-res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
-})
 
 app.use('*', (req, res) => {
     return res.status(404).json({
@@ -73,6 +69,10 @@ app.use('*', (req, res) => {
         message: 'API endpoint doesnt exist please put Api routes..'
     })
 });
+// app.get('/.well-known/pki-validation/036C0DBFDB2A157703FBA75521E0278D.txt',(req,res)=>{
+// //  res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
+// res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
+// })
 
 //Port
 const port = process.env.PORT || 3333;
