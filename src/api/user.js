@@ -7,7 +7,7 @@ export const getUser = async (req, res) => {
   if(req.query.role){
     filter ={role:req.query.role.split(',')}
   }
-  const user = await User.find(filter).populate('role')
+  const user = await User.find(filter)
   res.send(user)
 }
 
