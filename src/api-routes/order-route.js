@@ -5,6 +5,7 @@ import {getOrder,
     postOrder,
     updateOrder,
     deleteOrder,
+    updateOrderItemByOrderId,
     deleteOrderItemByOrderId
 } from "../api/order.js"
 
@@ -12,8 +13,10 @@ routes.get('/order', getOrder )
 
 routes.post('/order', postOrder )
 routes.put('/order/:_id', updateOrder )
-routes.delete('/orderitem',deleteOrderItemByOrderId)
+routes.put('/orderitem',updateOrderItemByOrderId)
+routes.put('/orderitem',deleteOrderItemByOrderId)
 routes.delete('/order/:_id', deleteOrder )
 
 
 export default routes
+

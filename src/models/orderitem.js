@@ -18,6 +18,9 @@ const orderItemSchema = new mongoose.Schema({
         qty: {
             type: Number // number field
         },
+        price: {
+            type: Number // number field
+        },
         discount: {
             type: Number
         },

@@ -55,6 +55,23 @@ export const postOrder = async (req, res) => {
         console.log(err)
     })
 }
+export const updateOrderItemByOrderId = async (req, res) => {
+    const { orderId } = req.query
+    console.log("orderId", orderId);
+    let orderItem = await orderitem.findOneAndUpdate({
+        "$or": [
+            { orderId: orderId }
+        ]
+},{
+    $set:req.body
+})
+    if (orderItem) {
+        res.send({ message: "orderitem data by orderId update successfully" });
+    } else {
+        res.send({ message: "orderitem data cannot update successfully" })
+    }
+}
+
 export const deleteOrderItemByOrderId = async (req, res) => {
     const { orderId } = req.query
     console.log("orderId", orderId);
