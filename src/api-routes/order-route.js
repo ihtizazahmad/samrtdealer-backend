@@ -14,7 +14,7 @@ routes.get('/order', getOrder )
 routes.post('/order', postOrder )
 routes.put('/order/:_id', updateOrder )
 routes.put('/orderitem',updateOrderItemByOrderId)
-routes.put('/orderitem',deleteOrderItemByOrderId)
+routes.delete('/orderitem',deleteOrderItemByOrderId)
 routes.delete('/order/:_id', deleteOrder )
 
 
