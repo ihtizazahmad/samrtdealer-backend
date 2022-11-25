@@ -21,8 +21,8 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols,  categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic} = req.body;
-    const productData = await new product({ lavel, rows, cols,  categoryParents, quantity, barCode, name, price, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
+    const { lavel, rows, cols,  categoryParents, quantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic} = req.body;
+    const productData = await new product({ lavel, rows, cols,  categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json({
@@ -33,7 +33,8 @@ export const postProduct = async (req, res) => {
             barCode: result.barCode,
             name: result.name,
             price: result.price,
-            quantity: result.quantity,
+            retailPrice: result.retailPrice,
+            totalQuantity: result.totalQuantity,
             // inHouseTaxValue:result.inHouseTaxValue,
             // takeawayTaxValue:result.takeawayTaxValue,
             // shortDescription:result.shortDescription,
