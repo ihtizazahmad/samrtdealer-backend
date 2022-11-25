@@ -25,10 +25,10 @@ export const postOrderItem = async (req, res) => {
     await data.save().then(async (result) => {
         const productID=await productModel.findById(product)
         console.log("product:",productID.totalQuantity)
-        console.log(productID.productWithQty.qty, "OrderItem data save to database")
         await productModel.findByIdAndUpdate(productID,{
-            $set:{"totalQuantity":productID.totalQuantity -= productID.quantity }
+            $set:{"totalQuantity":productID.totalQuantity -= product.length }
         })
+        console.log(result, "OrderItem data save to database")
         res.json({
             orderId: result.orderId,
             product: result.product,
