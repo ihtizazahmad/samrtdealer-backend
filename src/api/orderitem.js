@@ -1,5 +1,6 @@
 
 import orderitem from '../models/orderitem.js'
+import productModel from '../models/product.js'
 
 export const getOrderItemByUserId = async (req, res) => {
     let filter = {}
@@ -21,7 +22,12 @@ export const getOrderItemById = async (req, res) => {
 export const postOrderItem = async (req, res) => {
     const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId } = req.body;
     const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId });
-    await data.save().then(result => {
+    await data.save().then(async (result) => {
+        const productID=await productModel.findById(product)
+        console.log("product:",productID.totalQuantity)
+        await productModel.findByIdAndUpdate(productID,{
+            $set:{"totalQuantity":productID.totalQuantity -= product.length }
+        })
         console.log(result, "OrderItem data save to database")
         res.json({
             orderId: result.orderId,

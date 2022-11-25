@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
         required:true,
         ref:'user'
     },
-    quantity:{
+    totalQuantity:{
         type:Number
     },
     barCode: {
@@ -29,6 +29,9 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     price: {
+        type: Number
+    },
+    retailPrice: {
         type: Number
     },
     shortDescription: {
