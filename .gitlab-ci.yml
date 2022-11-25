@@ -29,6 +29,13 @@ deploy:
   # Attach Deploy job to Deploy stage
   stage: deploy
   # Config to use our Runner with Executor Shell
+  variables:
+    PORT: 3333
+    JWT_SECRET: secret
+    DB_NAME: patronworks
+    MONGODB_URI: "mongodb+srv://saadk4474:CnxwMdQTG7ey9nMr@patronworks.2voqycm.mongodb.net/patronworks?retryWrites=true&w=majority"
+    BASE_URL: "http://localhost:18020"
+    CLOUD_NAME: djm945kfs
   tags:
     - my-shell-runner
   script:
@@ -37,7 +44,7 @@ deploy:
     - cd $PROJECT_DIR
     - npm install
     # Restart NodeJS service
-    - forever stop src/index.js || true
+    - forever stop $PROJECT_DIR/src/index.js || true
     - forever start src/index.js
   only:
     - main
