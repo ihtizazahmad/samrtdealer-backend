@@ -23,12 +23,12 @@ export const postOrderItem = async (req, res) => {
     const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId } = req.body;
     const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId });
     await data.save().then(async (result) => {
-        const productID=await productModel.findById(product)
-        console.log("product:",productID.totalQuantity)
-        await productModel.findByIdAndUpdate(productID,{
-            $set:{"totalQuantity":productID.totalQuantity -= product.length }
-        })
-        console.log(result, "OrderItem data save to database")
+        // const productID=await productModel.findById(product)
+        // console.log("product:",productID.totalQuantity)
+        // await productModel.findByIdAndUpdate(productID,{
+        //     $set:{"totalQuantity":productID.totalQuantity -= product.length }
+        // })
+        // console.log(result, "OrderItem data save to database")
         res.json({
             orderId: result.orderId,
             product: result.product,
