@@ -10,13 +10,12 @@ export const getCustomization = async (req, res) => {
 }
 
 export const postCustomization = async (req, res) => {
-    const { components, logo, tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId } = req.body;
-    const data = await new customization({ components, logo, tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId });
+    const { components,  tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId } = req.body;
+    const data = await new customization({ components,  tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId });
     await data.save().then(result => {
         console.log(result, "customization data save to database")
         res.json({
             components: result.components,
-            logo: result.logo,
             tax: result.tax,
             itemDiscount: result.itemDiscount,
             RecieptDiscount: result.RecieptDiscount,
