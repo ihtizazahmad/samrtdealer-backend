@@ -11,15 +11,13 @@ export const getLogo = async (req, res) => {
 
 export const postLogo = async (req, res) => {
 
-    const {file,userId } = req.body;
-    console.log("file",req.file);
-    console.log("file-data",req.body);
-    return
-    const data = await new logo({file,userId });
+    const {userId } = req.body;
+    const {myFile}=req.file ? req.file.filename : null
+    const data = await new logo({myFile,userId });
     await data.save().then(result => {
         console.log(result, "logo data save to database")
         res.json({
-            file:result.file,
+            myFile:result.myFile,
             userId: result.userId
 
         })
