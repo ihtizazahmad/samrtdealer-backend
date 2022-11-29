@@ -9,9 +9,6 @@ const CustomizationSchema = new mongoose.Schema({
             default: true
         }
     },
-    logo: {
-        type: String
-    },
     tax: {
         name:{
             type:String
