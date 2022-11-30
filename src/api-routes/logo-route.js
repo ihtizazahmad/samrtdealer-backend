@@ -11,7 +11,7 @@ import {
 
 routes.get('/logo', getLogo)
 
-routes.post('/logo',upload.single("file"), postLogo)
+routes.post('/logo',upload.single("myFile"), postLogo)
 
 routes.put('/logo/:_id', updateLogo)
 routes.delete('/logo/:_id', deleteLogo)
