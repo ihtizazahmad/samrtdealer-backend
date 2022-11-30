@@ -5,10 +5,12 @@ import {
     getCustomization,
     postCustomization,
     updateCustomization,
-    deleteCustomization
+    deleteCustomization,
+    getCustomizationById
 } from "../api/customization.js"
 
 routes.get('/customization', getCustomization)
+routes.get('/customization/:_id', getCustomizationById)
 
 routes.post('/customization', postCustomization)
 
