@@ -8,19 +8,23 @@ export const getCustomization = async (req, res) => {
     let data = await customization.find(filter);
     res.send(data);
 }
+export const getCustomizationById = async (req, res) => {
+    let data = await customization.findOne(req.params);
+    res.send(data);
+
+}
+
+
+
 
 export const postCustomization = async (req, res) => {
-    const { components,  tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId } = req.body;
-    const data = await new customization({ components,  tax, itemDiscount, RecieptDiscount, ManagerDiscount, currency, userId });
+    const { name, active, userId } = req.body;
+    const data = await new customization({ name, active, userId });
     await data.save().then(result => {
         console.log(result, "customization data save to database")
         res.json({
-            components: result.components,
-            tax: result.tax,
-            itemDiscount: result.itemDiscount,
-            RecieptDiscount: result.RecieptDiscount,
-            ManagerDiscount: result.ManagerDiscount,
-            currency: result.currency,
+            name: result.name,
+            active: result.active,
             userId: result.userId
 
         })
