@@ -20,7 +20,6 @@ export const postLogo = async (req, res) => {
         res.json({
             myFile:result.myFile,
             userId: result.userId
-
         })
     }
     ).catch(err => {
