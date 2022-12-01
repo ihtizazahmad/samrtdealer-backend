@@ -19,7 +19,7 @@ export const postOrder = async (req, res) => {
 
     const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty, distype, customerId });
     await data.save().then(async (result) => {
-        // const customerData = await customer.findById(customerId)
+        const customerData = await customer.findById(customerId)
         // console.log("custumer points :", customerData.CustomerLoyalty.Points)
         // await customer.findByIdAndUpdate(customerId, { $set: { "CustomerLoyalty.Points": customerData.CustomerLoyalty.Points + 5 } })
         if (req.body.loyalty > 0){
