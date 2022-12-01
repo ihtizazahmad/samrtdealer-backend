@@ -65,6 +65,10 @@ const orderItemSchema = new mongoose.Schema({
     text: {
         type: String
     } ,
+    customerId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'customer'
+    },
      userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
