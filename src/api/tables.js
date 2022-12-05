@@ -15,7 +15,8 @@ export const getTableById= async (req, res) => {
 
 export const postTables= async (req, res) => {
     const { tableNo, tableName,description, hasLampixDevice ,userId} = req.body;
-    let data = new tables({ tableNo, tableName,description, hasLampixDevice ,userId});
+    const tableimg=req.file ? req.file.filename : null
+    let data = new tables({ tableNo, tableName,description, hasLampixDevice ,userId,tableimg});
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
          res.json({
@@ -24,6 +25,7 @@ export const postTables= async (req, res) => {
             description: result.description,
             hasLampixDevice: result.hasLampixDevice,
             userId:result.userId,
+            tableimg:result.tableimg
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");

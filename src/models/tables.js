@@ -14,6 +14,9 @@ const tablesSchema = new mongoose.Schema({
         type: Boolean,
         default:'false'
     },
+    tableimg:{
+       type:String
+    },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
