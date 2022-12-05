@@ -1,5 +1,5 @@
-
 import orderitem from '../models/orderitem.js'
+import customer from '../models/customer.js'
 
 export const getOrderItemByUserId = async (req, res) => {
     let filter = {}
@@ -7,22 +7,27 @@ export const getOrderItemByUserId = async (req, res) => {
         filter = { userId: req.query.userId.split(',') }
     else if (req.query.orderId)
         filter = { orderId: req.query.orderId.split(',') }
-    let data = await orderitem.find(filter).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } })
+    let data = await orderitem.find(filter).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } }).populate('customerId')
 
     res.send(data);
 }
 
 export const getOrderItemById = async (req, res) => {
 
-    let data = await orderitem.findOne(req.params).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } })
+    let data = await orderitem.findOne(req.params).populate({ path: "product", populate: { path: "categoryId", model: "category", populate: { path: "displayManagerId", model: "display" } } }).populate('customerId')
     res.send(data);
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId } = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text, userId });
-    await data.save().then(result => {
-        console.log(result, "OrderItem data save to database")
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, userId } = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, userId });
+    await data.save().then(async (result) => {
+        const customerPoints =priceExclTax / 5;
+        console.log("customerpoints:",customerPoints);
+        const customerById=await customer.findById(customerId)
+        console.log("customerBeforeAddedPoints",customerById);
+     const  customerdata=  await customer.findByIdAndUpdate(customerById, { $set: { "CustomerLoyalty.Points": customerById.CustomerLoyalty.Points + customerPoints } })
+        console.log("customerAfterAddedPoints",customerdata);
         res.json({
             orderId: result.orderId,
             product: result.product,

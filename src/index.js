@@ -28,6 +28,9 @@ import  Checkout  from './api-routes/checkout-route.js';
 import userRegisterWithEmailVerification from './api/emailVerification.js'
 import modifier from './api-routes/prdouct-modifier-route.js'
 import tableReservation from './api-routes/reservation&waitingList-route.js'
+import Loyaltyoffers from './api-routes/loaylty-offers-route.js'
+import customization from './api-routes/customization-route.js'
+import logo from './api-routes/logo-route.js'
 import './config/config.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
@@ -42,7 +45,8 @@ const __dirname=path.dirname(__filename)
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/public",express.static("public"));
+// app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json())
 app.use(cors({
     origin: true,
@@ -60,7 +64,7 @@ app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
 //All APi's Endponits
-app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation,emailMarketing,smsMarketing)
+app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation,emailMarketing,smsMarketing,Loyaltyoffers,customization,logo)
 
 
 app.use('*', (req, res) => {
