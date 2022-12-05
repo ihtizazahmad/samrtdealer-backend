@@ -45,7 +45,7 @@ router.post('/:token', (req, res) => {
           if (savedUser) {
             res.send({ message: "Account Verified:Thanks For Registering User" });
           } else {
-            res.status(400).send({ error: "Cannot register user at the moment!" });
+            res.status(400).send({ message: "Cannot register user at the moment!" });
           }
         } else if (role === 'superadmin') {
           const superAdmin = new superUser({ name, email, password, role });
@@ -53,7 +53,7 @@ router.post('/:token', (req, res) => {
           if (savedSuprAdmin) {
             res.send({ message: "Account Verified:Thanks For Registering SuperUser" });
           } else {
-            res.status(400).send({ error: "Cannot register user at the moment!" });
+            res.status(400).send({ message : "Cannot register user at the moment!" });
           }
         }
       })
