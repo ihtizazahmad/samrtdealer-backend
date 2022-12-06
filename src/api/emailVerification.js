@@ -8,19 +8,19 @@ router.post('/', async (req, res) => {
   try {
     const user = await User.findOne({ email }) || await superUser.findOne({ email })
     if (user) {
-      return res.status(400).json({ message: "User with this email already exists." })
-    }
-
-    const token = jwt.sign({ name, email, password, role }, process.env.JWT_SECRET, { expiresIn: '20min' })
-    const link = `http://www.patronworks.net/activate-account/${token}`;
-    await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
+      return res.status(400).send({ message: "User with this email already exists." })
+    }else if (!user) {
+      const token = jwt.sign({ name, email, password, role }, process.env.JWT_SECRET, { expiresIn: '20min' })
+      const link = `http://www.patronworks.net/activate-account/${token}`;
+      await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
       ${link} `)
-    return res.status(200).json({ message: "Account Verification Link Send To Ur Account" })
-
-  } catch {
-    res.send("An error occured");
-    console.log(error);
-  }
+      return res.status(200).json({ message: "Account Verification Link Send To Ur Account" })
+      
+    }
+    } catch(error) {
+      res.send("An error occured");
+      console.log(error);
+    }
 }
 )
 router.post('/:token', (req, res) => {
@@ -45,7 +45,7 @@ router.post('/:token', (req, res) => {
           if (savedUser) {
             res.send({ message: "Account Verified:Thanks For Registering User" });
           } else {
-            res.status(400).send({ message: "Cannot register user at the moment!" });
+            res.status(400).send({ error: "Cannot register user at the moment!" });
           }
         } else if (role === 'superadmin') {
           const superAdmin = new superUser({ name, email, password, role });
@@ -53,7 +53,7 @@ router.post('/:token', (req, res) => {
           if (savedSuprAdmin) {
             res.send({ message: "Account Verified:Thanks For Registering SuperUser" });
           } else {
-            res.status(400).send({ message : "Cannot register user at the moment!" });
+            res.status(400).send({ error: "Cannot register user at the moment!" });
           }
         }
       })
