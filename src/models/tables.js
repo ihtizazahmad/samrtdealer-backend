@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const tablesSchema = new mongoose.Schema({
     tableNo: {
-        type: Number
+        type: String
     },
     tableName: {
         type: String
@@ -11,8 +11,9 @@ const tablesSchema = new mongoose.Schema({
         type: String
     },
     hasLampixDevice: {
-        type: Boolean,
-        default:'false'
+        type: String,
+        default:'false',
+        enum:['true','false']
     },
     tableimg:{
        type:String
