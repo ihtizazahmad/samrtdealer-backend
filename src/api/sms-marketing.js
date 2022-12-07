@@ -17,8 +17,8 @@ export const getsmsMarketing = async (req, res) => {
         const smsMarketingS=await new smsMarketing({number, message, userId})
      const data= smsMarketingS.save();
          
-        await sendSms(number, `${message}`);
-        return res.json({ message: `link send to your mobile number ${data}` })
+        await sendSms(number,message);
+        return res.json({ message: `link send to your mobile number` })
 
     } catch (error) {
         res.send("An error occured");

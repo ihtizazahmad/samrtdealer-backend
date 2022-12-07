@@ -1,6 +1,6 @@
-const accountId="AC1de9639f6f845b268af3fbd1c38f91b6";
-const authToken="0f3b6f573bd9ccb9d90e5a16f0e6fb85"
-const testNum=+15005550006
+const accountId="ACe7dcee648f316e99baf89a030bf860b7";
+const authToken="91e8c145aa0be01d77b04a6cebc372e5"
+const testNum=+19497870476
 import twilio from "twilio";
 
 const smsTwilio=twilio(accountId,authToken)
