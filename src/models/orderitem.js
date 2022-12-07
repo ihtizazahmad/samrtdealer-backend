@@ -6,6 +6,9 @@ const orderItemSchema = new mongoose.Schema({
     taxValue: {
         type: Number
     },
+    dueamount:{
+        type:Number,
+    },
     orderId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "order",

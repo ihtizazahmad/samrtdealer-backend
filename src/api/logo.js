@@ -31,7 +31,7 @@ export const postLogo = async (req, res) => {
 export const updateLogo = async (req, res) => {
     let data = await logo.findByIdAndUpdate(
         { _id: req.params._id }, {
-        $set: req.body
+        $set: req.file ? req.file.filename : null
     },
         { new: true }
     )

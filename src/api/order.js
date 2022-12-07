@@ -15,9 +15,9 @@ export const getOrder = async (req, res) => {
 }
 
 export const postOrder = async (req, res) => {
-    const { tableNo, tableName, currentOrderId, startDate, orderDate,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty, distype, customerId } = req.body;
+    const { tableNo, tableName, currentOrderId, startDate, orderDate,orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty,dueamount , distype , customerId } = req.body;
 
-    const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,loyalty, distype, customerId });
+    const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,dueamount,loyalty, distype, customerId });
     await data.save().then(async (result) => {
         const customerData = await customer.findById(customerId)
         if (req.body.loyalty > 0){
@@ -29,6 +29,7 @@ export const postOrder = async (req, res) => {
         console.log(result, "Order data save to database")
         res.json({
             tableNo: result.tableNo,
+            dueamount: result.dueamount,
             tableName: result.tableName,
             currentOrderId: result._id,
             startDate: result.startDate,
