@@ -19,8 +19,8 @@ export const getOrderItemById = async (req, res) => {
 }
 
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, userId } = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, userId });
+    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId,dueamount, userId } = req.body;
+    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, dueamount, userId });
     await data.save().then(async (result) => {
         const customerPoints =priceExclTax / 5;
         console.log("customerpoints:",customerPoints);
@@ -31,6 +31,7 @@ export const postOrderItem = async (req, res) => {
         res.json({
             orderId: result.orderId,
             product: result.product,
+            dueamount: result.dueamount,
             points: result.points,
             taxValue: result.taxValue,
             productWithQty: result.productWithQty,
