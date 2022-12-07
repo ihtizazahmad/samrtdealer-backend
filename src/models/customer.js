@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-
 const customerSchema = new mongoose.Schema({
     CustomerId: {
         type: Number
@@ -45,6 +44,12 @@ const customerSchema = new mongoose.Schema({
     },
     Membership: {
         type: String
+    },
+    Password:{
+        type:String
+    },
+    ConfirmPassword:{
+        type:String
     },
     CustomerLoyalty:{
         
