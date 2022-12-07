@@ -12,6 +12,9 @@ const orderSchema = new mongoose.Schema({
     distype:{
         type:Boolean,
     },
+    dueamount:{
+        type:Number,
+    },
     discount:{
         type:Number
     },
@@ -27,7 +30,7 @@ const orderSchema = new mongoose.Schema({
         default:Date.now
     },
     currentOrderId: {
-        type: String
+        type: String,
     },
     isHold:{
        type:Boolean,
