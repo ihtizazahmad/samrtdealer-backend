@@ -20,35 +20,62 @@ export const postOrder = async (req, res) => {
     const data = await new order({ tableNo, tableName, currentOrderId, startDate, orderDate,  orderValueExclTax, orderValueTax, orderValue, parentOrderNo, orderStatus, orderType, isHold, userId, operator, discount,dueamount,loyalty, distype, customerId });
     await data.save().then(async (result) => {
         const customerData = await customer.findById(customerId)
-        if (req.body.loyalty > 0){
-            console.log("loyalty points :",req.body.loyalty)
-            await customer.findByIdAndUpdate(customerId,{ $set: { "CustomerLoyalty.Points": customerData.CustomerLoyalty.Points - 100 } })
+        if(customerData){
+
+            if (req.body.loyalty > 0){
+                console.log("loyalty points :",req.body.loyalty)
+                await customer.findByIdAndUpdate(customerId,{ $set: { "CustomerLoyalty.Points": customerData.CustomerLoyalty.Points - 100 } })
+            }
+            await sendMail(customerData.Email, "Thanks Message", `<h2>Thanks for Visiting Out Store</h2>`)
+            console.log("thanks email send to customer successfully")
+            console.log(result, "Order data save to database")
+            res.json({
+                tableNo: result.tableNo,
+                dueamount: result.dueamount,
+                tableName: result.tableName,
+                currentOrderId: result._id,
+                startDate: result.startDate,
+                orderDate: result.orderDate,
+                points: result.points,
+                orderValueExclTax: result.orderValueExclTax,
+                orderValueTax: result.orderValueTax,
+                orderValue: result.orderValue,
+                parentOrderNo: result.parentOrderNo,
+                orderStatus: result.orderStatus,
+                orderType: result.orderType,
+                userId: result.userId,
+                discount: result.discount,
+                operator: result.operator,
+                isHold: result.isHold,
+                distype: result.distype,
+                customerId: result.customerId,
+                loyalty:result.loyalty
+            })
+        }else{
+            res.json({
+                tableNo: result.tableNo,
+                dueamount: result.dueamount,
+                tableName: result.tableName,
+                currentOrderId: result._id,
+                startDate: result.startDate,
+                orderDate: result.orderDate,
+                points: result.points,
+                orderValueExclTax: result.orderValueExclTax,
+                orderValueTax: result.orderValueTax,
+                orderValue: result.orderValue,
+                parentOrderNo: result.parentOrderNo,
+                orderStatus: result.orderStatus,
+                orderType: result.orderType,
+                userId: result.userId,
+                discount: result.discount,
+                operator: result.operator,
+                isHold: result.isHold,
+                distype: result.distype,
+                customerId: result.customerId,
+                loyalty:result.loyalty
+            })
+            
         }
-        await sendMail(customerData.Email, "Thanks Message", `<h2>Thanks for Visiting Out Store</h2>`)
-        console.log("thanks email send to customer successfully")
-        console.log(result, "Order data save to database")
-        res.json({
-            tableNo: result.tableNo,
-            dueamount: result.dueamount,
-            tableName: result.tableName,
-            currentOrderId: result._id,
-            startDate: result.startDate,
-            orderDate: result.orderDate,
-            points: result.points,
-            orderValueExclTax: result.orderValueExclTax,
-            orderValueTax: result.orderValueTax,
-            orderValue: result.orderValue,
-            parentOrderNo: result.parentOrderNo,
-            orderStatus: result.orderStatus,
-            orderType: result.orderType,
-            userId: result.userId,
-            discount: result.discount,
-            operator: result.operator,
-            isHold: result.isHold,
-            distype: result.distype,
-            customerId: result.customerId,
-            loyalty:result.loyalty
-        })
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)

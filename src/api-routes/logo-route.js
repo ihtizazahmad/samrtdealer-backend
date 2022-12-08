@@ -13,7 +13,7 @@ routes.get('/logo', getLogo)
 
 routes.post('/logo',upload.single("myFile"), postLogo)
 
-routes.put('/logo/:_id', updateLogo)
+routes.put('/logo/:_id',upload.single('myFile'), updateLogo)
 routes.delete('/logo/:_id', deleteLogo)
 
 
