@@ -54,7 +54,6 @@ const productSchema = new mongoose.Schema({
         }],
    Product_pic: {
         type: String,
-        default:""
     },
     productPictureId: {
         type: String
