@@ -28,12 +28,15 @@ export const postLogo = async (req, res) => {
     }
     )
 }
+
 export const updateLogo = async (req, res) => {
-    const updateMyFile = Object.assign({}, req.body); 
-    updateMyFile.myFile = req.file || req.file.filename
+    console.log("image",req.file)
+    const myFile = req.file ? req.file.filename : null
+    console.log("image",myFile)
+
     let data = await logo.findByIdAndUpdate(
         { _id: req.params._id },
-     updateMyFile
+    { myFile:myFile}
     )
     if (data) {
         res.send({ message: "logo data updated successfully" });
