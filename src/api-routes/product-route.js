@@ -12,7 +12,7 @@ import {getProduct,
 routes.get('/Product', getProduct )
 routes.get('/Product/:_id', getProductById )
 routes.post('/Product',upload.single('Product_pic'), postProduct)
-routes.put('/Product/:_id', updateProduct )
+routes.put('/Product/:_id',upload.single('Product_pic'), updateProduct )
 routes.delete('/Product/:_id', deleteProduct )
 
 
