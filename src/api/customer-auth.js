@@ -8,7 +8,7 @@ export const customerRegister = async (req, res) => {
             const customerUpdate = await customer.findOneAndUpdate({ Email, FirstName, LastName }, { Password: req.body.Password, ConfirmPassword: req.body.ConfirmPassword
             })
             if (customerUpdate) {
-                res.status(200).send({ message: "Existing Customer register Successfully" })
+                res.status(200).send({ message: "Existing Customer register Successfully" ,customerUpdate})
             } else {
                 res.status(400).send({ message: "Existing Customer cannot register Successfully" })
             }
@@ -16,7 +16,7 @@ export const customerRegister = async (req, res) => {
         } else if (!user) {
             const NewCustomer = await new customer({ FirstName, LastName, Email, Password, ConfirmPassword })
             if (NewCustomer) {
-                return res.status(200).send({ message: "New Customer register Successfuly" })
+                return res.status(200).send({ message: "New Customer register Successfuly",NewCustomer })
             }else {
                 res.status(400).send({ message: "New Customer cannot register Successfully" })
             }
