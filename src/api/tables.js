@@ -33,11 +33,13 @@ export const postTables= async (req, res) => {
     });
 }
 export const updateTables= async (req, res) => {
+    const tableimg=req.file ? req.file.filename : null
+    console.log('tableimg: ', tableimg);
     console.log(req.params)
     let data = await tables.findByIdAndUpdate(
         {_id: req.params._id},{
             $set:req.body
-        },{new:true}
+        },{tableimg:tableimg},{new:true}
         );
     if (data) {
         res.send({ message: "tables data updated successfully" });
