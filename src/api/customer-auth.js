@@ -4,20 +4,25 @@ export const customerRegister = async (req, res) => {
     const { FirstName, LastName, Email, Password, ConfirmPassword } = req.body
     try {
         const user = await customer.findOne({ Email, FirstName, LastName })
-        if (user) {
-            const customerUpdate = await customer.findOneAndUpdate({ Email, FirstName, LastName }, { Password: req.body.Password, ConfirmPassword: req.body.ConfirmPassword
+
+        if (user && !user.Password) {
+            const customerUpdate = await customer.findOneAndUpdate({ Email, FirstName, LastName }, {
+                Password: req.body.Password, ConfirmPassword: req.body.ConfirmPassword
             })
             if (customerUpdate) {
-                res.status(200).send({ message: "Existing Customer register Successfully" ,customerUpdate})
+                res.status(200).send({ message: "Existing Customer register Successfully" })
             } else {
                 res.status(400).send({ message: "Existing Customer cannot register Successfully" })
             }
 
-        } else if (!user) {
+        } else {
+            res.status(400).send({ message: "customer is Already Register" })
+        }
+        if (!user) {
             const NewCustomer = await new customer({ FirstName, LastName, Email, Password, ConfirmPassword })
             if (NewCustomer) {
-                return res.status(200).send({ message: "New Customer register Successfuly",NewCustomer })
-            }else {
+                return res.status(200).send({ message: "New Customer register Successfuly" })
+            } else {
                 res.status(400).send({ message: "New Customer cannot register Successfully" })
             }
         }
@@ -35,7 +40,7 @@ export const customerLogin = async (req, res) => {
     if (user.Password !== Password) {
         return res.status(400).send({ message: "Wrong password" });
     }
-
-    res.status(200).send({ message: "customer login successfully", user });
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    res.status(200).send({ message: "customer login successfully", token });
 
 }

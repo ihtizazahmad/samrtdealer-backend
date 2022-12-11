@@ -1,6 +1,5 @@
 import product from '../models/product.js'
 
-
 export const getProduct = async (req, res) => {
     let filter = {}
     if (req.query.categoryId) {
@@ -21,7 +20,9 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic} = req.body;
+    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
+    const Product_pic=req.file ? req.file.filename : null
+
     const productData = await new product({ lavel, rows, cols,  categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
@@ -35,15 +36,9 @@ export const postProduct = async (req, res) => {
             price: result.price,
             retailPrice: result.retailPrice,
             totalQuantity: result.totalQuantity,
-            // inHouseTaxValue:result.inHouseTaxValue,
-            // takeawayTaxValue:result.takeawayTaxValue,
-            // shortDescription:result.shortDescription,
-            // fullDescription:result.fullDescription,
             order: result.order,
             active: result.active,
             categoryId: result.categoryId,
-            // inHouseTaxId:result.inHouseTaxId,
-            // takeawayTaxId:result.takeawayTaxId,
             hasPicture: result.hasPicture,
             productPictureId: result.productPictureId,
             productId: result.productId,
@@ -57,12 +52,12 @@ export const postProduct = async (req, res) => {
     })
 }
 export const updateProduct = async (req, res) => {
-
+    const Product_pic=req.file ? req.file.filename : null
     console.log(req.params.id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id }, {
         $set: req.body
-    },
+    },{Product_pic:Product_pic},
 
         { new: true }
     );
