@@ -21,7 +21,7 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic} = req.body;
+    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, totalQuantity, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic} = req.body;
     const productData = await new product({ lavel, rows, cols,  categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
