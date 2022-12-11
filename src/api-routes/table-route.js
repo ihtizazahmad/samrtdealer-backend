@@ -14,7 +14,7 @@ routes.get('/Tables', getTables )
 routes.get('/Tables/:_id', getTableById )
 
 routes.post('/Tables',upload.single('tableimg'), postTables )
-routes.put('/Tables/:_id', updateTables )
+routes.put('/Tables/:_id',upload.single('tableimg'), updateTables )
 routes.put('/posTable',SearchUpdateTables)
 routes.delete('/Tables/:_id', deleteTables )
 

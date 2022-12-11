@@ -1,5 +1,5 @@
 import express  from "express";
-// import uploaderObject from '../middlewares/uploader.js'
+import {upload} from '../middlewares/uploader.js'
 const routes=express.Router();
 
 import {getProduct,
@@ -11,9 +11,8 @@ import {getProduct,
 
 routes.get('/Product', getProduct )
 routes.get('/Product/:_id', getProductById )
-routes.post('/Product',postProduct)
-// routes.route('/Product').post(uploaderObject.upload.fields([{name:"Product_pic",maxCount:1}])).post(postProduct)
-routes.put('/Product/:_id', updateProduct )
+routes.post('/Product',upload.single('Product_pic'), postProduct)
+routes.put('/Product/:_id',upload.single('Product_pic'), updateProduct )
 routes.delete('/Product/:_id', deleteProduct )
 
 

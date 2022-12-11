@@ -26,25 +26,46 @@ export const postOrderItem = async (req, res) => {
         console.log("customerpoints:",customerPoints);
         const customerById=await customer.findById(customerId)
         console.log("customerBeforeAddedPoints",customerById);
-     const  customerdata=  await customer.findByIdAndUpdate(customerById, { $set: { "CustomerLoyalty.Points": customerById.CustomerLoyalty.Points + customerPoints } })
-        console.log("customerAfterAddedPoints",customerdata);
-        res.json({
-            orderId: result.orderId,
-            product: result.product,
-            dueamount: result.dueamount,
-            points: result.points,
-            taxValue: result.taxValue,
-            productWithQty: result.productWithQty,
-            priceExclTax: result.priceExclTax,
-            productPrice: result.productPrice,
-            lineValueExclTax: result.lineValueExclTax,
-            lineValueTax: result.lineValueTax,
-            lineValue: result.lineValue,
-            units: result.units,
-            text: result.text,
-            userId: result.userId,
-            customerId: result.customerId
-        })
+        if(customerById){
+            const  customerdata=  await customer.findByIdAndUpdate(customerById, { $set: { "CustomerLoyalty.Points": customerById.CustomerLoyalty.Points + customerPoints } })
+            console.log("customerAfterAddedPoints",customerdata);
+            res.json({
+                orderId: result.orderId,
+                product: result.product,
+                dueamount: result.dueamount,
+                points: result.points,
+                taxValue: result.taxValue,
+                productWithQty: result.productWithQty,
+                priceExclTax: result.priceExclTax,
+                productPrice: result.productPrice,
+                lineValueExclTax: result.lineValueExclTax,
+                lineValueTax: result.lineValueTax,
+                lineValue: result.lineValue,
+                units: result.units,
+                text: result.text,
+                userId: result.userId,
+                customerId: result.customerId
+            })
+        }else{
+            res.json({
+                orderId: result.orderId,
+                product: result.product,
+                dueamount: result.dueamount,
+                points: result.points,
+                taxValue: result.taxValue,
+                productWithQty: result.productWithQty,
+                priceExclTax: result.priceExclTax,
+                productPrice: result.productPrice,
+                lineValueExclTax: result.lineValueExclTax,
+                lineValueTax: result.lineValueTax,
+                lineValue: result.lineValue,
+                units: result.units,
+                text: result.text,
+                userId: result.userId,
+                customerId: result.customerId
+            })
+        }
+    
     }).catch(err => {
         res.status(400).send('unable to save database');
         console.log(err)
