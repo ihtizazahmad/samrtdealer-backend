@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 const productSchema = new mongoose.Schema({
 
     lavel: {
@@ -20,7 +21,7 @@ const productSchema = new mongoose.Schema({
         ref:'user'
     },
     totalQuantity:{
-        type:Number
+        type: String
     },
     barCode: {
         type: String
@@ -29,10 +30,10 @@ const productSchema = new mongoose.Schema({
         type: String
     },
     price: {
-        type: Number
+        type: String
     },
     retailPrice: {
-        type: Number
+        type: String
     },
     shortDescription: {
         type: String
@@ -45,7 +46,7 @@ const productSchema = new mongoose.Schema({
         ref:'order'
     },
     active: {
-        type: Boolean
+        type: String
     },
     categoryId:
         [{
@@ -60,6 +61,11 @@ const productSchema = new mongoose.Schema({
     },
     productType: {
         type: String
+    },
+    hasPicture:{
+     type: String,
+     default:'false',
+     enum:['true','false']
     }
 
 })
