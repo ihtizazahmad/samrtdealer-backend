@@ -38,8 +38,8 @@ export const updateTables= async (req, res) => {
     console.log(req.params)
     let data = await tables.findByIdAndUpdate(
         {_id: req.params._id},{
-            $set:req.body
-        },{tableimg:tableimg},{new:true}
+            $set:req.body,tableimg:tableimg
+        },{new:true}
         );
     if (data) {
         res.send({ message: "tables data updated successfully" });
