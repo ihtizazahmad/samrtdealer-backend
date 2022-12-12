@@ -21,19 +21,19 @@ const productSchema = new mongoose.Schema({
         ref:'user'
     },
     totalQuantity:{
-        type: String
+        type: Number
     },
     barCode: {
-        type: String
+        type: Number
     },
     name: {
         type: String
     },
     price: {
-        type: String
+        type: Number
     },
     retailPrice: {
-        type: String
+        type: Number
     },
     shortDescription: {
         type: String

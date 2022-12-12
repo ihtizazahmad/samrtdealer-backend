@@ -20,7 +20,7 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, totalQuantity,order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
+    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId} = req.body;
     const Product_pic=req.file ? req.file.filename : null
 
     const productData = await new product({ lavel, rows, cols,  categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
@@ -53,12 +53,11 @@ export const postProduct = async (req, res) => {
 }
 export const updateProduct = async (req, res) => {
     const Product_pic=req.file ? req.file.filename : null
-    console.log(req.params.id)
+    console.log(req.params._id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id }, {
-        $set: req.body
-    },{Product_pic:Product_pic},
-
+        $set: req.body,Product_pic:Product_pic
+    },
         { new: true }
     );
     if (data) {
