@@ -59,7 +59,6 @@ app.use(helmet());
 app.use(morgan("dev"));
 //Routes
 //uset Email Verification Endpoints
-// app.use(imageupload)
 app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
