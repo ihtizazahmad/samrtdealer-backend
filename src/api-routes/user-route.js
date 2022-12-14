@@ -2,12 +2,16 @@ import express  from "express";
 const routes=express.Router();
 
 import {getUser,
+    getSuperUser,
     login,
     deleteUser,
-    updateUser
+    updateUser,
+    getUserById
 } from "../api/user.js"
 
 routes.get('/User', getUser )
+routes.get('/superadmin', getSuperUser )
+routes.get('/user/:_id',getUserById)
 
 routes.post('/login', login )
 routes.put('/user/:_id',updateUser)

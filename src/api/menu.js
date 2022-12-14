@@ -3,15 +3,15 @@ import menu from '../models/menu.js';
 
  export const getMenu = async (req, res) => {
     let filter = {}
-    if (req.query.userId) {
-        filter = { userId: req.query.userId.split(',') }
+    if (req.query.superUserId) {
+        filter = { superUserId: req.query.superUserId.split(',') }
     }
-    let usermenuData = await menu.find(filter).populate('userId','_id')
+    let usermenuData = await menu.find(filter).populate('superUserId','_id')
     res.send(usermenuData)
 }
 
 export const getMenuById = async (req, res) => {
-    let data = await menu.findOne(req.params).populate('userId','_id')
+    let data = await menu.findOne(req.params).populate('superUserId','_id')
     if(!data){
         res.send({message:"no data found"})
     }
@@ -19,13 +19,13 @@ export const getMenuById = async (req, res) => {
 }
 
 export const postMenu = async (req, res) => {
-    const { treeData ,userId} = req.body;
-    let data = await new menu({ treeData,userId});
+    const { treeData ,superUserId} = req.body;
+    let data = await new menu({ treeData,superUserId});
     await data.save().then(result => {
         console.log(result, "Menu data save to database")
         res.json({
             treeData: result.treeData,
-            userId: result.userId
+            superUserId: result.superUserId
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
