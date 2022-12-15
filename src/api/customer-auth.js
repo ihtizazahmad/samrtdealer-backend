@@ -15,16 +15,15 @@ export const customerRegister = async (req, res) => {
                 res.status(400).send({ message: "Existing Customer cannot register Successfully" })
             }
 
-        } else {
-            res.status(400).send({ message: "customer is Already Register" })
-        }
-        if (!user) {
+        } else if(!user)  {
             const NewCustomer = await new customer({ FirstName, LastName, Email, Password, ConfirmPassword })
             if (NewCustomer) {
                 return res.status(200).send({ message: "New Customer register Successfuly" })
             } else {
                 res.status(400).send({ message: "New Customer cannot register Successfully" })
             }
+        }else{
+            res.status(400).send({message:"customer is already register"})
         }
     } catch (error) {
         res.send("An error occured");
