@@ -1,18 +1,23 @@
 import product from '../models/product.js';
-import {User} from '../models/User.js';
 
 export const getProduct = async (req, res) => {
     let filter = {}
     if (req.query.categoryId) {
         filter = { categoryId: req.query.categoryId.split(',') }
     }
-    let filter2={}
+    let filter2 = {}
     if (req.query.userId) {
         filter = { userId: req.query.userId.split(',') }
     }
-    let productData = await product.find(filter,filter2).populate('categoryId').populate('categoryParents', 'name').populate('userId').populate('order')
+    let productData = await product.find(filter, filter2).populate('categoryId').populate('categoryParents', 'name').populate('userId').populate('order')
+
     res.send(productData);
 
+}
+export const getFilteredProduct=async(req,res)=>{
+    let productData = await product.find().populate('categoryId').populate('categoryParents', 'name').populate('userId').populate('order')
+    let ActiveProduct = productData?.filter((item) => item.userId.isActive === true)
+    res.send(ActiveProduct);
 }
 export const getProductById = async (req, res) => {
     let productData = await product.findOne(req.params).populate('categoryId', 'name').populate('order').populate('categoryParents', 'name')
@@ -21,10 +26,10 @@ export const getProductById = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { lavel, rows, cols,  categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId,totalQuantity, productId, productType,userId} = req.body;
-    const Product_pic=req.file ? req.file.filename : null
+    const { lavel, rows, cols, categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, totalQuantity, productId, productType, userId } = req.body;
+    const Product_pic = req.file ? req.file.filename : null
 
-    const productData = await new product({ lavel, rows, cols,  categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType,userId,Product_pic});
+    const productData = await new product({ lavel, rows, cols, categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType, userId, Product_pic });
     await productData.save().then(result => {
         console.log(result, "Product data save to database")
         res.json({
@@ -44,8 +49,8 @@ export const postProduct = async (req, res) => {
             productPictureId: result.productPictureId,
             productId: result.productId,
             productType: result.productType,
-            userId:result.userId,
-            Product_pic:result.Product_pic
+            userId: result.userId,
+            Product_pic: result.Product_pic
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
@@ -53,11 +58,11 @@ export const postProduct = async (req, res) => {
     })
 }
 export const updateProduct = async (req, res) => {
-    const Product_pic=req.file ? req.file.filename : null
+    const Product_pic = req.file ? req.file.filename : null
     console.log(req.params._id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id }, {
-        $set: req.body,Product_pic:Product_pic
+        $set: req.body, Product_pic: Product_pic
     },
         { new: true }
     );
