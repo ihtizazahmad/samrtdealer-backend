@@ -18,6 +18,10 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
+  },
+  isActive:{
+    type:Boolean,
+    default:true
   }
 
 })
