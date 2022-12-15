@@ -7,9 +7,11 @@ import {getProduct,
     postProduct,
     updateProduct,
     deleteProduct,
+    getFilteredProduct
 } from "../api/product.js"
 
 routes.get('/Product', getProduct )
+routes.get('/filteredProduct',getFilteredProduct)
 routes.get('/Product/:_id', getProductById )
 routes.post('/Product',upload.single('Product_pic'), postProduct)
 routes.put('/Product/:_id',upload.single('Product_pic'), updateProduct )

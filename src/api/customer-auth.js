@@ -1,7 +1,8 @@
 import customer from '../models/customer.js';
+import jwt from 'jsonwebtoken'
 
 export const customerRegister = async (req, res) => {
-    const { FirstName, LastName, Email, Password, ConfirmPassword } = req.body
+const { FirstName, LastName, Email, Password, ConfirmPassword } = req.body
     try {
         const user = await customer.findOne({ Email, FirstName, LastName })
 
@@ -17,7 +18,8 @@ export const customerRegister = async (req, res) => {
 
         } else if(!user)  {
             const NewCustomer = await new customer({ FirstName, LastName, Email, Password, ConfirmPassword })
-            if (NewCustomer) {
+            const savedCustomer=NewCustomer.save();
+            if (savedCustomer) {
                 return res.status(200).send({ message: "New Customer register Successfuly" })
             } else {
                 res.status(400).send({ message: "New Customer cannot register Successfully" })
