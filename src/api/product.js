@@ -1,4 +1,5 @@
 import product from '../models/product.js';
+import {User} from '../models/User.js';
 
 export const getProduct = async (req, res) => {
     let filter = {}
