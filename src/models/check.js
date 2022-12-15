@@ -16,10 +16,10 @@ const checkSchema = new mongoose.Schema({
     amount: {
         type: Number
     },
-    order:{
+    order:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'order'
-    },
+    }],
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
