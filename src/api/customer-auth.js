@@ -42,6 +42,7 @@ export const customerLogin = async (req, res) => {
         return res.status(400).send({ message: "Wrong password" });
     }
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    res.status(200).send({ message: "customer login successfully", token });
+    const UserName=user.FirstName+ '' + user.LastName
+    res.status(200).send({ message: "customer login successfully", token,UserName });
 
 }

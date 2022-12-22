@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 aws.config.update({
- secretAccessKey: process.env.SECRET_ACCESS_KEY,
- accessKeyId: process.env.ACCESS_KEY_ID,
- region: 'YOUR AWS REGION' //E.g us-east-1
+ secretAccessKey: process.env.AWS_SECRET_ACSESS_KEY,
+ accessKeyId: process.env.AWS_ACCESS_KEY,
+ region: 'us-west-2' //E.g us-east-1
 });
 
 const s3 = new aws.S3();
@@ -27,13 +27,12 @@ fileFilter: fileFilter,
 storage: multerS3({
  acl: 'public-read',
  s3,
- bucket: 'YOUR S3 BUCKET NAME',
+ bucket: 'patronworks',
  key: function(req, file, cb) {
    /*I'm using Date.now() to make sure my file has a unique name*/
    req.file = Date.now() + file.originalname;
    cb(null, Date.now() + file.originalname);
   }
  })
-});
-
-module.exports = awsupload;
+})
+export default  awsupload;
