@@ -14,7 +14,12 @@ const s3 = new aws.S3();
 
 /* In case you want to validate your file type */
 const fileFilter = (req, file, cb) => {
- file.mimetype === 'image/*'
+  cb(null, true);
+  // if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/svg+xml' ) {
+  //  } else {
+  //   cb(new Error('Wrong file type, only upload JPEG and/or PNG SVG !'), 
+  //   false);
+  //  }
  
 };
 
