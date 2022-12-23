@@ -1,5 +1,5 @@
 import express  from "express";
-import { upload } from "../middlewares/uploader.js";
+import { awsupload } from "../middlewares/aws-s3-upload.js";
 const routes=express.Router();
 
 import {getTables,
@@ -13,8 +13,8 @@ import {getTables,
 routes.get('/Tables', getTables )
 routes.get('/Tables/:_id', getTableById )
 
-routes.post('/Tables',upload.single('tableimg'), postTables )
-routes.put('/Tables/:_id',upload.single('tableimg'), updateTables )
+routes.post('/Tables',awsupload.single('tableimg'), postTables )
+routes.put('/Tables/:_id',awsupload.single('tableimg'), updateTables )
 routes.put('/posTable',SearchUpdateTables)
 routes.delete('/Tables/:_id', deleteTables )
 
