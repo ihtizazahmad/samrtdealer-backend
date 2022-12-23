@@ -5,8 +5,8 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 aws.config.update({
- secretAccessKey: process.env.AWS_SECRET_ACSESS_KEY,
- accessKeyId: process.env.AWS_ACCESS_KEY,
+ secretAccessKey:"fVNlcqC4/8w7vWdX5gY6PKTSI5AItqko17UqpCMN",
+ accessKeyId: "AKIAX3G56OYJCAAIYRML",
  region: 'us-west-2' //E.g us-east-1
 });
 
@@ -14,15 +14,11 @@ const s3 = new aws.S3();
 
 /* In case you want to validate your file type */
 const fileFilter = (req, file, cb) => {
- if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-  cb(null, true);
- } else {
-  cb(new Error('Wrong file type, only upload JPEG and/or PNG !'), 
-  false);
- }
+ file.mimetype === 'image/*'
+ 
 };
 
-const awsupload = multer({
+export const awsupload = multer({
 fileFilter: fileFilter,
 storage: multerS3({
  acl: 'public-read',
@@ -35,4 +31,3 @@ storage: multerS3({
   }
  })
 })
-export default  awsupload;

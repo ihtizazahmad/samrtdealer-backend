@@ -15,7 +15,7 @@ export const getTableById= async (req, res) => {
 
 export const postTables= async (req, res) => {
     const { tableNo, tableName,description, hasLampixDevice ,userId} = req.body;
-    const tableimg=req.file ? req.file.filename : null
+    const tableimg=req.file ? req.file.location : null
     let data = new tables({ tableNo, tableName,description, hasLampixDevice ,userId,tableimg});
     await data.save().then(result => {
         console.log(result, "Tables data save to database")
@@ -33,7 +33,7 @@ export const postTables= async (req, res) => {
     });
 }
 export const updateTables= async (req, res) => {
-    const tableimg=req.file ? req.file.filename : null
+    const tableimg=req.file ? req.file.location : null
     console.log('tableimg: ', tableimg);
     console.log(req.params)
     let data = await tables.findByIdAndUpdate(

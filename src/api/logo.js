@@ -12,7 +12,7 @@ export const getLogo = async (req, res) => {
 export const postLogo = async (req, res) => {
     console.log("req : ", req.body);
     const { userId } = req.body;
-    const myFile = req.file ? req.file.filename : null
+    const myFile = req.file ? req.file.location : null
     console.log("fileuri", myFile)
     const data = await new logo({ myFile, userId });
     await data.save().then(result => {
@@ -31,7 +31,7 @@ export const postLogo = async (req, res) => {
 
 export const updateLogo = async (req, res) => {
     console.log("image",req.file)
-    const myFile = req.file ? req.file.filename : null
+    const myFile = req.file ? req.file.location : null
     console.log("image",myFile)
 
     let data = await logo.findByIdAndUpdate(

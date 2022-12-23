@@ -1,5 +1,5 @@
 import express from "express";
-import { upload } from "../middlewares/uploader.js";
+import { awsupload } from "../middlewares/aws-s3-upload.js";
 const routes = express.Router();
 
 import {
@@ -11,9 +11,9 @@ import {
 
 routes.get('/logo', getLogo)
 
-routes.post('/logo',upload.single("myFile"), postLogo)
+routes.post('/logo',awsupload.single("myFile"), postLogo)
 
-routes.put('/logo/:_id',upload.single('myFile'), updateLogo)
+routes.put('/logo/:_id',awsupload.single('myFile'), updateLogo)
 routes.delete('/logo/:_id', deleteLogo)
 
 

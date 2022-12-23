@@ -27,7 +27,7 @@ export const getProductById = async (req, res) => {
 
 export const postProduct = async (req, res) => {
     const { lavel, rows, cols, categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, totalQuantity, productId, productType, userId } = req.body;
-    const Product_pic = req.file ? req.file.filename : null
+    const Product_pic = req.file ? req.file.location : null
 
     const productData = await new product({ lavel, rows, cols, categoryParents, totalQuantity, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, productId, productType, userId, Product_pic });
     await productData.save().then(result => {
@@ -58,7 +58,8 @@ export const postProduct = async (req, res) => {
     })
 }
 export const updateProduct = async (req, res) => {
-    const Product_pic = req.file ? req.file.filename : null
+    const Product_pic = req.file ? req.file.location : null
+    console.log('Product_pic: ',  req.file.location );
     console.log(req.params._id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id }, {
