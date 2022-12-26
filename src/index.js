@@ -32,8 +32,8 @@ import Loyaltyoffers from './api-routes/loaylty-offers-route.js'
 import customization from './api-routes/customization-route.js'
 import logo from './api-routes/logo-route.js'
 import './config/config.js';
-// import path from 'path'
-// import { fileURLToPath } from 'url';
+import path from 'path'
+import { fileURLToPath } from 'url';
 // import fs from "fs"
 // const file=fs.readFileSync('./036C0DBFDB2A157703FBA75521E0278D.txt')
 const app = express();
