@@ -55,7 +55,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
-app.use(helmet());
+app.use(helmet({crossOriginResourcePolicy:false,}));
 app.use(morgan("dev"));
 //Routes
 //uset Email Verification Endpoints
@@ -72,10 +72,7 @@ app.use('*', (req, res) => {
         message: 'API endpoint doesnt exist please put Api routes..'
     })
 });
-// app.get('/.well-known/pki-validation/036C0DBFDB2A157703FBA75521E0278D.txt',(req,res)=>{
-// //  res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
-// res.sendFile('/media/saadkhan/1E98D1D598D1AB911/new-pateron-angular-backend/036C0DBFDB2A157703FBA75521E0278D.txt')
-// })
+
 
 //Port
 const port = process.env.PORT || 3333;

@@ -7,12 +7,14 @@ import {getProduct,
     postProduct,
     updateProduct,
     deleteProduct,
-    getFilteredProduct
+    getFilteredProduct,
+    getProductByKey
 } from "../api/product.js"
 
 routes.get('/Product', getProduct )
 routes.get('/filteredProduct',getFilteredProduct)
 routes.get('/Product/:_id', getProductById )
+routes.get('/search/:key', getProductByKey)
 routes.post('/Product',awsupload.single('Product_pic'), postProduct)
 routes.put('/Product/:_id',awsupload.single('Product_pic'), updateProduct )
 routes.delete('/Product/:_id', deleteProduct )
