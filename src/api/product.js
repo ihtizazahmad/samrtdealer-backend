@@ -24,6 +24,15 @@ export const getProductById = async (req, res) => {
     res.send(productData);
 
 }
+export const getProductByKey = async (req, res) => {
+    let productData = await product.find({
+        "$or":[{
+        name:{$regex:req.params.key}
+        }]
+    }).populate('categoryId', 'name').populate('order').populate('categoryParents', 'name')
+    res.send(productData);
+
+}
 
 export const postProduct = async (req, res) => {
     const { lavel, rows, cols, categoryParents, barCode, name, price, retailPrice, shortDescription, fullDescription, order, active, categoryId, hasPicture, productPictureId, totalQuantity, productId, productType, userId } = req.body;
