@@ -16,13 +16,13 @@ test:
   stage: test
   # Config to use GitLab Shared Runner with Executor Docker
   tags:
-    - my-shell-runner
+    - agri-runner
   script:
     - npm install
     - npm run test
   # Defines the names of branches and tags the job runs for
   only:
-    - div-saad
+    - aqib-dev
 
 # Deploy job
 deploy:
@@ -30,14 +30,12 @@ deploy:
   stage: deploy
   # Config to use our Runner with Executor Shell
   variables:
-    PORT: 3333
+    PORT: 8888
     JWT_SECRET: secret
-    DB_NAME: patronworks
-    MONGODB_URI: "mongodb+srv://saadk4474:CnxwMdQTG7ey9nMr@patronworks.2voqycm.mongodb.net/patronworks?retryWrites=true&w=majority"
-    BASE_URL: "http://www.patronworks.net"
-    CLOUD_NAME: djm945kfs
+    DB_NAME: Cluster0
+    MONGODB_URI: "mongodb+srv://saudkhanbpk:test1234@cluster0.ixk92t1.mongodb.net/?retryWrites=true&w=majority"
   tags:
-    - my-shell-runner
+    - agri-runner
   script:
     # Only copy changed files to project folder
     - cp -r -u * $PROJECT_DIR
