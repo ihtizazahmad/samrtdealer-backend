@@ -22,7 +22,7 @@ test:
     - npm run test
   # Defines the names of branches and tags the job runs for
   only:
-    - aqib-dev
+    - aqib_dev
 
 # Deploy job
 deploy:
