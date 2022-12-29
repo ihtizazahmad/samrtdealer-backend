@@ -30,7 +30,26 @@ export const login = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   const userId = { _id: user._id }
   const role=user.role
-  // console.log('role: ', role);
+  res.send({ message: "user login successfully", token, userId,role });
+
+}
+
+export const userLogin = async (req, res) => {
+  const { email, password } = req.body;
+  if(!email || !password){
+    return res.status(400).send({message: "please fill the feilds"})
+  }
+
+  const user = await User.findOne({ email })
+  if (!user) {
+    return res.status(400).send({ message: "User not found" });
+  }
+  if (user.password !== password) {
+    return res.status(400).send({ message: "Wrong password" });
+  }
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+  const userId = { _id: user._id }
+  const role=user.role
   res.send({ message: "user login successfully", token, userId,role });
 
 }
@@ -49,6 +68,7 @@ export const updateUser = async (req, res) => {
     res.send({ message: "User data cannot be updated successfully" })
   }
 }
+
 export const deleteUser = async (req, res) => {
   console.log(req.params)
   const { email } = req.params

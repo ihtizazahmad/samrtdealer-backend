@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer'
 
 const sendMail=async(email,subject,html)=>{
     
-    console.log('email 1: ', email);
+    // console.log('email 1: ', email);
     try {
        
         const transporter = nodemailer.createTransport({
