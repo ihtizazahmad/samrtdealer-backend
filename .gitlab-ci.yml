@@ -36,7 +36,6 @@ deploy:
     MONGODB_URI: "mongodb+srv://saudkhanbpk:test1234@cluster0.ixk92t1.mongodb.net/?retryWrites=true&w=majority"
   tags:
     - agri-runner
-    
   script:
     # Only copy changed files to project folder
     - cp -r -u * $PROJECT_DIR
