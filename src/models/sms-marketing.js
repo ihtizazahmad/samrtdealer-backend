@@ -7,11 +7,11 @@ const smsMarketingSchema = new mongoose.Schema({
     message: {
         type: String
     },
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'user'
-    },
+    // userId:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     required:true,
+    //     ref:'user'
+    // },
 })
 const smsMarketing = mongoose.model("smsMarketing", smsMarketingSchema);
 export default smsMarketing;

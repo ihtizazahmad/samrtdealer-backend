@@ -12,9 +12,11 @@ export const getsmsMarketing = async (req, res) => {
 }
 
  export const postSmsMarketing = async (req, res) => {
+    console.log("twello :",req.body)
+    // return
     try { 
-        const {number,message, userId}=req.body;
-        const smsMarketingS=await new smsMarketing({number, message, userId})
+        const {number,message}=req.body;
+        const smsMarketingS=await new smsMarketing({number, message})
      const data= smsMarketingS.save();
          
         await sendSms(number,message);

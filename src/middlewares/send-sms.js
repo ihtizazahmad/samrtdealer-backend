@@ -6,7 +6,7 @@ import twilio from "twilio";
 const smsTwilio=twilio(accountId,authToken)
 const sendSms=async(number,text)=>{
     
-    console.log('number 1: ', number);
+    // console.log('number 1: ', number);
     try {
         await smsTwilio.messages.create({
            body:text,
