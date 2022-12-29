@@ -17,7 +17,10 @@ export const getSuperUser = async (req, res) => {
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email }) || await superUser.findOne({ email })
+  if(!email || !password){
+    return res.status(400).send({message: "please fill the feilds"})
+  }
+  const user = await superUser.findOne({ email })
   if (!user) {
     return res.status(400).send({ message: "User not found" });
   }
@@ -27,7 +30,7 @@ export const login = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
   const userId = { _id: user._id }
   const role=user.role
-  console.log('role: ', role);
+  // console.log('role: ', role);
   res.send({ message: "user login successfully", token, userId,role });
 
 }

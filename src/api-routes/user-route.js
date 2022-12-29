@@ -13,7 +13,7 @@ routes.get('/User', getUser )
 routes.get('/superadmin', getSuperUser )
 routes.get('/user/:_id',getUserById)
 
-routes.post('/login', login )
+routes.post('/loginadmin', login )
 routes.put('/user/:_id',updateUser)
 routes.delete('/user/:email',  deleteUser)
 
