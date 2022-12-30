@@ -30,7 +30,7 @@ deploy:
   stage: deploy
   # Config to use our Runner with Executor Shell
   variables:
-    PORT: 8888
+    PORT: 9999
     JWT_SECRET: secret
     DB_NAME: Cluster0
     MONGODB_URI: "mongodb+srv://saudkhanbpk:test1234@cluster0.ixk92t1.mongodb.net/?retryWrites=true&w=majority"

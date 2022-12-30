@@ -64,7 +64,6 @@ export const userLoginOtp = async (req, res) => {
   try {
     let code =Math.floor(Math.random()*90000)+10000
     await sendSms(number,code);
-  //  console.log("send Message :",sendMessage)
     let findNumber=await otpUser.findOne({number})
     if(findNumber){
     await otpUser.findOneAndUpdate({number},{code})
