@@ -7,6 +7,7 @@ export const getUser = async (req, res) => {
     const user = await User.find(req)
     res.send(user)
 }
+// get user by id 
 export const getUserById = async (req, res) => {
     const user = await User.find(req.params)
     res.send(user)
