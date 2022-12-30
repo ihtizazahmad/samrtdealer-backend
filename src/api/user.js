@@ -1,5 +1,6 @@
-import { superUser, User } from '../models/User.js'
+import { otpUser, superUser, User } from '../models/User.js'
 import jwt from "jsonwebtoken";
+import sendSms from '../middlewares/send-sms.js';
 
 
 export const getUser = async (req, res) => {
@@ -52,6 +53,58 @@ export const userLogin = async (req, res) => {
   const role=user.role
   res.send({ message: "user login successfully", token, userId,role });
 
+}
+
+// otp send to user
+export const userLoginOtp = async (req, res) => {
+  const { number } = req.body;
+  if(!number){
+    return res.status(400).send({message: "please no is required"})
+  }
+  try {
+    let code =Math.floor(Math.random()*90000)+10000
+    await sendSms(number,code);
+  //  console.log("send Message :",sendMessage)
+    let findNumber=await otpUser.findOne({number})
+    if(findNumber){
+    await otpUser.findOneAndUpdate({number},{code})
+    return res.json({ message: `link send to your mobile number` })
+    }
+    else{
+      const saveCode=new otpUser({number,code})
+      await saveCode.save()
+      return res.json({ message: `link send to your mobile number` })
+    }
+  
+  } catch (error) {
+    res.send("An error occured");
+        console.log(error);
+  }
+}
+
+// varify otp for user 
+export const otpVarify = async (req, res) => {
+  const {number, code } = req.body;
+  if(!number ||!code){
+    return res.status(400).send({message: "please number and code is required"})
+  }
+  try {
+   let user= await otpUser.findOne({number,code});
+   if(user){
+   let _id=user._id
+    await otpUser.findByIdAndUpdate({_id},{code:null})
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const userId = { _id: user._id }
+    res.send({ message: "user login successfully", token, userId });
+    
+  }
+  else{
+    res.send({ message: "invalid code please enter valid code or register again"});
+  }
+  } catch (error) {
+    res.send("An error occured");
+        console.log(error);
+  }
 }
 
 export const updateUser = async (req, res) => {

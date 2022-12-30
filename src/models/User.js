@@ -44,6 +44,14 @@ const superUserSchema = new Schema({
   }
 })
 
+const optUserSchema = new Schema({
+  number:{
+    type: String,
+  },
+  code: {
+    type: String,
+  },
+})
 // UserSchema.pre('save', async function (next) {
 //   try {
 
@@ -76,5 +84,6 @@ export const validate = (user) => {
 
 export  const User = mongoose.model('user', UserSchema)
 export const superUser=mongoose.model('superUser',superUserSchema)
+export const otpUser=mongoose.model('optuser',optUserSchema)
 
-export default {User,superUser};
+export default {User,superUser,otpUser};

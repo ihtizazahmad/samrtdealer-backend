@@ -7,13 +7,17 @@ import {getUser,
     deleteUser,
     updateUser,
     getUserById,
-    userLogin
+    userLogin,
+    userLoginOtp,
+    otpVarify
 } from "../api/user.js"
 
 routes.get('/User', getUser )
 routes.get('/superadmin', getSuperUser )
 routes.get('/user/:_id',getUserById)
 
+routes.post('/otplogin', userLoginOtp )
+routes.put('/otpvarify', otpVarify )
 routes.post('/loginadmin', login )
 routes.post('/loginuser', userLogin )
 routes.put('/user/:_id',updateUser)
