@@ -16,7 +16,7 @@ export const getFilteredProduct=async(req,res)=>{
     res.send(ActiveProduct);
 }
 export const getProductById = async (req, res) => {
-    let productData = await product.findOne(req.params).populate('categoryId', 'name').populate('order').populate('categoryParents', 'name')
+    let productData = await product.findOne(req.params).populate('categoryParents', 'name')
     res.send(productData);
 
 }
