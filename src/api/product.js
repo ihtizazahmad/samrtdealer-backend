@@ -31,7 +31,6 @@ export const getProductByKey = async (req, res) => {
         }]
     }).populate('categoryId', 'name').populate('order').populate('categoryParents', 'name')
     res.send(productData);
-
 }
 
 export const postProduct = async (req, res) => {
