@@ -2,14 +2,11 @@ import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema({
 
-    lavel: {
-        type: Number
+    name: {
+        type: String
     },
-    rows: {
-        type: Number
-    },
-    cols: {
-        type: Number
+    description: {
+        type: String
     },
     categoryParents: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -20,53 +17,16 @@ const productSchema = new mongoose.Schema({
         required:true,
         ref:'user'
     },
-    totalQuantity:{
-        type: Number
-    },
-    barCode: {
-        type: Number
-    },
-    name: {
-        type: String
-    },
     price: {
-        type: Number
-    },
-    retailPrice: {
-        type: Number
-    },
-    shortDescription: {
         type: String
     },
-    fullDescription: {
+    discountOnProduct: {
         type: String
     },
-    order: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'order'
-    },
-    active: {
-        type: String
-    },
-    categoryId:
-        [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'category'
-        }],
    Product_pic: {
         type: String,
     },
-    productPictureId: {
-        type: String
-    },
-    productType: {
-        type: String
-    },
-    hasPicture:{
-     type: String,
-     default:'false',
-     enum:['true','false']
-    }
+    
 
 })
 const product = mongoose.model('product', productSchema)

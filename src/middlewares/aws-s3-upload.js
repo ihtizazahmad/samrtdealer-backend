@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 aws.config.update({
- secretAccessKey:"x4VMPJS53xM2NygX0JDcGV1rwdCwDqZ1Hsxdu+wk",
- accessKeyId: "AKIAXOG7UZRRJXOIK7AD",
- region: 'ap-south-1' //E.g us-east-1
+ secretAccessKey:"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",
+ accessKeyId: "AKIAX3G56OYJCAAIYRML",
+ region: 'us-west-2' //E.g us-east-1
 });
 
 const s3 = new aws.S3();
@@ -28,9 +28,9 @@ fileFilter: fileFilter,
 storage: multerS3({
  acl: 'public-read',
  s3,
- bucket: 'agriculture-image',
+ bucket: 'patronworks',
  key: function(req, file, cb) {
-   /*I'm using Date.now() to make sure my file has a unique name*/
+  //  /I'm using Date.now() to make sure my file has a unique name/
    req.file = Date.now() + file.originalname;
    cb(null, Date.now() + file.originalname);
   }

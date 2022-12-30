@@ -5,7 +5,7 @@ export const getParentCategories = async (req, res) => {
        if(req.query.userId){
         filter={userId:req.query.userId.split(',')}
        }
-    let data = await parentcategory.find(filter).populate('userId','_id')
+    let data = await parentcategory.find(filter)
 
     res.send(data);
 }
@@ -21,8 +21,7 @@ export const postParentCategories = async (req, res) => {
     await data.save().then(result => {
         console.log("Category data saved to database");
         res.json({
-            name: result.name,
-            userId:result.userId
+            name: result.name
         })
     }).catch(err => {
         res.status(400).send("unable to save to database");
@@ -44,7 +43,8 @@ export const updateParentCategories = async (req, res) => {
     }
 }
 export const deleteParentCategories = async (req, res) => {
-    console.log(req.params)
+
+    // console.log(req.params)
     let data = await parentcategory.deleteOne(req.params)
     if (data) {
         res.send({ message: "category data delete successfully" });
