@@ -73,7 +73,7 @@ export const userLoginOtp = async (req, res) => {
     else{
       const saveCode=new otpUser({number,code})
       await saveCode.save()
-      return res.json({ message: `link send to your mobile number` })
+      return res.json({ message: `code send to your mobile number` })
     }
   
   } catch (error) {

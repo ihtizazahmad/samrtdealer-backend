@@ -32,6 +32,11 @@ export const getProductByKey = async (req, res) => {
 export const postProduct = async (req, res) => {
     const { name,description,categoryParents,userId,price,discountOnProduct } = req.body;
     const Product_pic = req.file ? req.file.location : null
+    if(!name || !price || !categoryParents || !userId){
+        res.status(400).json({message:"please fill the fields"})
+    }
+    console.log("req body :",req.body)
+    
     const productData = await new product({name,description,categoryParents,userId,price,discountOnProduct,Product_pic});
     
     await productData.save().then(data => {
