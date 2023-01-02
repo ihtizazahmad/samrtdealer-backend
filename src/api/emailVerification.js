@@ -39,7 +39,7 @@ router.post('/user', async (req, res) => {
       return res.status(400).send({ message: "user already register" })
     } else if (!user) {
       const token = jwt.sign({ name, email, password, role }, process.env.JWT_SECRET, { expiresIn: '20min' })
-      const link = `http://localhost:13012/activate-account/${token}`;
+      const link = `https://smartdealer.netlify.app/activate-account/${token}`;
       await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
       ${link} you will be register as a ${role} `)
       return res.status(200).json({ message: "Account Verification Link Send To your Account" })
