@@ -9,8 +9,8 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    lowercase:true,
-    unique:true
+    // lowercase:true,
+    // unique:true
   },
   password: {
     type: String,
@@ -32,8 +32,8 @@ const superUserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    lowercase:true,
-    unique:true
+    // lowercase:true,
+    // unique:true
   },
   password: {
     type: String,
@@ -73,14 +73,14 @@ const optUserSchema = new Schema({
 //     throw error
 //   }
 // }
-export const validate = (user) => {
-  const schema = Joi.object({
-      name: Joi.string().required(),
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
-  });
-  return schema.validate(user);
-};
+// export const validate = (user) => {
+//   const schema = Joi.object({
+//       name: Joi.string().required(),
+//       email: Joi.string().email().required(),
+//       password: Joi.string().required(),
+//   });
+//   return schema.validate(user);
+// };
 
 export  const User = mongoose.model('user', UserSchema)
 export const superUser=mongoose.model('superUser',superUserSchema)
