@@ -35,7 +35,7 @@ export const postProduct = async (req, res) => {
     if(!name || !price || !categoryParents || !userId){
         res.status(400).json({message:"please fill the fields"})
     }
-    console.log("req body :",req.body)
+    // console.log("req body :",req.body)
     
     const productData = await new product({name,description,categoryParents,userId,price,discountOnProduct,Product_pic});
     

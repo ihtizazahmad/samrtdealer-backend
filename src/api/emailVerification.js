@@ -34,7 +34,7 @@ router.post('/user', async (req, res) => {
     return res.status(400).send({ message: "please fill all feilds" })
   }
   try {
-    let user = await User.findOne({ email,role })
+    let user = await User.findOne({ email })
     if (user) {
       return res.status(400).send({ message: "user already register" })
     } else if (!user) {
@@ -55,14 +55,14 @@ router.post('/user', async (req, res) => {
 router.post('/:token', (req, res) => {
   const { token } = req.params;
   //  console.log("token:", token);  
-  try {
+   try {
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, async function (err, decodedToken) {
         if (err) {
           return res.status(400).json({ message: "token is invalid or expired" })
         }
         const { name, email, password, role } = decodedToken
-
+        
         if (role == 'superAdmin') {
           const adminUser = await superUser.findOne({ email });
           if (adminUser) {
@@ -75,7 +75,7 @@ router.post('/:token', (req, res) => {
           } else {
             res.status(400).send({ error: "Cannot register user at the moment!" });
           }
-
+          
         }
         else {
           const userRegister = await User.findOne({ email });
@@ -83,6 +83,7 @@ router.post('/:token', (req, res) => {
             return res.send({ message: "this user is already registered" })
           }
           const newUser = new User({ name, email, password, role });
+          // return  console.log("decode :",decodedToken,newUser )
           const savedUser = await newUser.save();
           if (savedUser) {
             res.send({ message: `Account Verified:Thanks For Registering ${role}` });
