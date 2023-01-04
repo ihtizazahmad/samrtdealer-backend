@@ -1,11 +1,21 @@
-import { otpUser, superUser, User } from '../models/User.js'
+import { retailerUser, superUser, User } from '../models/User.js'
 import jwt from "jsonwebtoken";
 import sendSms from '../middlewares/send-sms.js';
 
 
 export const getUser = async (req, res) => {
-    const user = await User.find(req)
+    const user = await User.find()
     res.send(user)
+}
+
+export const getRetailer = async (req, res) => {
+    const user = await retailerUser.find()
+    res.send(user)
+}
+export const getRetailerbyId = async (req, res) => {
+  let filter={_id:req.params._id} 
+  const user = await retailerUser.find(filter)
+  res.send(user)
 }
 
 export const getUserById = async (req, res) => {
@@ -56,22 +66,54 @@ export const userLogin = async (req, res) => {
 
 }
 
-// otp send to user
+
+// retailer register 
+
+export const retailerRegister = async (req, res) => {
+  const { fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
+    phoneNumber 
+  } = req.body;
+  let pictureUrl=req.files
+  if(pictureUrl.length !==3){
+    return res.status(400).send({success:false,message: "All pictures required"})
+  }
+  if(!fullName || !cnicNumber|| !shopName|| !shopNumber||  !formerNo || !phoneNumber  ){
+    return res.status(400).send({success:false,message: "please fill the feilds"})
+  }
+  const user = await retailerUser.findOne({ fullName,cnicNumber })
+  if (user) {
+    return res.status(400).send({success:false, message: "user already register" });
+  }
+  const retailer = new retailerUser({ fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
+    phoneNumber,pictureUrl });
+  const registerUser = await retailer.save();
+  if (registerUser) {
+    res.status(200).json({success:true, message: "Retailer Registered successfully" });
+  } else {
+    res.status(400).send({ error: "Cannot register user at the moment!" });
+  }
+
+}
+
+
+
+
+// otp send to retailer user
 export const userLoginOtp = async (req, res) => {
-  const { number } = req.body;
-  if(!number){
+  const { phoneNumber } = req.body;
+  if(!phoneNumber){
     return res.status(400).send({message: "please no is required"})
   }
   try {
     let code =Math.floor(Math.random()*90000)+10000
     await sendSms(number,code);
-    let findNumber=await otpUser.findOne({number})
+    let findNumber=await retailerUser.findOne({phoneNumber})
     if(findNumber){
-    await otpUser.findOneAndUpdate({number},{code})
+    await retailerUser.findOneAndUpdate({phoneNumber},{code})
     return res.json({ message: `link send to your mobile number` })
     }
     else{
-      const saveCode=new otpUser({number,code})
+      const saveCode=new otpUser({phoneNumber,code})
       await saveCode.save()
       return res.json({ message: `code send to your mobile number` })
     }
@@ -82,17 +124,17 @@ export const userLoginOtp = async (req, res) => {
   }
 }
 
-// varify otp for user 
+// varify otp for retailer user 
 export const otpVarify = async (req, res) => {
-  const {number, code } = req.body;
-  if(!number ||!code){
+  const {phoneNumber, code } = req.body;
+  if(!phoneNumber ||!code){
     return res.status(400).send({message: "please number and code is required"})
   }
   try {
-   let user= await otpUser.findOne({number,code});
+   let user= await retailerUser.findOne({phoneNumber,code});
    if(user){
    let _id=user._id
-    await otpUser.findByIdAndUpdate({_id},{code:null})
+    await retailerUser.findByIdAndUpdate({_id},{code:null})
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     const userId = { _id: user._id }
     res.send({ message: "user login successfully", token, userId });

@@ -8,10 +8,12 @@ import {getProduct,
     updateProduct,
     deleteProduct,
     getFilteredProduct,
-    getProductByKey
+    getProductByKey,
+    getProductRetailer
 } from "../api/product.js"
 
 routes.get('/Product', getProduct )
+routes.get('/retailerProduct', getProductRetailer )
 routes.get('/filteredProduct',getFilteredProduct)
 routes.get('/Product/:_id', getProductById )
 routes.get('/search/:key', getProductByKey)

@@ -9,13 +9,21 @@ import {getUser,
     getUserById,
     userLogin,
     userLoginOtp,
-    otpVarify
+    otpVarify,
+    retailerRegister,
+    getRetailer,
+    getRetailerbyId
 } from "../api/user.js"
+import { awsupload, upload } from "../middlewares/aws-s3-upload.js";
 
 routes.get('/User', getUser )
+routes.get('/retailer', getRetailer )
+routes.get('/retailer/:_id', getRetailerbyId )
+
 routes.get('/superadmin', getSuperUser )
 routes.get('/user/:_id',getUserById)
 
+routes.post('/retailerRegister',upload.array('pictureUrl',3), retailerRegister )
 routes.post('/otplogin', userLoginOtp )
 routes.put('/otpvarify', otpVarify )
 routes.post('/loginadmin', login )

@@ -6,10 +6,22 @@ export const getProduct = async (req, res) => {
         filter = { userId: req.query.userId.split(',') }
     }
     let productData = await product.find(filter).populate('categoryParents', 'name').populate('userId')
-
+    // console.log("product data length :",productData.length)
     res.send(productData);
 
 }
+
+// product for retailer 
+
+export const getProductRetailer = async (req, res) => {
+    let filter = {isActive:true}
+    
+    let productData = await product.find(filter).populate('categoryParents', 'name').populate('userId')
+    console.log("product data length :",productData.length)
+    res.send(productData);
+
+}
+
 export const getFilteredProduct=async(req,res)=>{
     let productData = await product.find().populate('categoryParents', 'name').populate('userId')
     let ActiveProduct = productData?.filter((item) => item.userId.isActive === true)
@@ -30,17 +42,17 @@ export const getProductByKey = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { name,description,categoryParents,userId,price,discountOnProduct } = req.body;
+    const { name,description,categoryParents,userId,price,discountOnProduct,isActive } = req.body;
     const Product_pic = req.file ? req.file.location : null
     if(!name || !price || !categoryParents || !userId){
         res.status(400).json({message:"please fill the fields"})
     }
     // console.log("req body :",req.body)
     
-    const productData = await new product({name,description,categoryParents,userId,price,discountOnProduct,Product_pic});
+    const productData = await new product({name,description,categoryParents,userId,price,discountOnProduct,Product_pic,isActive});
     
     await productData.save().then(data => {
-        console.log(data, "Product data save to database")
+        // console.log(data, "Product data save to database")
         res.json({
             data
         })
@@ -51,7 +63,7 @@ export const postProduct = async (req, res) => {
 }
 export const updateProduct = async (req, res) => {
     const Product_pic = req.file ? req.file.location : null
-    console.log('Product_pic: ',  req.file.location );
+    // console.log('Product_pic: ',  req.file.location );
     console.log(req.params._id)
     let data = await product.findByIdAndUpdate(
         { _id: req.params._id }, {

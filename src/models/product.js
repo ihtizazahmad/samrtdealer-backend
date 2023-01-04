@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema({
    Product_pic: {
         type: String,
     },
+    isActive:{
+        type:Boolean,
+        default:true
+      }
     
 
 },{timestamps:true})

@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 
 // user register 
 router.post('/user', async (req, res) => {
-  const { name, email, password, role } = req.body
+  const { name, email, password, role,regNo,contactNo } = req.body
   if (!name || !email || !password || !role) {
     return res.status(400).send({ message: "please fill all feilds" })
   }
@@ -38,7 +38,7 @@ router.post('/user', async (req, res) => {
     if (user) {
       return res.status(400).send({ message: "user already register" })
     } else if (!user) {
-      const token = jwt.sign({ name, email, password, role }, process.env.JWT_SECRET, { expiresIn: '20min' })
+      const token = jwt.sign({ name, email, password, role,regNo,contactNo }, process.env.JWT_SECRET, { expiresIn: '20min' })
       const link = `https://smartdealer.netlify.app/activate-account/${token}`;
       await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
       ${link} you will be register as a ${role} `)
@@ -61,7 +61,7 @@ router.post('/:token', (req, res) => {
         if (err) {
           return res.status(400).json({ message: "token is invalid or expired" })
         }
-        const { name, email, password, role } = decodedToken
+        const { name, email, password, role,regNo,contactNo } = decodedToken
         
         if (role == 'superAdmin') {
           const adminUser = await superUser.findOne({ email });
@@ -82,7 +82,7 @@ router.post('/:token', (req, res) => {
           if (userRegister) {
             return res.send({ message: "this user is already registered" })
           }
-          const newUser = new User({ name, email, password, role });
+          const newUser = new User({ name, email, password, role,regNo,contactNo });
           // return  console.log("decode :",decodedToken,newUser )
           const savedUser = await newUser.save();
           if (savedUser) {
