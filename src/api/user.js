@@ -103,20 +103,18 @@ export const retailerRegister = async (req, res) => {
 export const userLoginOtp = async (req, res) => {
   const { phoneNumber } = req.body;
   if(!phoneNumber){
-    return res.status(400).send({message: "please no is required"})
+    return res.status(400).send({success:false,message: "please phone no is required"})
   }
   try {
     let code =Math.floor(Math.random()*90000)+10000
-    await sendSms(number,code);
+    await sendSms(phoneNumber,code);
     let findNumber=await retailerUser.findOne({phoneNumber})
     if(findNumber){
     await retailerUser.findOneAndUpdate({phoneNumber},{code})
-    return res.json({ message: `link send to your mobile number` })
+    return res.json({success:true, message: `code send to your mobile number` })
     }
     else{
-      const saveCode=new otpUser({phoneNumber,code})
-      await saveCode.save()
-      return res.json({ message: `code send to your mobile number` })
+      return res.json({success:false, message: `phone no not found` })
     }
   
   } catch (error) {
@@ -128,8 +126,8 @@ export const userLoginOtp = async (req, res) => {
 // varify otp for retailer user 
 export const otpVarify = async (req, res) => {
   const {phoneNumber, code } = req.body;
-  if(!phoneNumber ||!code){
-    return res.status(400).send({message: "please number and code is required"})
+  if(!phoneNumber || !code){
+    return res.status(400).send({success:false, message: "please number and code is required"})
   }
   try {
    let user= await retailerUser.findOne({phoneNumber,code});
@@ -138,11 +136,11 @@ export const otpVarify = async (req, res) => {
     await retailerUser.findByIdAndUpdate({_id},{code:null})
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     const userId = { _id: user._id }
-    res.send({ message: "user login successfully", token, userId });
+    res.send({success:true, message: "user login successfully", token, userId });
     
   }
   else{
-    res.send({ message: "invalid code please enter valid code or register again"});
+    res.send({success:false, message: "invalid code please enter valid code or enter again phone no"});
   }
   } catch (error) {
     res.send("An error occured");
