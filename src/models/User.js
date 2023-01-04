@@ -83,9 +83,19 @@ formerNo:{
   code: {
     type: String,
   },
-  pictureUrl:{
-    type:[]
-  }
+  isActive:{
+    type:Boolean,
+    default:true
+  },
+ picture:{
+  type:String,
+ },
+ cnicFront:{
+  type:String,
+ },
+cnicBack:{
+  type:String
+},
 })
 // UserSchema.pre('save', async function (next) {
 //   try {

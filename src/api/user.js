@@ -72,13 +72,11 @@ export const userLogin = async (req, res) => {
 
 export const retailerRegister = async (req, res) => {
   const { fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber 
+    phoneNumber ,picture,cnicFront,cnicBack
   } = req.body;
-  let pictureUrl=req.files
-  if(pictureUrl.length !==3){
-    return res.status(400).send({success:false,message: "All pictures required"})
-  }
-  if(!fullName || !cnicNumber|| !shopName|| !shopNumber||  !formerNo || !phoneNumber  ){
+  if(!fullName || !cnicNumber|| !shopName|| !shopNumber||  !formerNo || !phoneNumber 
+    || !picture || !cnicFront || !cnicBack 
+    ){
     return res.status(400).send({success:false,message: "please fill the feilds"})
   }
   const user = await retailerUser.findOne({ fullName,cnicNumber })
@@ -86,7 +84,7 @@ export const retailerRegister = async (req, res) => {
     return res.status(400).send({success:false, message: "user already register" });
   }
   const retailer = new retailerUser({ fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber,pictureUrl });
+    phoneNumber,picture,cnicFront,cnicBack });
   const registerUser = await retailer.save();
   if (registerUser) {
     res.status(200).json({success:true, message: "Retailer Registered successfully" });
@@ -146,6 +144,12 @@ export const otpVarify = async (req, res) => {
     res.send("An error occured");
         console.log(error);
   }
+}
+
+// picture upload api 
+export const pictureUpload = async (req, res) => {
+let imageUrl=req.file.location ? req.file.location : null
+res.status(200).json({success:true,imageUrl})
 }
 
 export const updateUser = async (req, res) => {
