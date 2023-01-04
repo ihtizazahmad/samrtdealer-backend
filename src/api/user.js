@@ -79,6 +79,10 @@ export const retailerRegister = async (req, res) => {
     ){
     return res.status(400).send({success:false,message: "please fill the feilds"})
   }
+  let checkPhoneNo=await retailerUser.findOne({phoneNumber})
+  if(checkPhoneNo){
+    return res.status(400).send({success:false, message: "Phone No already register please give another phone no" });
+  }
   const user = await retailerUser.findOne({ fullName,cnicNumber })
   if (user) {
     return res.status(400).send({success:false, message: "user already register" });
