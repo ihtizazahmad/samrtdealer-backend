@@ -8,12 +8,12 @@ const sendSms=async(number,text)=>{
     
     // console.log('number 1: ', number);
     try {
-        await smsTwilio.messages.create({
+   let sendMessage = await smsTwilio.messages.create({
            body:text,
            from:testNum,
            to:number
         })
-        console.log("Send Sms Success");
+        console.log("Send Sms Success",sendMessage);
     } catch (error) {
         console.log(error,"sms not sent");
     }

@@ -24,15 +24,32 @@ const fileFilter = (req, file, cb) => {
 };
 
 export const awsupload = multer({
-fileFilter: fileFilter,
-storage: multerS3({
- acl: 'public-read',
- s3,
- bucket: 'patronworks',
- key: function(req, file, cb) {
+  fileFilter: fileFilter,
+  storage: multerS3({
+    acl: 'public-read',
+    s3,
+    bucket: 'patronworks',
+    key: function(req, file, cb) {
+  //  let image=[]
   //  /I'm using Date.now() to make sure my file has a unique name/
    req.file = Date.now() + file.originalname;
    cb(null, Date.now() + file.originalname);
+   console.log("req file aws 3 :",req.file)
   }
  })
+})
+
+export const upload = multer({
+  storage: multerS3({
+    acl: 'public-read',
+    s3,
+    bucket: 'patronworks',
+      metadata: function (req, file, cb) {
+        // console.log("file :",file)
+          cb(null, { fieldName: file.fieldname });
+      },
+      key: function (req, file, cb) {
+          cb(null, Date.now().toString())
+      }
+  })
 })

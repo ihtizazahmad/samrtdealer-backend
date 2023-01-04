@@ -12,6 +12,12 @@ const UserSchema = new Schema({
     // lowercase:true,
     // unique:true
   },
+  regNo:{
+    type:String
+  },
+  contactNo:{
+    type:String
+  },
   password: {
     type: String,
     required: true,
@@ -44,13 +50,42 @@ const superUserSchema = new Schema({
   }
 })
 
-const optUserSchema = new Schema({
-  number:{
+const retailerUserSchema = new Schema({
+ fullName:{
+  type:String,
+  required:true
+ },
+ fatherName:{
+  type:String
+ },
+ cnicNumber:{
+  type:String,
+  required:true
+ },
+ shopName:{
+  type:String,
+  required:true
+ },
+shopNumber:{
+  type:String,
+  required:true
+},
+annualSales:{
+  type:String
+},
+formerNo:{
+  type:String
+},
+  phoneNumber:{
     type: String,
+    required:true
   },
   code: {
     type: String,
   },
+  pictureUrl:{
+    type:[]
+  }
 })
 // UserSchema.pre('save', async function (next) {
 //   try {
@@ -84,6 +119,6 @@ const optUserSchema = new Schema({
 
 export  const User = mongoose.model('user', UserSchema)
 export const superUser=mongoose.model('superUser',superUserSchema)
-export const otpUser=mongoose.model('optuser',optUserSchema)
+export const retailerUser=mongoose.model('retaileruser',retailerUserSchema)
 
-export default {User,superUser,otpUser};
+export default {User,superUser,retailerUser};
