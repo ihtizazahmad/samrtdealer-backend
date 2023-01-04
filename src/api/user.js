@@ -27,6 +27,7 @@ export const getSuperUser = async (req, res) => {
     res.send(user)
 }
 
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
   if(!email || !password){
