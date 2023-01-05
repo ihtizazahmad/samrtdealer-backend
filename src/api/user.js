@@ -150,6 +150,22 @@ export const otpVarify = async (req, res) => {
   }
 }
 
+
+// update retailer api 
+export const updateRetailer = async (req, res) => {
+  let data = await retailerUser.findByIdAndUpdate(
+    { _id: req.params._id }, {
+    $set: req.body
+  }, { new: true }
+  );
+  if (data) {
+    res.send({success:true, message: "User data updated successfully" });
+  }
+  else {
+    res.send({success:false, message: "something went wrong" })
+  }
+}
+
 // picture upload api 
 export const pictureUpload = async (req, res) => {
 let imageUrl=req.file.location ? req.file.location : null
@@ -157,7 +173,7 @@ res.status(200).json({success:true,imageUrl})
 }
 
 export const updateUser = async (req, res) => {
-  console.log(req.params)
+  // console.log(req.params)
   let data = await User.findByIdAndUpdate(
     { _id: req.params._id }, {
     $set: req.body

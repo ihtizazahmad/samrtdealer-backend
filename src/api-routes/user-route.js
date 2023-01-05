@@ -13,7 +13,8 @@ import {getUser,
     retailerRegister,
     getRetailer,
     getRetailerbyId,
-    pictureUpload
+    pictureUpload,
+    updateRetailer
 } from "../api/user.js"
 import { awsupload, upload } from "../middlewares/aws-s3-upload.js";
 
@@ -25,6 +26,7 @@ routes.get('/superadmin', getSuperUser )
 routes.get('/user/:_id',getUserById)
 
 routes.post('/retailerRegister', retailerRegister )
+routes.put('/retailerUpdate/:_id', updateRetailer )
 routes.post('/otplogin', userLoginOtp )
 routes.put('/otpvarify', otpVarify )
 routes.post('/loginadmin', login )
