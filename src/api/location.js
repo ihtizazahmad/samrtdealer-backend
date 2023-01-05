@@ -12,7 +12,7 @@ export const villageAdd = async (req, res) => {
             return  res.status(400).json({success:false,message:"Already register"})
         }
         const villageLocation = await new vLocation({name});
-            
+    //   let      
       let data=  await villageLocation.save()
       if(data){
         return res.status(200).json({success:true,data})
