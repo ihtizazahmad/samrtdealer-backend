@@ -45,7 +45,7 @@ export const postProduct = async (req, res) => {
     const { name,description,categoryParents,userId,price,discountOnProduct,isActive } = req.body;
     const Product_pic = req.file ? req.file.location : null
     if(!name || !price || !categoryParents || !userId){
-        res.status(400).json({message:"please fill the fields"})
+       return  res.status(400).json({message:"please fill the fields"})
     }
     // console.log("req body :",req.body)
     
