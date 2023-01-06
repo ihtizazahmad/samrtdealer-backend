@@ -9,8 +9,6 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    // lowercase:true,
-    // unique:true
   },
   regNo:{
     type:String
@@ -28,9 +26,12 @@ const UserSchema = new Schema({
   isActive:{
     type:Boolean,
     default:true
+  },
+  manufactureId:{
+    type:String
   }
 
-})
+},{timestamps:true})
 const superUserSchema = new Schema({
   name:{
     type: String,
