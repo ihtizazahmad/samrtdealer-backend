@@ -19,13 +19,14 @@ export const getMenuById = async (req, res) => {
 }
 
 export const postMenu = async (req, res) => {
-    const { treeData ,superUserId} = req.body;
-    let data = await new menu({ treeData,superUserId});
+    const { treeData ,superUserId,role} = req.body;
+    let data = await new menu({ treeData,superUserId,role});
     await data.save().then(result => {
         console.log(result, "Menu data save to database")
         res.json({
             treeData: result.treeData,
-            superUserId: result.superUserId
+            superUserId: result.superUserId,
+            role:result.role
         })
     }).catch(err => {
         res.status(400).send('unable to save database');
