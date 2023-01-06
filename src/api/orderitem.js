@@ -18,59 +18,46 @@ export const getOrderItemById = async (req, res) => {
     res.send(data);
 }
 
+
+// totalAmount: {
+//     type: Number
+// },
+// address:{
+//     type:mongoose.Schema.Types.ObjectId,
+//     ref:"villageLocation"
+// },
+// addressDetail:{
+//     type:String
+// },
+// userId:{
+//     type:mongoose.Schema.Types.ObjectId,
+//     ref:'retaileruser'
+// },
+// productDetail: [{
+//     productId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "product",
+//     },
+//     qty: {
+//         type: String
+//     },
+//     discount: {
+//         type: String
+//     },
+
+// }]
+
 export const postOrderItem = async (req, res) => {
-    const { orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId,dueamount, userId } = req.body;
-    const data = await new orderitem({ orderId, product, points, taxValue, productWithQty, priceExclTax, lineValueExclTax, lineValueTax, lineValue, units, text,customerId, dueamount, userId });
-    await data.save().then(async (result) => {
-        const customerPoints =priceExclTax / 5;
-        console.log("customerpoints:",customerPoints);
-        const customerById=await customer.findById(customerId)
-        console.log("customerBeforeAddedPoints",customerById);
-        if(customerById){
-            const  customerdata=  await customer.findByIdAndUpdate(customerById, { $set: { "CustomerLoyalty.Points": customerById.CustomerLoyalty.Points + customerPoints } })
-            console.log("customerAfterAddedPoints",customerdata);
-            res.json({
-                orderId: result.orderId,
-                product: result.product,
-                dueamount: result.dueamount,
-                points: result.points,
-                taxValue: result.taxValue,
-                productWithQty: result.productWithQty,
-                priceExclTax: result.priceExclTax,
-                productPrice: result.productPrice,
-                lineValueExclTax: result.lineValueExclTax,
-                lineValueTax: result.lineValueTax,
-                lineValue: result.lineValue,
-                units: result.units,
-                text: result.text,
-                userId: result.userId,
-                customerId: result.customerId
-            })
-        }else{
-            res.json({
-                orderId: result.orderId,
-                product: result.product,
-                dueamount: result.dueamount,
-                points: result.points,
-                taxValue: result.taxValue,
-                productWithQty: result.productWithQty,
-                priceExclTax: result.priceExclTax,
-                productPrice: result.productPrice,
-                lineValueExclTax: result.lineValueExclTax,
-                lineValueTax: result.lineValueTax,
-                lineValue: result.lineValue,
-                units: result.units,
-                text: result.text,
-                userId: result.userId,
-                customerId: result.customerId
-            })
-        }
-    
-    }).catch(err => {
-        res.status(400).send('unable to save database');
-        console.log(err)
-    })
+    const {totalAmount,address,addressDetail,userId,productDetail } = req.body;
+    try {
+        const orderData = await new orderitem({ totalAmount,address,addressDetail,userId,productDetail });
+       let data= await orderData.save()
+        res.status(200).json({success:true,data,message:"order has been submitted successfully"})
+    } catch (error) {
+        res.status(400).json({success:false,message:"something went wrong!"});
+    }
 }
+
 export const updateOrderItem = async (req, res) => {
 
     console.log(req.params.id)
@@ -81,9 +68,9 @@ export const updateOrderItem = async (req, res) => {
         { new: true }
     );
     if (data) 
-        res.send({ message: "orderitem data updated successfully" });
+        res.status(200).json({success:true, message: "order data updated successfully" });
     else 
-        res.send({ message: "orderitem data cannot be updated successfully" })
+    res.status(400).json({success:false, message: "something went wrong!" })
 }
 
 export const deleteOrderItem = async (req, res) => {

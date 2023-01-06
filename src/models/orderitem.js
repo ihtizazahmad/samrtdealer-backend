@@ -1,83 +1,33 @@
 import mongoose from 'mongoose';
 const orderItemSchema = new mongoose.Schema({
-    points: {
+    totalAmount: {
         type: Number
     },
-    taxValue: {
-        type: Number
+    address:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"villageLocation"
     },
-    dueamount:{
-        type:Number,
+    addressDetail:{
+        type:String
     },
-    orderId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "order",
-
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'retaileruser'
     },
-    productWithQty: [{
+    productDetail: [{
         productId: {
-            type: String,//stringt
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "product",
         },
         qty: {
-            type: Number // number field
-        },
-        price: {
-            type: Number // number field
+            type: String
         },
         discount: {
-            type: Number
-        },
-        reason: {
             type: String
         },
 
-        oldAmount: {
-            type: Number
-        },
-        newAmount: {
-            type: Number
-        },
-        discountTypePr: {
-            type: Boolean
-        }
-
-    }],
-    product: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "product",
-    }],
-    priceExclTax: {
-        type: Number
-    },
-
-    lineValueExclTax: {
-        type: Number
-    },
-
-    lineValueTax: {
-        type: Number
-    },
-
-    lineValue: {
-        type: Number
-    },
-
-    units: {
-        type: Number
-    },
-    text: {
-        type: String
-    } ,
-    customerId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'customer'
-    },
-     userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'user'
-    }
-})
+    }]
+},{timestamps:true})
 const orderitem = mongoose.model('orderitem', orderItemSchema);
 export default orderitem;
 
