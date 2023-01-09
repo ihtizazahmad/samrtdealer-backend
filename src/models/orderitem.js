@@ -20,10 +20,10 @@ const orderItemSchema = new mongoose.Schema({
         ref: "product",
         },
         qty: {
-            type: String
+            type: Number
         },
         discount: {
-            type: String
+            type: Number
         },
 
     }]
