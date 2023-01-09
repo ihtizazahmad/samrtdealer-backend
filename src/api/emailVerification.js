@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
 }
 )
 
+
 // user register 
 router.post('/user', async (req, res) => {
   const { name, email, password, role,regNo,contactNo,manufactureId } = req.body
@@ -56,6 +57,7 @@ router.post('/user', async (req, res) => {
 router.post('/:token', (req, res) => {
   const { token } = req.params;
   //  console.log("token:", token);  
+  // console.log("token :")
    try {
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, async function (err, decodedToken) {
