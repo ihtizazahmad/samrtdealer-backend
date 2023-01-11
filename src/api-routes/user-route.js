@@ -33,7 +33,7 @@ routes.post('/loginadmin', login )
 routes.post('/loginuser', userLogin )
 routes.put('/user/:_id',updateUser)
 routes.delete('/user/:email',  deleteUser)
-routes.post('/pictureupload',upload.single("image"), pictureUpload)
+routes.post('/pictureupload',awsupload.single("image"), pictureUpload)
 
 
 

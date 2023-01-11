@@ -34,7 +34,6 @@ export const awsupload = multer({
   //  /I'm using Date.now() to make sure my file has a unique name/
    req.file = Date.now() + file.originalname;
    cb(null, Date.now() + file.originalname);
-   console.log("req file aws 3 :",req.file)
   }
  })
 })
