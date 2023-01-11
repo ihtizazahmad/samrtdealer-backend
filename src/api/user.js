@@ -168,6 +168,7 @@ export const updateRetailer = async (req, res) => {
 
 // picture upload api 
 export const pictureUpload = async (req, res) => {
+// return  console.log("picture upload ,",req.file)
 let imageUrl=req.file.location ? req.file.location : null
 res.status(200).json({success:true,imageUrl})
 }
