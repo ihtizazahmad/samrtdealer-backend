@@ -14,6 +14,10 @@ const orderItemSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'retaileruser'
     },
+    status:{
+        type:String,
+        default:"pending"
+    },
     productDetail: [{
         productId: {
         type: mongoose.Schema.Types.ObjectId,
