@@ -4,7 +4,7 @@ import { dLocation, pLocation, tLocation, vLocation } from "../models/location.j
 export const villageAdd = async (req, res) => {
     const {name,tehsil}=req.body
     if(!name || !tehsil){
-      return  res.status(400).json({success:false,message:"please fill the name"})
+      return  res.status(400).json({success:false,message:"please fill the fields"})
     }
     try {
         let existLocation = await vLocation.findOne({name})
@@ -52,7 +52,7 @@ export const villageAdd = async (req, res) => {
 
     export const updateVillageLoc = async (req, res) => {
         try {
-            let data = await tLocation.findByIdAndUpdate(
+            let data = await vLocation.findByIdAndUpdate(
                 { _id: req.params._id }, {
                 $set: req.body
             },

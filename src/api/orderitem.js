@@ -18,38 +18,11 @@ export const getOrderItemById = async (req, res) => {
 }
 
 
-// totalAmount: {
-//     type: Number
-// },
-// address:{
-//     type:mongoose.Schema.Types.ObjectId,
-//     ref:"villageLocation"
-// },
-// addressDetail:{
-//     type:String
-// },
-// userId:{
-//     type:mongoose.Schema.Types.ObjectId,
-//     ref:'retaileruser'
-// },
-// productDetail: [{
-//     productId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: "product",
-//     },
-//     qty: {
-//         type: String
-//     },
-//     discount: {
-//         type: String
-//     },
-
-// }]
 
 export const postOrderItem = async (req, res) => {
-    const {totalAmount,address,addressDetail,userId,productDetail } = req.body;
+    const {totalAmount,address,addressDetail,userId,productDetail,status } = req.body;
     try {
-        const orderData = await new orderitem({ totalAmount,address,addressDetail,userId,productDetail });
+        const orderData = await new orderitem({ totalAmount,address,addressDetail,userId,productDetail,status });
         let data= await orderData.save()
         res.status(200).json({success:true,data,message:"order has been submitted successfully"})
     } catch (error) {
