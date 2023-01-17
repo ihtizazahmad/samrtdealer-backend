@@ -6,7 +6,7 @@ export const getProduct = async (req, res) => {
         filter = { userId: req.query.userId.split(',') }
     }
     let productData = await product.find(filter).populate('categoryParents', 'name').populate('userId')
-    // console.log("product data length :",productData.length)
+    console.log("product data length :",productData.length)
     res.send(productData);
 
 }
@@ -14,10 +14,20 @@ export const getProduct = async (req, res) => {
 // product for retailer 
 
 export const getProductRetailer = async (req, res) => {
-    let filter = {isActive:true}
+    let filter = {}
+    if (req.query.id) {
+        filter = { categoryParents: req.query.id.split(','),isActive:true }
+    }
+    let productData = await product.find(filter).populate('categoryParents', 'name').populate('userId')
+    res.send(productData);
+
+}
+
+export const getProductByCategRetailer = async (req, res) => {
+    let filter = {isActive:true,}
     
     let productData = await product.find(filter).populate('categoryParents', 'name').populate('userId')
-    console.log("product data length :",productData.length)
+    // console.log("product data length :",productData.length)
     res.send(productData);
 
 }

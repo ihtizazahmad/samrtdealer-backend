@@ -4,12 +4,14 @@ import sendSms from '../middlewares/send-sms.js';
 
 
 export const getUser = async (req, res) => {
-    const user = await User.find()
+    const user = await User.find().populate("location")
     res.send(user)
 }
 
 export const getRetailer = async (req, res) => {
     const user = await retailerUser.find()
+    // .populate("location")
+    .populate({path:"location",populate:{path:"tehsil",populate:{path:"district",populate:{path:"province"}}}})
     res.send(user)
 }
 export const getRetailerbyId = async (req, res) => {
@@ -72,10 +74,10 @@ export const userLogin = async (req, res) => {
 
 export const retailerRegister = async (req, res) => {
   const { fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber ,picture,cnicFront,cnicBack
+    phoneNumber ,picture,cnicFront,cnicBack,pinLocation,location
   } = req.body;
   if(!fullName || !cnicNumber|| !shopName|| !shopNumber||  !formerNo || !phoneNumber 
-    || !picture || !cnicFront || !cnicBack 
+    || !picture || !cnicFront || !cnicBack || !location || !pinLocation
     ){
     return res.status(400).send({success:false,message: "please fill the feilds"})
   }
@@ -88,7 +90,7 @@ export const retailerRegister = async (req, res) => {
     return res.status(400).send({success:false, message: "user already register" });
   }
   const retailer = new retailerUser({ fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber,picture,cnicFront,cnicBack });
+    phoneNumber,picture,cnicFront,cnicBack,pinLocation,location });
   const registerUser = await retailer.save();
   if (registerUser) {
     res.status(200).json({success:true, message: "Retailer Registered successfully" });
