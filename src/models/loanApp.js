@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const villageLocSchema = new mongoose.Schema({
+const loanAppSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:"user"
+        ref:"retaileruser"
     },
     highestEducation:{
         type:String
@@ -70,4 +70,4 @@ const villageLocSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-export const vLocation = mongoose.model("villageLocation", villageLocSchema);
+export const loanApp = mongoose.model("loanapp", loanAppSchema);

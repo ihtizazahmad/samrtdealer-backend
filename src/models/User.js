@@ -34,6 +34,9 @@ const UserSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:"villageLocation"
   },
+  service:[{
+    type:String
+  }]
 
 },{timestamps:true})
 const superUserSchema = new Schema({
