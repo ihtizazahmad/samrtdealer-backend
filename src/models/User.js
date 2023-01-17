@@ -29,7 +29,11 @@ const UserSchema = new Schema({
   },
   manufactureId:{
     type:String
-  }
+  },
+  location:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"villageLocation"
+  },
 
 },{timestamps:true})
 const superUserSchema = new Schema({
@@ -97,7 +101,14 @@ formerNo:{
 cnicBack:{
   type:String
 },
-})
+pinLocation:{
+  type: String
+},
+location:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref:"villageLocation"
+},
+},{timestamps:true})
 // UserSchema.pre('save', async function (next) {
 //   try {
 
