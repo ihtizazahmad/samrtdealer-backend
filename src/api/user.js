@@ -4,8 +4,13 @@ import sendSms from '../middlewares/send-sms.js';
 
 
 export const getUser = async (req, res) => {
-    const user = await User.find().populate("location")
-    res.send(user)
+  let filter={}
+  if(req.query.categ){
+    filter = { service:{ $all:[req.query.categ] }}
+  }
+    const user = await User.find(filter)
+    .populate({path:"location",populate:{path:"tehsil",populate:{path:"district",populate:{path:"province"}}}})
+    res.status(200).json({success:true,user})
 }
 
 export const getRetailer = async (req, res) => {

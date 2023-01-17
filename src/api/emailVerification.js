@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import sendMail from '../middlewares/send-email.js';
 import express from 'express';
 const router = express.Router()
+
 router.post('/', async (req, res) => {
   const { name, email, password, role } = req.body
   if (!name || !email || !password || !role) {
@@ -30,7 +31,7 @@ router.post('/', async (req, res) => {
 
 // user register 
 router.post('/user', async (req, res) => {
-  const { name, email, password, role,regNo,contactNo,manufactureId,location } = req.body
+  const { name, email, password, role,regNo,contactNo,manufactureId,location,service } = req.body
   if (!name || !email || !password || !role  || !location) {
     return res.status(400).send({ message: "please fill all feilds" })
   }
@@ -39,7 +40,7 @@ router.post('/user', async (req, res) => {
     if (user) {
       return res.status(400).send({ message: "user already register" })
     } else if (!user) {
-      const token = jwt.sign({ name, email, password, role,regNo,contactNo,manufactureId,location }, process.env.JWT_SECRET, { expiresIn: '20min' })
+      const token = jwt.sign({ name, email, password, role,regNo,contactNo,manufactureId,location,service }, process.env.JWT_SECRET, { expiresIn: '20min' })
       // const link = `https://smartdealer.netlify.app/activate-account/${token}`;
       const link = `http://54.200.133.106/activate-account/${token}`;
       await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
@@ -64,7 +65,9 @@ router.post('/:token', (req, res) => {
         if (err) {
           return res.status(400).json({ message: "token is invalid or expired" })
         }
-        const { name, email, password, role,regNo,contactNo,manufactureId,location } = decodedToken
+        // return  console.log("decode :",decodedToken )
+
+        const { name, email, password, role,regNo,contactNo,manufactureId,location,service } = decodedToken
         if (role == 'superAdmin') {
           const adminUser = await superUser.findOne({ email });
           if (adminUser) {
@@ -84,8 +87,9 @@ router.post('/:token', (req, res) => {
           if (userRegister) {
             return res.send({ message: "this user is already registered" })
           }
-          const newUser = new User({ name, email, password, role,regNo,contactNo,manufactureId,location });
-          // return  console.log("decode :",decodedToken,newUser )
+          // return  console.log("decode :",decodedToken )
+          const newUser = new User({ name, email, password, role,regNo,contactNo,manufactureId,location,service });
+
           const savedUser = await newUser.save();
           if (savedUser) {
             res.send({ message: `Account Verified:Thanks For Registering ${role}` });

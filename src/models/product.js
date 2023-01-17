@@ -8,9 +8,8 @@ const productSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    categoryParents: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "parentcategory"
+    category: {
+        type:String
     },
     userId:{
         type:mongoose.Schema.Types.ObjectId,

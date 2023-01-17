@@ -9,10 +9,12 @@ import {getProduct,
     deleteProduct,
     getFilteredProduct,
     getProductByKey,
-    getProductRetailer
+    getProductRetailer,
+    getProductByManuf
 } from "../api/product.js"
 
 routes.get('/Product', getProduct )
+routes.get('/product/:manufactureId/:productType', getProductByManuf )
 routes.get('/retailerProduct', getProductRetailer )
 routes.get('/filteredProduct',getFilteredProduct)
 routes.get('/Product/:_id', getProductById )
