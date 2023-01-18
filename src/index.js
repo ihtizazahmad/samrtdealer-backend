@@ -31,10 +31,12 @@ import tableReservation from './api-routes/reservation&waitingList-route.js'
 import Loyaltyoffers from './api-routes/loaylty-offers-route.js'
 import customization from './api-routes/customization-route.js'
 import logo from './api-routes/logo-route.js'
+import loanApps from "./api-routes/loanApp.js"
 import location from "./api-routes/location.js"
 import './config/config.js';
 import path from 'path'
 import { fileURLToPath } from 'url';
+import { awsupload } from './middlewares/aws-s3-upload.js';
 // import fs from "fs"
 // const file=fs.readFileSync('./036C0DBFDB2A157703FBA75521E0278D.txt')
 const app = express();
@@ -60,12 +62,12 @@ app.use(helmet({crossOriginResourcePolicy:false,}));
 app.use(morgan("dev"));
 //Routes
 //uset Email Verification Endpoints
-app.use('/api/v1/activate-account',userRegisterWithEmailVerification)
+app.use('/api/v1/activate-account',awsupload.single('picture'), userRegisterWithEmailVerification)
 //user forgot and reset-password Endpoints
 app.use('/api/v1/reset-password',passwordreset)
 //All APi's Endponits
 app.use('/api/v1', Auth,category, check, device, display, employee, menu, mu, order, orderitem, paymentlist, product, role, tax, tables,parentcategory,customer,Checkout,modifier,tableReservation,emailMarketing,smsMarketing,Loyaltyoffers,customization,logo
-,location
+,location,loanApps
 )
 
 

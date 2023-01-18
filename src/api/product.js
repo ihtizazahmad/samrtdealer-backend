@@ -16,8 +16,10 @@ export const getProductByManuf = async (req, res) => {
     if (!req.params.manufactureId || !req.params.productType) {
         res.status(400).json({success:false,message:"fill the fields"})
     }
-    filter = { userId: req.params.manufactureId ,category:req.params.productType }
-    let productData = await product.find(filter).populate('userId')
+    filter = { userId: req.params.manufactureId ,category:req.params.productType,isActive:true }
+    let productData = await product.find(filter)
+    .select('name description price discountOnProduct Product_pic userId')
+    .populate('userId','name email')
     res.status(200).json({success:true,productData});
 
 }

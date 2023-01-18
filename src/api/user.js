@@ -13,6 +13,15 @@ export const getUser = async (req, res) => {
     res.status(200).json({success:true,user})
 }
 
+export const getUserByAndroid = async (req, res) => {
+  let filter={}
+  if(req.query.categ){
+    filter = { service:{ $all:[req.query.categ] },isActive:true}
+  }
+  const user = await User.find(filter).select('name ,_id, picture')
+    res.status(200).json({success:true,companies:user})
+}
+
 export const getRetailer = async (req, res) => {
     const user = await retailerUser.find()
     // .populate("location")

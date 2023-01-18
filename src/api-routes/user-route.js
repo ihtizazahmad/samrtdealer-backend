@@ -14,11 +14,14 @@ import {getUser,
     getRetailer,
     getRetailerbyId,
     pictureUpload,
-    updateRetailer
+    updateRetailer,
+    getUserByAndroid
 } from "../api/user.js"
 import { awsupload, upload } from "../middlewares/aws-s3-upload.js";
 
 routes.get('/User', getUser )
+routes.get('/companies', getUserByAndroid )
+
 routes.get('/retailer', getRetailer )
 routes.get('/retailer/:_id', getRetailerbyId )
 
