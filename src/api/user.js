@@ -19,7 +19,7 @@ export const getUserByAndroid = async (req, res) => {
     filter = { service:{ $all:[req.query.categ] },isActive:true}
   }
   const user = await User.find(filter).select('name ,_id, picture')
-    res.status(200).json({success:true,companies:user})
+    res.status(200).json({supplier:user})
 }
 
 export const getRetailer = async (req, res) => {
