@@ -1,21 +1,19 @@
 import {loanApp} from '../models/loanApp.js';
 
 
- export const getMenu = async (req, res) => {
-    let filter = {}
-    if (req.query.superUserId) {
-        filter = { superUserId: req.query.superUserId.split(',') }
-    }
-    let usermenuData = await menu.find(filter).populate('superUserId','_id')
-    res.send(usermenuData)
+ export const getLoanData = async (req, res) => {
+    
+    let usermenuData = await loanApp.find().populate("userId")
+    res.status(200).json({success:true,data:usermenuData})
 }
 
-export const getMenuById = async (req, res) => {
-    let data = await menu.findOne(req.params).populate('superUserId','_id')
+export const getloanAppById = async (req, res) => {
+    let _id=req.params._id
+    let data = await loanApp.findOne({_id}).populate('userId')
     if(!data){
-        res.send({message:"no data found"})
+        res.send({success:false,message:"no data found"})
     }
-    res.send(data);
+    res.status(200).json({success:true,data});
 }
 
 
@@ -29,43 +27,39 @@ export const postLoanApp = async (req, res) => {
       || !childernNosGoingToSchool || !depnetendsNoWorking || !depentendsNoIncome || !householdHeighEducation
         || !spouseHeighEducation || !statusOfResidence || !houseType || !RoofingType || !drinkingWaterType || !ownTv
         || !ownRefrigeration || !ownVehicle || !ownAc || !transactionType || !mWallet || !mWalletType){
-            res.status(400).json({success:false,message:"please fill all the fields"})
+        return    res.status(400).json({success:false,message:"please fill all the fields"})
         }   
-    let data = await new loanApp(req.body);
-    await data.save().then(result => {
-        console.log(result, "Menu data save to database")
-        res.json({
-            treeData: result.treeData,
-            superUserId: result.superUserId,
-            role:result.role
-        })
-    }).catch(err => {
-        res.status(400).send('unable to save database');
-        console.log(err)
-    })
+   try {
+       let result = await new loanApp(req.body);
+       let data = await result.save()
+       res.status(200).json({message:"successfull submited",success:true,data})
+    } catch (error) {
+     res.status(400).json({message:"something went wrong!"})
+    }
+       
 }
-export const updateMenu = async (req, res) => {
-    let data = await menu.findByIdAndUpdate(
+export const updateLoanAppForm = async (req, res) => {
+    let data = await loanApp.findByIdAndUpdate(
         {_id: req.params._id},{
             $set:req.body
         },
         {new:true}
         );
     if (data) {
-        res.send({ message: "menu data updated successfully" });
+        res.send({ message: "Loan App data updated successfully" });
     }
     else {
-        res.send({ message: "menu data cannot be updated successfully" })
+        res.send({ message: "Loan App data cannot be updated successfully" })
     }
 }
 
-export const deleteMenu = async (req, res) => {
+export const deleteLoanAppForm = async (req, res) => {
     console.log(req.params)
-    let data = await menu.deleteOne(req.params)
+    let data = await loanApp.deleteOne(req.params)
     if (data) {
-        res.send({ message: "menu data delete successfully" });
+        res.status(200).json({success:true, message: "Loan App data delete successfully" });
     }
     else {
-        res.send({ message: "menu data cannot delete successfully" })
+        res.status(400).json({success:false, message: "Loan App data cannot delete successfully" })
     }
 }

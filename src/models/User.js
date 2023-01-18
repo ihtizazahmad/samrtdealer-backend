@@ -36,7 +36,10 @@ const UserSchema = new Schema({
   },
   service:[{
     type:String
-  }]
+  }],
+  picture:{
+    type:String
+  }
 
 },{timestamps:true})
 const superUserSchema = new Schema({
