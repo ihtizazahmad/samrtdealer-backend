@@ -204,6 +204,25 @@ export const updateUser = async (req, res) => {
   }
 }
 
+export const updateUserByPassword = async (req, res) => {
+  const {currentPassword,newPassword,_id}=req.body
+  let userData = await User.findOne({_id})
+  if(currentPassword !==userData.password){
+    return res.status(400).json({message:"current password is incorrect"})
+  }
+  let data = await User.findByIdAndUpdate(
+    { _id }, {
+    $set: {password:newPassword}
+  }, { new: true }
+  );
+  if (data) {
+    res.status(200).json({ message: "password updated successfully" });
+  }
+  else {
+    res.status(400).json({ message: "something went wrong!" })
+  }
+}
+
 export const deleteUser = async (req, res) => {
   console.log(req.params)
   const { email } = req.params
