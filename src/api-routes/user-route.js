@@ -15,7 +15,8 @@ import {getUser,
     getRetailerbyId,
     pictureUpload,
     updateRetailer,
-    getUserByAndroid
+    getUserByAndroid,
+    updateUserByPassword
 } from "../api/user.js"
 import { awsupload, upload } from "../middlewares/aws-s3-upload.js";
 
@@ -33,6 +34,8 @@ routes.put('/retailerUpdate/:_id', updateRetailer )
 routes.post('/otplogin', userLoginOtp )
 routes.put('/otpvarify', otpVarify )
 routes.post('/loginadmin', login )
+
+routes.put('/userpasswordupdate', updateUserByPassword )
 routes.post('/loginuser', userLogin )
 routes.put('/user/:_id',updateUser)
 routes.delete('/user/:email',  deleteUser)

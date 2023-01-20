@@ -39,6 +39,12 @@ const UserSchema = new Schema({
   }],
   picture:{
     type:String
+  },
+  cnic:{
+    type:String
+  },
+  shopName:{
+    type:String
   }
 
 },{timestamps:true})

@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
 // user register 
 router.post('/user', async (req, res) => {
   const picture = req.file ? req.file.location : null
-  const { name, email, password, role,regNo,contactNo,manufactureId,location,service } = req.body
+  const { name, email, password, role,regNo,contactNo,manufactureId,location,service,cnic,shopName } = req.body
   if (!name || !email || !password || !role  || !location) {
     return res.status(400).send({ message: "please fill all feilds" })
   }
@@ -41,7 +41,7 @@ router.post('/user', async (req, res) => {
     if (user) {
       return res.status(400).send({ message: "user already register" })
     } else if (!user) {
-      const token = jwt.sign({ name, email, password, role,regNo,contactNo,manufactureId,location,service,picture }, process.env.JWT_SECRET, { expiresIn: '20min' })
+      const token = jwt.sign({ name, email, password, role,regNo,contactNo,manufactureId,location,service,picture,cnic,shopName }, process.env.JWT_SECRET, { expiresIn: '20min' })
       // const link = `https://smartdealer.netlify.app/activate-account/${token}`;
       const link = `http://54.200.133.106/activate-account/${token}`;
       await sendMail(email, "Account Activation Link", `<h2>please click on given link to activate ur account.</h2>
@@ -68,7 +68,7 @@ router.post('/:token', (req, res) => {
         }
         // return  console.log("decode :",decodedToken )
 
-        const { name, email, password, role,regNo,contactNo,manufactureId,location,service,picture } = decodedToken
+        const { name, email, password, role,regNo,contactNo,manufactureId,location,service,picture,cnic,shopName } = decodedToken
         if (role == 'superAdmin') {
           const adminUser = await superUser.findOne({ email });
           if (adminUser) {
@@ -89,7 +89,7 @@ router.post('/:token', (req, res) => {
             return res.send({ message: "this user is already registered" })
           }
           // return  console.log("decode :",decodedToken )
-          const newUser = new User({ name, email, password, role,regNo,contactNo,manufactureId,location,service,picture });
+          const newUser = new User({ name, email, password, role,regNo,contactNo,manufactureId,location,service,picture,cnic,shopName });
 
           const savedUser = await newUser.save();
           if (savedUser) {
