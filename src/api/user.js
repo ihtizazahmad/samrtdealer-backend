@@ -206,6 +206,9 @@ export const updateUser = async (req, res) => {
 
 export const updateUserByPassword = async (req, res) => {
   const {currentPassword,newPassword,_id}=req.body
+  if(!currentPassword || !newPassword || !_id){
+    return res.status(400).json({success:false,message:"please fill the fields"})
+  }
   let userData = await User.findOne({_id})
   if(currentPassword !==userData.password){
     return res.status(400).json({message:"current password is incorrect"})
