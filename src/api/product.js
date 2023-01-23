@@ -65,14 +65,14 @@ export const getProductByKey = async (req, res) => {
 }
 
 export const postProduct = async (req, res) => {
-    const { name,description,category,userId,price,discountOnProduct,isActive } = req.body;
+    const { name,description,category,userId,price,discountOnProduct,isActive,formula } = req.body;
     const Product_pic = req.file ? req.file.location : null
 //    return console.log("picture :",Product_pic)
     if(!name || !price || !category || !userId){
        return  res.status(400).json({message:"please fill the fields"})
     }
     
-    const productData = await new product({name,description,category,userId,price,discountOnProduct,Product_pic,isActive});
+    const productData = await new product({name,description,category,userId,price,discountOnProduct,Product_pic,isActive,formula});
     
      productData.save().then(data => {
         // console.log(data, "Product data save to database")
