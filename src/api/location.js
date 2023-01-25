@@ -40,6 +40,8 @@ export const villageAdd = async (req, res) => {
         let filter = {}
         if (req.query._id) {
             filter = { _id: req.query._id.split(',') }
+        }else if (req.query.tehsil) {
+            filter = { tehsil: req.query.tehsil.split(',') }
         }
         try {
             let data = await vLocation.find(filter).populate({path:"tehsil",populate:{path:"district",populate:{path:"province"}}})
@@ -111,6 +113,8 @@ export const villageAdd = async (req, res) => {
             let filter = {}
             if (req.query._id) {
                 filter = { _id: req.query._id.split(',') }
+            }else if (req.query.district) {
+                filter = { district: req.query.district.split(',') }
             }
             try {
                 let data = await tLocation.find(filter).populate("district")
@@ -253,6 +257,8 @@ export const villageAdd = async (req, res) => {
                 let filter = {}
                 if (req.query._id) {
                     filter = { _id: req.query._id.split(',') }
+                } else if (req.query.province) {
+                    filter = { province: req.query.province.split(',') }
                 }
                 try {
                     let data = await dLocation.find(filter).populate("province")
