@@ -6,8 +6,10 @@ export const getOrderItemByUserId = async (req, res) => {
         filter = { userId: req.query.userId.split(',') }
     else if (req.query.orderId)
         filter = { orderId: req.query.orderId.split(',') }
-    let data = await orderitem.find(filter).populate({ path: "productDetail", populate: { path: "productId"} }).populate({path:"address",populate:{path:"tehsil",populate:{path:"district",populate:{path:"province"}}}})
-
+    let data = await orderitem.find(filter).populate('userId','fullName cnicNumber phoneNumber picture email')
+    .populate({ path: "productDetail", populate: { path: "productId"} })
+    .populate({path:"address",populate:{path:"tehsil",populate:{path:"district",populate:{path:"province"}}}})
+    
     res.send(data);
 }
 

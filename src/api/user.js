@@ -1,7 +1,7 @@
 import { retailerUser, superUser, User } from '../models/User.js'
 import jwt from "jsonwebtoken";
 import sendSms from '../middlewares/send-sms.js';
-
+import sendMail from "../middlewares/send-email.js"
 
 export const getUser = async (req, res) => {
   let filter={}
@@ -88,23 +88,23 @@ export const userLogin = async (req, res) => {
 
 export const retailerRegister = async (req, res) => {
   const { fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber ,picture,cnicFront,cnicBack,pinLocation,location
+    phoneNumber ,picture,cnicFront,cnicBack,pinLocation,location,email
   } = req.body;
   if(!fullName || !cnicNumber|| !shopName|| !shopNumber||  !formerNo || !phoneNumber 
-    || !picture || !cnicFront || !cnicBack || !location || !pinLocation
+    || !picture || !cnicFront || !cnicBack || !location || !pinLocation || !email
     ){
     return res.status(400).send({success:false,message: "please fill the feilds"})
   }
-  let checkPhoneNo=await retailerUser.findOne({phoneNumber})
-  if(checkPhoneNo){
-    return res.status(400).send({success:false, message: "Phone No already register please give another phone no" });
+  let checkEmail=await retailerUser.findOne({email})
+  if(checkEmail){
+    return res.status(400).send({success:false, message: "Email already register please give another email" });
   }
   const user = await retailerUser.findOne({ fullName,cnicNumber })
   if (user) {
     return res.status(400).send({success:false, message: "user already register" });
   }
   const retailer = new retailerUser({ fullName, fatherName,cnicNumber,shopName,shopNumber,annualSales,formerNo,
-    phoneNumber,picture,cnicFront,cnicBack,pinLocation,location });
+    phoneNumber,picture,cnicFront,cnicBack,pinLocation,location,email });
   const registerUser = await retailer.save();
   if (registerUser) {
     res.status(200).json({success:true, message: "Retailer Registered successfully" });
@@ -119,20 +119,22 @@ export const retailerRegister = async (req, res) => {
 
 // otp send to retailer user
 export const userLoginOtp = async (req, res) => {
-  const { phoneNumber } = req.body;
-  if(!phoneNumber){
-    return res.status(400).send({success:false,message: "please phone no is required"})
+  const { email } = req.body;
+  if(!email){
+    return res.status(400).send({success:false,message: "please email is required"})
   }
   try {
     let code =Math.floor(Math.random()*90000)+10000
-    await sendSms(phoneNumber,code);
-    let findNumber=await retailerUser.findOne({phoneNumber})
-    if(findNumber){
-    await retailerUser.findOneAndUpdate({phoneNumber},{code})
-    return res.json({success:true, message: `code send to your mobile number` })
+
+    let findEmail=await retailerUser.findOne({email})
+    // return   console.log("findEmail :",findEmail)
+    if(findEmail){
+      await sendMail(email, "OTP", `<h2>please enter the otp code in your app</h2> ${code} `)
+      await retailerUser.findOneAndUpdate({email},{code})
+    return res.json({success:true, message: `code send to your email` })
     }
     else{
-      return res.json({success:false, message: `phone no not found` })
+      return res.json({success:false, message: `email not exist` })
     }
   
   } catch (error) {
@@ -143,22 +145,79 @@ export const userLoginOtp = async (req, res) => {
 
 // varify otp for retailer user 
 export const otpVarify = async (req, res) => {
-  const {phoneNumber, code } = req.body;
-  if(!phoneNumber || !code){
-    return res.status(400).send({success:false, message: "please number and code is required"})
+  const {email, code } = req.body;
+  if(!email || !code){
+    return res.status(400).send({success:false, message: "please email and code is required"})
   }
   try {
-   let user= await retailerUser.findOne({phoneNumber,code});
+   let user= await retailerUser.findOne({email,code});
+  //  return console.log("user :",user)
    if(user){
    let _id=user._id
     await retailerUser.findByIdAndUpdate({_id},{code:null})
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    const userId = { _id: user._id }
-    res.send({success:true, message: "user login successfully", token, userId });
+    // const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const retailer = { _id: user._id, email:user.email, pinCodeActive:user.pinCodeActive }
+    res.send({success:true, message: "user login successfully",  retailer });
     
   }
   else{
-    res.send({success:false, message: "invalid code please enter valid code or enter again phone no"});
+    res.send({success:false, message: "invalid code please enter valid code or enter again email"});
+  }
+  } catch (error) {
+    res.send("An error occured");
+        console.log(error);
+  }
+}
+
+export const pinCodeCreate = async (req, res) => {
+  const {email,pinCode} = req.body;
+  if(!email || !pinCode){
+  return res.status(400).send({success:false, message: "please Email and PinCode is required"})
+  }
+  try {
+   let user= await retailerUser.findOne({email})
+  //  return console.log("user :",user)
+   if(user){
+    if(user.pinCodeActive==true){
+      return res.status(400).send({success:false, message: "pin code already created"})
+    }
+   let _id=user._id
+    await retailerUser.findByIdAndUpdate({_id},{pinCodeActive:true,pinCode})
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{expiresIn:"24h"});
+    const retailer = { _id: user._id, email:user.email, pinCodeActive:true,token }
+    res.status(200).json({success:true, message: "user login successfully",  retailer });
+    
+  }
+  else{
+    res.send({success:false, message: "invalid code please enter valid code or enter again email"});
+  }
+  } catch (error) {
+    res.send("An error occured");
+        console.log(error);
+  }
+}
+
+
+export const pinCodeLogin = async (req, res) => {
+  const {email,pinCode} = req.body;
+  if(!email || !pinCode){
+  return res.status(400).send({success:false, message: "please Email and PinCode is required"})
+  }
+  try {
+   let user= await retailerUser.findOne({email})
+  //  return console.log("user :",user)
+   if(user){
+    if(user.pinCode===pinCode){
+      return res.status(400).send({success:false, message: "wrong pincode"})
+    }
+   let _id=user._id
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET,{expiresIn:"24h"});
+    const retailer = { _id: user._id, email:user.email, pinCodeActive:user.pinCodeActive,token }
+    res.status(200).json({success:true, message: "user login successfully",  retailer });
+    
+  }
+  else{
+    res.send({success:false, message: "invalid email ! email not registerd"});
   }
   } catch (error) {
     res.send("An error occured");

@@ -5,6 +5,10 @@ const loanAppSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"retaileruser"
     },
+    status:{
+        type:String,
+        default:"pending"
+    },
     highestEducation:{
         type:String
     },

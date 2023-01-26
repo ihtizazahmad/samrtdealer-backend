@@ -27,9 +27,9 @@ const UserSchema = new Schema({
     type:Boolean,
     default:true
   },
-  manufactureId:{
+  manufactureId:[{
     type:String
-  },
+  }],
   location:{
     type: mongoose.Schema.Types.ObjectId,
     ref:"villageLocation"
@@ -113,6 +113,13 @@ cnicBack:{
 },
 pinLocation:{
   type: String
+},
+pinCodeActive:{
+  type:Boolean,
+  default:false
+},
+email:{
+type:String
 },
 location:{
   type: mongoose.Schema.Types.ObjectId,

@@ -16,7 +16,9 @@ import {getUser,
     pictureUpload,
     updateRetailer,
     getUserByAndroid,
-    updateUserByPassword
+    updateUserByPassword,
+    pinCodeCreate,
+    pinCodeLogin
 } from "../api/user.js"
 import { awsupload, upload } from "../middlewares/aws-s3-upload.js";
 
@@ -30,6 +32,8 @@ routes.get('/superadmin', getSuperUser )
 routes.get('/user/:_id',getUserById)
 
 routes.post('/retailerRegister', retailerRegister )
+routes.put('/pincodeCreate', pinCodeCreate )
+routes.put('/loginPin', pinCodeLogin )
 routes.put('/retailerUpdate/:_id', updateRetailer )
 routes.post('/otplogin', userLoginOtp )
 routes.put('/otpvarify', otpVarify )
