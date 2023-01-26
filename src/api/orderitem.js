@@ -2,10 +2,11 @@ import orderitem from '../models/orderitem.js'
 
 export const getOrderItemByUserId = async (req, res) => {
     let filter = {}
+    console.log("query :",req.query._id)
     if (req.query.userId)
         filter = { userId: req.query.userId.split(',') }
-    else if (req.query.orderId)
-        filter = { orderId: req.query.orderId.split(',') }
+    else if (req.query._id)
+        filter = { _id: req.query._id.split(',') }
     let data = await orderitem.find(filter).populate('userId','fullName cnicNumber phoneNumber picture email')
     .populate({ path: "productDetail", populate: { path: "productId"} })
     .populate({path:"address",populate:{path:"tehsil",populate:{path:"district",populate:{path:"province"}}}})
